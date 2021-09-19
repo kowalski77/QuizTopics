@@ -13,10 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Building Blocks", "Building
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizCreatedOrUpdatedService.FunctionApp", "QuizCreatedOrUpdatedService.FunctionApp\QuizCreatedOrUpdatedService.FunctionApp.csproj", "{8D3C5C5D-1A3C-41A0-83D6-5280D900F61C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.Evaluator.API", "Source\Evaluator\QuizTopics.Evaluator.API\QuizTopics.Evaluator.API.csproj", "{53FBB21F-EF70-4397-9AD9-C6778D48C2DF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Evaluator", "Evaluator", "{F81F7E10-7DB5-4E49-992E-030578E4A831}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +23,6 @@ Global
 		{8D3C5C5D-1A3C-41A0-83D6-5280D900F61C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D3C5C5D-1A3C-41A0-83D6-5280D900F61C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D3C5C5D-1A3C-41A0-83D6-5280D900F61C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53FBB21F-EF70-4397-9AD9-C6778D48C2DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53FBB21F-EF70-4397-9AD9-C6778D48C2DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53FBB21F-EF70-4397-9AD9-C6778D48C2DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53FBB21F-EF70-4397-9AD9-C6778D48C2DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,8 +31,6 @@ Global
 		{9F145B92-B504-477E-BFF6-1842F3454044} = {A1ABEF56-7AF4-480B-A011-AA3EB2E6D508}
 		{F57BB080-63D1-49E2-9E32-9E3BA7F6C8F9} = {A1ABEF56-7AF4-480B-A011-AA3EB2E6D508}
 		{8D3C5C5D-1A3C-41A0-83D6-5280D900F61C} = {F57BB080-63D1-49E2-9E32-9E3BA7F6C8F9}
-		{53FBB21F-EF70-4397-9AD9-C6778D48C2DF} = {F81F7E10-7DB5-4E49-992E-030578E4A831}
-		{F81F7E10-7DB5-4E49-992E-030578E4A831} = {9F145B92-B504-477E-BFF6-1842F3454044}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {71E2A4B6-592E-4BD2-89E9-6DC5DCE31B8B}
