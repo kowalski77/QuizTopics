@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace QuizTopics.Candidate.API.Quizzes.Add
@@ -9,6 +10,11 @@ namespace QuizTopics.Candidate.API.Quizzes.Add
     [Consumes(MediaTypeNames.Application.Json)]
     public class QuizController : ControllerBase
     {
-        
+        [HttpGet]
+        [Authorize]
+        public ActionResult<string> Get()
+        {
+            return this.User.Identity?.Name;
+        }
     }
 }
