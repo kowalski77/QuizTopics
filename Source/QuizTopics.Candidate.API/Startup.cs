@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using QuizTopics.Candidate.API.Data;
+using QuizTopics.Candidate.Persistence;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 
@@ -29,11 +27,8 @@ namespace QuizTopics.Candidate.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddPersistence(this.Configuration.GetConnectionString("DefaultConnection"));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = GoogleDefaults.AuthenticationScheme;
@@ -47,7 +42,7 @@ namespace QuizTopics.Candidate.API
 
             services.AddCors(options =>
             {
-                options.AddPolicy(AllowSpecificOrigins,
+                options.AddPolicy(AllowSpecificOrigins, // TODO: be more restrictive
                     builder => builder
                         .AllowAnyOrigin()
                         .AllowAnyHeader()
@@ -69,10 +64,10 @@ namespace QuizTopics.Candidate.API
                         {
                             Scopes = new Dictionary<string, string>
                             {
-                                {"openid", "Open Id"}
+                                { "openid", "Open Id" } // TODO: correct scopes?
                             },
-                            AuthorizationUrl = new Uri("https://accounts.google.com/o/oauth2/v2/auth"),
-                        },
+                            AuthorizationUrl = new Uri("https://accounts.google.com/o/oauth2/v2/auth")
+                        }
                     }
                 });
             });
