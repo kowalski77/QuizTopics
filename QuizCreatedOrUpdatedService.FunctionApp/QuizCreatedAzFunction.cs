@@ -1,13 +1,13 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp
 {
-    public static class QuizCreatedFunction
+    public class QuizCreatedAzFunction
     {
-        [Function(nameof(QuizCreatedFunction))]
-        public static void Run([QueueTrigger("quizcreated", Connection = "StorageConnectionAppSetting")] string quizCreatedItem,
+        [Function(nameof(QuizCreatedAzFunction))]
+        public static void Run([QueueTrigger("quizcreated", Connection = "StorageConnectionString")] string quizCreatedItem,
             FunctionContext context)
         {
             var quizCreated = JsonSerializer.Deserialize<QuizDesignerEvents.QuizCreated>(quizCreatedItem);
