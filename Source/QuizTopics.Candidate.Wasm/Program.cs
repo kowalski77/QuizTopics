@@ -24,7 +24,7 @@ namespace QuizTopics.Candidate.Wasm
             });
 
             builder.Services.AddHttpClient<ITestDataService, TestDataService>(
-                    client => client.BaseAddress = new Uri("https://localhost:44340/"))
+                    client => client.BaseAddress = new Uri("https://localhost:5003/"))
                 .AddHttpMessageHandler<QuizTopicsApiAuthorizationHandler>();
 
             //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

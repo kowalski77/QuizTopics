@@ -8,6 +8,8 @@ namespace QuizTopics.Identity
 {
     public class Startup
     {
+        private const string AllowSpecificOrigins = "AllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
@@ -17,8 +19,17 @@ namespace QuizTopics.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentityServer()// TODO: https://docs.identityserver.io/en/release/quickstarts/8_entity_framework.html#refentityframeworkquickstart
-                .AddDeveloperSigningCredential()// TODO: https://docs.identityserver.io/en/release/topics/crypto.html#refcrypto
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowSpecificOrigins, // TODO: be more restrictive
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            });
+
+            services.AddIdentityServer() // TODO: https://docs.identityserver.io/en/release/quickstarts/8_entity_framework.html#refentityframeworkquickstart
+                .AddDeveloperSigningCredential() // TODO: https://docs.identityserver.io/en/release/topics/crypto.html#refcrypto
                 .AddInMemoryApiResources(Config.GetApiResources())
                 .AddInMemoryClients(Config.GetClients());
 
@@ -37,10 +48,11 @@ namespace QuizTopics.Identity
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors(AllowSpecificOrigins);
+
             app.UseIdentityServer();
             app.UseAuthorization();
 
