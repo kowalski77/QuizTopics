@@ -1,16 +1,30 @@
 ﻿@page "/counter"
+@using QuizTopics.Candidate.Wasm.Services
+@using QuizDesigner.Shared
 
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="this.IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="this.SendTest">Send test</button>
 
 @code {
-    private int currentCount = 0;
+    private int currentCount;
+
+    [Inject]
+    private ITestDataService TestDataService { get; set; }
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    private async Task SendTest()
+    {
+        await TestDataService.AddRandomValue(new Test
+        {
+            Name = "Hello world!"
+        }).ConfigureAwait(true);
     }
 }
