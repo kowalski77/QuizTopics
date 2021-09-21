@@ -1,11 +1,9 @@
 ﻿using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace QuizTopics.Candidate.API.TestController
 {
     [Route("identity")]
-    [Authorize]
     public class IdentityController : ControllerBase
     {
         [HttpGet]
@@ -13,5 +11,7 @@ namespace QuizTopics.Candidate.API.TestController
         {
             return new JsonResult(from c in this.User.Claims select new { c.Type, c.Value });
         }
+
+
     }
 }
