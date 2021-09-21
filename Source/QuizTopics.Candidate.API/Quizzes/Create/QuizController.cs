@@ -3,7 +3,7 @@ using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Events;
 
-namespace QuizTopics.Candidate.API.Quizzes.Add
+namespace QuizTopics.Candidate.API.Quizzes.Create
 {
     [ApiController]
     [Route("api/v1/[controller]")]
@@ -12,7 +12,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Add
     public class QuizController : ControllerBase
     {
         [HttpPost]
-        public IActionResult AddQuiz([FromBody] QuizCreated quizCreated)
+        public IActionResult CreateQuiz([FromBody] QuizCreated quizCreated)
         {
             if (quizCreated == null)
             {
