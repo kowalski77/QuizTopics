@@ -1,14 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using QuizDesigner.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Domain
 {
-    public class Question
+    public sealed class Question : Entity
     {
         private readonly List<Answer> answerCollection;
 
         public Question(string text, string tag, Difficulty difficulty, IEnumerable<Answer> answers)
         {
+            if (answers == null)
+            {
+                throw new ArgumentNullException(nameof(answers));
+            }
+
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
+            if (string.IsNullOrEmpty(tag))
+            {
+                throw new ArgumentNullException(nameof(tag));
+            }
+
             this.Text = text;
             this.Tag = tag;
             this.Difficulty = difficulty;

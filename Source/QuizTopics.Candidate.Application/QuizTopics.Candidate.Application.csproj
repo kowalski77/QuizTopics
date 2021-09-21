@@ -7,12 +7,12 @@
   </PropertyGroup>
 
     <ItemGroup>
-	    <PackageReference Include="MediatR" Version="9.0.0" />
 	    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Quizzes\Create\" />
+    <ProjectReference Include="..\..\QuizDesigner.Common\QuizDesigner.Common.csproj" />
+    <ProjectReference Include="..\QuizTopics.Candidate.Domain\QuizTopics.Candidate.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.Mime;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QuizDesigner.Events;
+using QuizTopics.Candidate.Application.Quizzes.Create;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {
@@ -11,15 +13,28 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
     [Consumes(MediaTypeNames.Application.Json)]
     public class QuizController : ControllerBase
     {
-        [HttpPost]
-        public IActionResult CreateQuiz([FromBody] QuizCreated quizCreated)
+        private readonly IMediator mediator;
+
+        public QuizController(IMediator mediator)
         {
-            if (quizCreated == null)
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizCommand command)
+        {
+            if (command == null)
             {
-                throw new ArgumentNullException(nameof(quizCreated));
+                throw new ArgumentNullException(nameof(command));
             }
 
-            return this.Ok();
+            var response = await this.mediator.Send(command).ConfigureAwait(false);
+            if (response.Success)
+            {
+                return this.Ok();
+            }
+
+            return this.BadRequest(response.ResultOperation.ToString());
         }
     }
 }

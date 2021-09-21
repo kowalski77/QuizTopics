@@ -1,9 +1,17 @@
-﻿namespace QuizTopics.Candidate.Domain
+﻿using System;
+using QuizDesigner.Common.DomainDriven;
+
+namespace QuizTopics.Candidate.Domain
 {
-    public class Answer
+    public sealed class Answer : Entity
     {
         public Answer(string text, bool isCorrect)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                throw new ArgumentNullException(nameof(text));
+            }
+
             this.Text = text;
             this.IsCorrect = isCorrect;
         }

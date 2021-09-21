@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="FluentValidation" Version="10.3.3" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
+    <ProjectReference Include="..\QuizTopics.Candidate.Application\QuizTopics.Candidate.Application.csproj" />
     <ProjectReference Include="..\QuizTopics.Candidate.Persistence\QuizTopics.Candidate.Persistence.csproj" />
   </ItemGroup>
 

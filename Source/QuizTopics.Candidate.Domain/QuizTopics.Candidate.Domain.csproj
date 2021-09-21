@@ -10,4 +10,8 @@
 		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.10" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\QuizDesigner.Common\QuizDesigner.Common.csproj" />
+	</ItemGroup>
+
 </Project>
