@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
-    public partial class InitialApplicationUser : Migration
+    public partial class UsersInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

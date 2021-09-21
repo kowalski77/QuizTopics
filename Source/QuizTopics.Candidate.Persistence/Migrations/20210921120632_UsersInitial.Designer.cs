@@ -10,8 +10,8 @@ using QuizTopics.Candidate.Persistence;
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210920124118_InitialApplicationUser")]
-    partial class InitialApplicationUser
+    [Migration("20210921120632_UsersInitial")]
+    partial class UsersInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
