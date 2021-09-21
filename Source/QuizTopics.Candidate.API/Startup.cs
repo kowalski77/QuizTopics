@@ -35,6 +35,16 @@ namespace QuizTopics.Candidate.API
             });
 
             services.AddControllers();
+
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+
+                    options.ApiName = "candidateapi";
+                });
+
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuizTopics.Candidate.API", Version = "v1" }); });
         }
 
