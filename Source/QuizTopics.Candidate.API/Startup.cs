@@ -40,6 +40,7 @@ namespace QuizTopics.Candidate.API
                     options.ClientSecret = "JYUo4p6Y1_BjhJhsHzC4JVtP";
                 });
 
+            //TODO: Fix: not working with google redirect
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowSpecificOrigins, // TODO: be more restrictive
@@ -64,7 +65,7 @@ namespace QuizTopics.Candidate.API
                         {
                             Scopes = new Dictionary<string, string>
                             {
-                                { "openid", "Open Id" } // TODO: correct scopes?
+                                { "openid", "https://www.googleapis.com/auth/drive.metadata.readonly" } // TODO: correct scopes?
                             },
                             AuthorizationUrl = new Uri("https://accounts.google.com/o/oauth2/v2/auth")
                         }

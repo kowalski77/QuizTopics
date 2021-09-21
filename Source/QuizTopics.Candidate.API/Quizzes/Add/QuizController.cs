@@ -1,6 +1,7 @@
-﻿using System.Net.Mime;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
+using QuizDesigner.Events;
 
 namespace QuizTopics.Candidate.API.Quizzes.Add
 {
@@ -10,11 +11,15 @@ namespace QuizTopics.Candidate.API.Quizzes.Add
     [Consumes(MediaTypeNames.Application.Json)]
     public class QuizController : ControllerBase
     {
-        [HttpGet]
-        [Authorize]
-        public ActionResult<string> Get()
+        [HttpPost]
+        public IActionResult AddQuiz([FromBody] QuizCreated quizCreated)
         {
-            return this.User.Identity?.Name;
+            if (quizCreated == null)
+            {
+                throw new ArgumentNullException(nameof(quizCreated));
+            }
+
+            return this.Ok();
         }
     }
 }
