@@ -1,12 +1,10 @@
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using QuizTopics.Candidate.Wasm.MessageHandlers;
 
 namespace QuizTopics.Candidate.Wasm
 {
@@ -16,6 +14,14 @@ namespace QuizTopics.Candidate.Wasm
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+
+            builder.Services.AddTransient<QuizTopicsApiAuthorizationHandler>();
+
+            builder.Services.AddOidcAuthentication(options =>
+            {
+                builder.Configuration.Bind("OidcConfiguration", options.ProviderOptions);
+                builder.Configuration.Bind("UserOptions", options.UserOptions);
+            });
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
