@@ -24,7 +24,6 @@ namespace QuizTopics.Candidate.Wasm
             builder.Services.AddOidcAuthentication(options =>
             {
                 builder.Configuration.Bind("oidc", options.ProviderOptions);
-                builder.Configuration.Bind("UserOptions", options.UserOptions);
             });
 
             await builder.Build().RunAsync();
