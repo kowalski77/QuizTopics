@@ -1,9 +1,11 @@
 using Duende.IdentityServer;
+using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace QuizTopics.IdentityServer
 {
@@ -37,6 +39,14 @@ namespace QuizTopics.IdentityServer
                     options.ClientId = "844964698772-jn8f8fp3k1fq7ic8gb9dvr8khfpmto7l.apps.googleusercontent.com";
                     options.ClientSecret = "JYUo4p6Y1_BjhJhsHzC4JVtP";
                 });
+
+            //services.AddSingleton<ICorsPolicyService>((container) => {
+            //    var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+            //    return new DefaultCorsPolicyService(logger)
+            //    {
+            //        AllowAll = true
+            //    };
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

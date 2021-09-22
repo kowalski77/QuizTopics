@@ -26,23 +26,22 @@ namespace QuizTopics.IdentityServer
                 {
                     ClientId = "candidateclient",
                     AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    AllowedCorsOrigins = { "https://localhost:5005" },
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     },
-
-                    // where to redirect to after login
-                    RedirectUris = { "https://localhost:5005/signin-oidc" },
-
-                    // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:5005/signout-callback-oidc" },
-
+                    RedirectUris = { "https://localhost:5005/login-callback" },
+                    PostLogoutRedirectUris = { "https://localhost:5005/" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         "candidateapi"
-                    }
+                    },
+                    Enabled = true
                 }
             };
     }
