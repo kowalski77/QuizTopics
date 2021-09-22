@@ -9,7 +9,8 @@ namespace QuizTopics.Candidate.Wasm.MessageHandlers
             : base(provider, navigation)
         {
             this.ConfigureHandler(
-                new[] { "https://localhost:5003/" });
+                new[] { "https://localhost:5003/" }, 
+                new []{"candidateapi"});
         }
     }
 }
