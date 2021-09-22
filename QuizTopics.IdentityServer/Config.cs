@@ -33,8 +33,8 @@ namespace QuizTopics.IdentityServer
                     {
                         new Secret("secret".Sha256())
                     },
-                    RedirectUris = { "https://localhost:5005/login-callback" },
-                    PostLogoutRedirectUris = { "https://localhost:5005/" },
+                    RedirectUris = { "https://localhost:5005/counter" },
+                    PostLogoutRedirectUris = { "https://localhost:5005" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
