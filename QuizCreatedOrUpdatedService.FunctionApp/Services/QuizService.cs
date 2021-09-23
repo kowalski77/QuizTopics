@@ -17,12 +17,12 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task<QuizModel?> CreateQuizAsync(QuizModel quizModel)
+        public async Task CreateQuizAsync(QuizModel quizModel)
         {
             var discoveryResponse = await this.httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
             if (discoveryResponse.IsError)
             {
-                return null;
+                throw new InvalidOperationException(discoveryResponse.Error);
             }
 
             var tokenResponse = await this.httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
@@ -36,13 +36,11 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             this.httpClient.SetBearerToken(tokenResponse.AccessToken);
 
             var quizJson = new StringContent(JsonSerializer.Serialize(quizModel), Encoding.UTF8, "application/json");
-            var response = await this.httpClient.PostAsync("api/vi/quiz", quizJson);
-            if (response.IsSuccessStatusCode)
+            var response = await this.httpClient.PostAsync("api/v1/Quiz", quizJson);
+            if (!response.IsSuccessStatusCode)
             {
-                return await JsonSerializer.DeserializeAsync<QuizModel>(await response.Content.ReadAsStreamAsync());
+                throw new InvalidOperationException(response.ReasonPhrase);
             }
-
-            return null;
         }
     }
 }

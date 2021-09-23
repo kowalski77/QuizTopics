@@ -15,7 +15,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp
                 {
                     services.AddHttpClient<IQuizService, QuizService>(client =>
                     {
-                        client.BaseAddress = new Uri("http://localhost:5003");
+                        client.BaseAddress = new Uri("https://localhost:5003");
                     });
                 })
                 .Build();
