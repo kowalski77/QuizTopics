@@ -1,10 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuizTopics.Candidate.Wasm.MessageHandlers;
-using QuizTopics.Candidate.Wasm.Services;
 
 namespace QuizTopics.Candidate.Wasm
 {
@@ -17,14 +15,11 @@ namespace QuizTopics.Candidate.Wasm
 
             builder.Services.AddTransient<QuizTopicsApiAuthorizationMessageHandler>();
 
-            builder.Services.AddHttpClient<ITestDataService, TestDataService>(
-                    client => client.BaseAddress = new Uri("https://localhost:5003/"))
-                .AddHttpMessageHandler<QuizTopicsApiAuthorizationMessageHandler>();
+            //builder.Services.AddHttpClient<ITestDataService, TestDataService>(
+            //        client => client.BaseAddress = new Uri("https://localhost:5003/"))
+            //    .AddHttpMessageHandler<QuizTopicsApiAuthorizationMessageHandler>();
 
-            builder.Services.AddOidcAuthentication(options =>
-            {
-                builder.Configuration.Bind("oidc", options.ProviderOptions);
-            });
+            builder.Services.AddOidcAuthentication(options => { builder.Configuration.Bind("oidc", options.ProviderOptions); });
 
             await builder.Build().RunAsync();
         }

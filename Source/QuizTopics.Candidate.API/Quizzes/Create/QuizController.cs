@@ -3,6 +3,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using QuizDesigner.Shared;
 using QuizTopics.Candidate.Application.Quizzes.Create;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
@@ -21,14 +22,14 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateQuiz([FromBody] CreateQuizCommand command)
+        public async Task<IActionResult> CreateQuiz([FromBody] QuizModel model)
         {
-            if (command == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(command));
+                throw new ArgumentNullException(nameof(model));
             }
 
-            var response = await this.mediator.Send(command).ConfigureAwait(false);
+            var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
             if (response.Success)
             {
                 return this.Ok();
