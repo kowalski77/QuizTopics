@@ -17,7 +17,26 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task CreateQuizAsync(QuizModel quizModel)
+        public async Task CreateQuizAsync(QuizModel? quizModel)
+        {
+            if (quizModel == null)
+            {
+                throw new ArgumentNullException(nameof(quizModel));
+            }
+
+            var discoveryResponse = await this.GetDiscoveryDocumentResponseAsync();
+            await this.SetTokenAsync(discoveryResponse);
+
+            var quizJson = new StringContent(JsonSerializer.Serialize(quizModel), Encoding.UTF8, "application/json");
+
+            var response = await this.httpClient.PostAsync("api/v1/Quiz", quizJson);
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new InvalidOperationException(response.ReasonPhrase);
+            }
+        }
+
+        private async Task<DiscoveryDocumentResponse> GetDiscoveryDocumentResponseAsync()
         {
             var discoveryResponse = await this.httpClient.GetDiscoveryDocumentAsync("https://localhost:5001");
             if (discoveryResponse.IsError)
@@ -25,6 +44,11 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
                 throw new InvalidOperationException(discoveryResponse.Error);
             }
 
+            return discoveryResponse;
+        }
+
+        private async Task SetTokenAsync(DiscoveryDocumentResponse discoveryResponse)
+        {
             var tokenResponse = await this.httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
             {
                 Address = discoveryResponse.TokenEndpoint,
@@ -33,14 +57,8 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 
                 Scope = "candidateapi"
             });
-            this.httpClient.SetBearerToken(tokenResponse.AccessToken);
 
-            var quizJson = new StringContent(JsonSerializer.Serialize(quizModel), Encoding.UTF8, "application/json");
-            var response = await this.httpClient.PostAsync("api/v1/Quiz", quizJson);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new InvalidOperationException(response.ReasonPhrase);
-            }
+            this.httpClient.SetBearerToken(tokenResponse.AccessToken);
         }
     }
 }

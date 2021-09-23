@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using QuizCreatedOrUpdatedService.FunctionApp.Services;
-using QuizDesigner.Events;
+using QuizDesigner.Shared;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp
 {
@@ -21,11 +21,11 @@ namespace QuizCreatedOrUpdatedService.FunctionApp
         public async Task Run([QueueTrigger("quizcreated", Connection = "StorageConnectionString")] string quizCreatedItem,
             FunctionContext context)
         {
-            var quizCreated = JsonSerializer.Deserialize<QuizCreated>(quizCreatedItem);
-            await this.quizService.CreateQuizAsync(quizCreated.AsQuizModel());
+            var quizModel = JsonSerializer.Deserialize<QuizModel>(quizCreatedItem);
+            await this.quizService.CreateQuizAsync(quizModel);
 
             var logger = context.GetLogger(nameof(QuizCreatedAzFunction));
-            logger.LogInformation($"C# Queue trigger function processed, quiz: {quizCreated}");
+            logger.LogInformation($"C# Queue trigger function processed, quiz: {quizModel}");
         }
     }
 }

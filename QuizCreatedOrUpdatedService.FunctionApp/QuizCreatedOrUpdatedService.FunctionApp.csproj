@@ -14,8 +14,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
-	  <ProjectReference Include="..\QuizDesigner.Shared\QuizDesigner.Shared.csproj" />
+		<ProjectReference Include="..\QuizDesigner.Shared\QuizDesigner.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="host.json">
