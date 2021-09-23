@@ -51,6 +51,18 @@ namespace QuizTopics.IdentityServer
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = { "candidateapi" }
+                },
+                new()
+                {
+                    ClientId = "swaggerui",
+                    ClientName = "Swagger UI for candidate api",
+                    ClientSecrets = {new Secret("secret".Sha256())},
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+                    RedirectUris = {"https://localhost:5003/swagger/oauth2-redirect.html"},
+                    AllowedCorsOrigins = {"https://localhost:5003"},
+                    AllowedScopes = {"candidateapi"}
                 }
             };
     }
