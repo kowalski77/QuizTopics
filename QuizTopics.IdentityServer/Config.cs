@@ -47,7 +47,7 @@ namespace QuizTopics.IdentityServer
                 },
                 new()
                 {
-                    ClientId = "client",
+                    ClientId = "azfunctionclient",
                     ClientSecrets = { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = { "candidateapi" }

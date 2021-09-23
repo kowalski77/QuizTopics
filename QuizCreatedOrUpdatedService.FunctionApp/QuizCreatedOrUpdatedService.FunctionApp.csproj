@@ -4,8 +4,10 @@
 		<AzureFunctionsVersion>v3</AzureFunctionsVersion>
 		<OutputType>Exe</OutputType>
 		<UserSecretsId>0f6932a1-52ff-4b67-8b8f-0672ec6ae412</UserSecretsId>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageReference Include="IdentityModel" Version="5.1.0" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Storage" Version="4.0.4" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.0.3" OutputItemType="Analyzer" />
 		<PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.1.0" />
@@ -13,6 +15,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
+	  <ProjectReference Include="..\QuizDesigner.Shared\QuizDesigner.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="host.json">
