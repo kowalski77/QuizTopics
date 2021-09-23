@@ -2,16 +2,14 @@
 using System.Net.Mime;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Shared;
-using QuizTopics.Candidate.Application.Quizzes.Create;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {
-    [ApiController]
-    [Route("api/v1/[controller]")]
-    [Produces(MediaTypeNames.Application.Json)]
-    [Consumes(MediaTypeNames.Application.Json)]
+    [ApiController, Route("api/v1/[controller]"), Authorize]
+    [Produces(MediaTypeNames.Application.Json), Consumes(MediaTypeNames.Application.Json)]
     public class QuizController : ControllerBase
     {
         private readonly IMediator mediator;

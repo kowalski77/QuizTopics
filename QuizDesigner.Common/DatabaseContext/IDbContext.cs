@@ -10,8 +10,6 @@ namespace QuizDesigner.Common.DatabaseContext
 
         bool HasActiveTransaction { get; }
 
-        IDbContextTransaction GetCurrentTransaction();
-
         Task<IDbContextTransaction> BeginTransactionAsync();
 
         Task CommitTransactionAsync(IDbContextTransaction transaction);

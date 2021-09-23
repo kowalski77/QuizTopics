@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable 8618
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
@@ -8,6 +9,8 @@ namespace QuizTopics.Candidate.Domain
     public sealed class Question : Entity
     {
         private readonly List<Answer> answerCollection;
+
+        private Question() { }
 
         public Question(string text, string tag, Difficulty difficulty, IEnumerable<Answer> answers)
         {

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Persistence;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
@@ -26,6 +27,7 @@ namespace QuizTopics.Candidate.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
             services.AddPersistence(this.Configuration.GetConnectionString("DefaultConnection"));
             services.AddCors(options =>
             {

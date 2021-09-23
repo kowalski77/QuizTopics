@@ -44,6 +44,13 @@ namespace QuizTopics.IdentityServer
                         "candidateapi"
                     },
                     Enabled = true
+                },
+                new()
+                {
+                    ClientId = "client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes = { "candidateapi" }
                 }
             };
     }
