@@ -19,7 +19,9 @@ namespace QuizTopics.Candidate.Persistence
 
         public async Task<Maybe<Exam>> GetExamByQuizAndCandidate(Guid quizId, string candidate, CancellationToken cancellationToken = default)
         {
-            var exam = await this.context.Exams!.FirstOrDefaultAsync(x => x.Quiz.Id == quizId && x.Candidate == candidate, cancellationToken);
+            var exam = await this.context.Exams!
+                .Include(x=>x.Quiz)
+                .FirstOrDefaultAsync(x => x.Quiz.Id == quizId && x.Candidate == candidate, cancellationToken);
 
             return exam;
         }
