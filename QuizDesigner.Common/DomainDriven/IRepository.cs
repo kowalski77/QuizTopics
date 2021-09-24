@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.Optional;
 
@@ -11,6 +12,6 @@ namespace QuizDesigner.Common.DomainDriven
 
         T Add(T item);
 
-        Task<Maybe<T>> GetAsync(Guid id);
+        Task<Maybe<T>> GetAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

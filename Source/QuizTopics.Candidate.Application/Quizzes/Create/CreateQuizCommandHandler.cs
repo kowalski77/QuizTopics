@@ -5,6 +5,7 @@ using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain;
+using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Create
 {

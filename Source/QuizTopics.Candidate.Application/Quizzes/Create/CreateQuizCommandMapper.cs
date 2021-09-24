@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using QuizTopics.Candidate.Domain;
+using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Create
 {

@@ -20,21 +20,16 @@
 
         public bool Failure => !this.Success;
 
-        public static Result Create(bool success, string text) => new(success, string.Empty, text);
+        public static Result Ok() => new Result(true, string.Empty, string.Empty);
 
-        public static Result<T> Create<T>(T value, bool success, string text)
+        public static Result Fail(string field, string error)
         {
-            return new(value, success, string.Empty, text);
+            return new(false, field, error);
         }
 
         public static Result<T> Ok<T>(T value)
         {
             return new(value, true, typeof(T).Name, string.Empty);
-        }
-
-        public static Result Fail(string field, string error)
-        {
-            return new(false, field, error);
         }
 
         public static Result<T> Fail<T>(string field, string error)

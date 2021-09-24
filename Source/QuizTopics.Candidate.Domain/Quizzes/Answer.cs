@@ -1,7 +1,7 @@
 ﻿using System;
 using QuizDesigner.Common.DomainDriven;
 
-namespace QuizTopics.Candidate.Domain
+namespace QuizTopics.Candidate.Domain.Quizzes
 {
     public sealed class Answer : Entity
     {

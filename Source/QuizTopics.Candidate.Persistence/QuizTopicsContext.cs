@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using QuizDesigner.Common.DomainDriven;
 using QuizTopics.Candidate.Domain;
+using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Persistence
 {
@@ -13,5 +15,7 @@ namespace QuizTopics.Candidate.Persistence
         }
 
         public DbSet<Quiz>? Quizzes { get; set; }
+
+        public DbSet<Exam>? Exams { get; set; }
     }
 }

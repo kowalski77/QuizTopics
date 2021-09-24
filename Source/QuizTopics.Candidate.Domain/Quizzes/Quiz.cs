@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 
-namespace QuizTopics.Candidate.Domain
+namespace QuizTopics.Candidate.Domain.Quizzes
 {
     public sealed class Quiz : Entity, IAggregateRoot
     {
@@ -34,10 +34,10 @@ namespace QuizTopics.Candidate.Domain
             this.questions = questions.ToList();
         }
 
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public string ExamName { get; }
+        public string ExamName { get; private set; }
 
-        public IEnumerable<Question> QuestionCollection => this.questions;
+        public IReadOnlyList<Question> QuestionCollection => this.questions;
     }
 }

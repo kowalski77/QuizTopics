@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuizDesigner.Common.DomainDriven;
-using QuizTopics.Candidate.Domain;
+using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Persistence
 {
@@ -12,6 +13,8 @@ namespace QuizTopics.Candidate.Persistence
         {
             services.AddEntityFramework(connectionString);
             services.AddRepository<Quiz, QuizTopicsContext>();
+            services.AddRepository<Exam, QuizTopicsContext>();
+            services.AddScoped<IExamRepository, ExamRepository>();
 
             return services;
         }

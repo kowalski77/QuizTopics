@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.Optional;
 
@@ -21,7 +22,7 @@ namespace QuizDesigner.Common.DomainDriven
             return this.Context.Add(item).Entity;
         }
 
-        public async Task<Maybe<T>> GetAsync(Guid id)
+        public async Task<Maybe<T>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await this.Context.FindAsync<T>(id).ConfigureAwait(false);
         }

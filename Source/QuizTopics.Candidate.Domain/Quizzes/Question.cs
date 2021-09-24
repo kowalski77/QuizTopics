@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 
-namespace QuizTopics.Candidate.Domain
+namespace QuizTopics.Candidate.Domain.Quizzes
 {
     public sealed class Question : Entity
     {

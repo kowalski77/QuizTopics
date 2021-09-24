@@ -21,4 +21,9 @@
     <ProjectReference Include="..\QuizTopics.Candidate.Persistence\QuizTopics.Candidate.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exams\" />
+    <Folder Include="Quizzes\Update\" />
+  </ItemGroup>
+
 </Project>
