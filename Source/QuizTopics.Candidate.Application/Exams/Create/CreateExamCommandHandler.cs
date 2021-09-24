@@ -33,7 +33,7 @@ namespace QuizTopics.Candidate.Application.Exams.Create
             var maybeQuiz = await this.quizRepository.GetAsync(request.QuizId, cancellationToken).ConfigureAwait(false);
             if (!maybeQuiz.TryGetValue(out var quiz))
             {
-                ResultModel.Fail(ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.QuizId), $"quiz with id: {request.QuizId} not found")));
+                return ResultModel.Fail(ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.QuizId), $"quiz with id: {request.QuizId} not found")));
             }
 
             var result = await this.examService.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false);

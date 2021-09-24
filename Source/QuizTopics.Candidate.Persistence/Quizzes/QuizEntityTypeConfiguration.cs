@@ -8,6 +8,8 @@ namespace QuizTopics.Candidate.Persistence.Quizzes
     {
         public void Configure(EntityTypeBuilder<Quiz> builder)
         {
+            builder.ToTable(nameof(Quiz));
+
             builder.Property(x => x.Name)
                 .HasMaxLength(200)
                 .IsRequired();
