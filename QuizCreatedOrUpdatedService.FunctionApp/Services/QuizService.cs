@@ -17,7 +17,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task CreateQuizAsync(QuizModel? quizModel)
+        public async Task CreateQuizAsync(CreateQuizModel? quizModel)
         {
             if (quizModel == null)
             {

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using QuizTopics.Candidate.Application.Quizzes.Create;
+using QuizDesigner.Shared;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {
-    public class CreateQuizCommandValidator : AbstractValidator<CreateQuizCommand>
+    public class CreateQuizCommandValidator : AbstractValidator<CreateQuizModel>
     {
         public CreateQuizCommandValidator()
         {

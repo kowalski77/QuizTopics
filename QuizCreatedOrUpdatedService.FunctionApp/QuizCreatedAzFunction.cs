@@ -21,7 +21,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp
         public async Task Run([QueueTrigger("quizcreated", Connection = "StorageConnectionString")] string quizCreatedItem,
             FunctionContext context)
         {
-            var quizModel = JsonSerializer.Deserialize<QuizModel>(quizCreatedItem);
+            var quizModel = JsonSerializer.Deserialize<CreateQuizModel>(quizCreatedItem);
             await this.quizService.CreateQuizAsync(quizModel);
 
             var logger = context.GetLogger(nameof(QuizCreatedAzFunction));

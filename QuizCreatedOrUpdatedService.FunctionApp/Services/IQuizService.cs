@@ -5,6 +5,6 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 {
     public interface IQuizService
     {
-        Task CreateQuizAsync(QuizModel? quizModel);
+        Task CreateQuizAsync(CreateQuizModel? quizModel);
     }
 }

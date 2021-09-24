@@ -7,7 +7,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
 {
     public static class CreateQuizMapper
     {
-        public static CreateQuizCommand AsCommand(this QuizModel model)
+        public static CreateQuizCommand AsCommand(this CreateQuizModel model)
         {
             if (model == null)
             {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuizTopics.Candidate.API.Exams.Create;
 using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Domain;
 using QuizTopics.Candidate.Persistence;
@@ -41,7 +43,8 @@ namespace QuizTopics.Candidate.API
                         .AllowAnyMethod());
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateExamModelValidator>());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
