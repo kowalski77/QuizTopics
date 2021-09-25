@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using QuizDesigner.Shared;
-using QuizTopics.Candidate.Application.Quizzes.Create;
+using QuizTopics.Candidate.Application.Quizzes.Commands.Create;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {

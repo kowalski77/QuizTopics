@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using QuizTopics.Candidate.Application.Quizzes.Create;
+using QuizTopics.Candidate.Application.Quizzes.Commands.Create;
 
 namespace QuizTopics.Candidate.Application
 {

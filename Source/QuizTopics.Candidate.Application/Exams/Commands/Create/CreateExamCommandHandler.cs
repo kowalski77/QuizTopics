@@ -8,7 +8,7 @@ using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.Exams;
 using QuizTopics.Candidate.Domain.Quizzes;
 
-namespace QuizTopics.Candidate.Application.Exams.Create
+namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {
     public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand>
     {

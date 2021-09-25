@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Quizzes\Read\" />
     <Folder Include="Quizzes\Update\" />
   </ItemGroup>
 

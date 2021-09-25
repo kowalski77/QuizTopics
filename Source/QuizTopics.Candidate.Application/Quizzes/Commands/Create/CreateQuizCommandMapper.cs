@@ -2,7 +2,7 @@
 using System.Linq;
 using QuizTopics.Candidate.Domain.Quizzes;
 
-namespace QuizTopics.Candidate.Application.Quizzes.Create
+namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {
     public static class CreateQuizCommandMapper
     {

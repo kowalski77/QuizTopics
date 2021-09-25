@@ -1,6 +1,6 @@
 ﻿using System;
 using QuizDesigner.Shared;
-using QuizTopics.Candidate.Application.Exams.Create;
+using QuizTopics.Candidate.Application.Exams.Commands.Create;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {
