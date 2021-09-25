@@ -12,14 +12,14 @@ namespace QuizTopics.Candidate.Domain.Quizzes
 
         private Quiz() { }
 
-        public Quiz(string name, string examName, IEnumerable<Question> questions)
+        public Quiz(string name, string category, IEnumerable<Question> questions)
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (string.IsNullOrEmpty(examName))
+            if (string.IsNullOrEmpty(category))
             {
                 throw new ArgumentNullException(nameof(name));
             }
@@ -30,13 +30,13 @@ namespace QuizTopics.Candidate.Domain.Quizzes
             }
 
             this.Name = name;
-            this.ExamName = examName;
+            this.Category = category;
             this.questions = questions.ToList();
         }
 
         public string Name { get; private set; }
 
-        public string ExamName { get; private set; }
+        public string Category { get; private set; }
 
         public IReadOnlyList<Question> QuestionCollection => this.questions;
     }

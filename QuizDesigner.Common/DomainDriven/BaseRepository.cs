@@ -22,9 +22,9 @@ namespace QuizDesigner.Common.DomainDriven
             return this.Context.Add(item).Entity;
         }
 
-        public async Task<Maybe<T>> GetAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task<Maybe<T>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await this.Context.FindAsync<T>(id).ConfigureAwait(false);
+            return await this.Context.FindAsync<T>(new object[] { id }, cancellationToken).ConfigureAwait(false);
         }
     }
 }

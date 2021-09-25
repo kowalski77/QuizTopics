@@ -17,11 +17,11 @@ namespace QuizTopics.Candidate.Persistence
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<Maybe<Exam>> GetExamByQuizAndCandidate(Guid quizId, string candidate, CancellationToken cancellationToken = default)
+        public async Task<Maybe<Exam>> GetExamByQuizAndCandidate(string quizName, string candidate, CancellationToken cancellationToken = default)
         {
             var exam = await this.context.Exams!
-                .Include(x=>x.Quiz)
-                .FirstOrDefaultAsync(x => x.Quiz.Id == quizId && x.Candidate == candidate, cancellationToken);
+                .Include(x=>x.QuizName)
+                .FirstOrDefaultAsync(x => x.QuizName == quizName && x.Candidate == candidate, cancellationToken);
 
             return exam;
         }

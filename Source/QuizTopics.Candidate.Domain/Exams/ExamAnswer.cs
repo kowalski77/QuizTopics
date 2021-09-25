@@ -2,13 +2,13 @@
 using System;
 using QuizDesigner.Common.DomainDriven;
 
-namespace QuizTopics.Candidate.Domain.Quizzes
+namespace QuizTopics.Candidate.Domain.Exams
 {
-    public sealed class Answer : Entity
+    public sealed class ExamAnswer : Entity
     {
-        private Answer() { }
+        private ExamAnswer() { }
 
-        public Answer(string text, bool isCorrect)
+        public ExamAnswer(string text, bool isCorrect)
         {
             if (string.IsNullOrEmpty(text))
             {

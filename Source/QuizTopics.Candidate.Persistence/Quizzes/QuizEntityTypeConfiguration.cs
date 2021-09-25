@@ -14,7 +14,7 @@ namespace QuizTopics.Candidate.Persistence.Quizzes
                 .HasMaxLength(200)
                 .IsRequired();
 
-            builder.Property(x => x.ExamName)
+            builder.Property(x => x.Category)
                 .HasMaxLength(200)
                 .IsRequired();
         }

@@ -12,9 +12,9 @@ namespace QuizTopics.Candidate.Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
         {
             services.AddEntityFramework(connectionString);
-            services.AddRepository<Quiz, QuizTopicsContext>();
             services.AddRepository<Exam, QuizTopicsContext>();
             services.AddScoped<IExamRepository, ExamRepository>();
+            services.AddScoped<IRepository<Quiz>, QuizRepository>();
 
             return services;
         }

@@ -30,20 +30,72 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<Guid>("NextQuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("QuizId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("QuizName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("SoftDeleted")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuizId");
-
                     b.ToTable("Exam");
+                });
+
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamAnswer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ExamQuestionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SoftDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamQuestionId");
+
+                    b.ToTable("ExamAnswer");
+                });
+
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("ExamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("SoftDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Tag")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("ExamQuestion");
                 });
 
             modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Answer", b =>
@@ -111,7 +163,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ExamName")
+                    b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
@@ -129,13 +181,18 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("Quiz");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.Exam", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamAnswer", b =>
                 {
-                    b.HasOne("QuizTopics.Candidate.Domain.Quizzes.Quiz", "Quiz")
-                        .WithMany()
-                        .HasForeignKey("QuizId");
+                    b.HasOne("QuizTopics.Candidate.Domain.Exams.ExamQuestion", null)
+                        .WithMany("Answers")
+                        .HasForeignKey("ExamQuestionId");
+                });
 
-                    b.Navigation("Quiz");
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+                {
+                    b.HasOne("QuizTopics.Candidate.Domain.Exams.Exam", null)
+                        .WithMany("QuestionsCollection")
+                        .HasForeignKey("ExamId");
                 });
 
             modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Answer", b =>
@@ -150,6 +207,16 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.HasOne("QuizTopics.Candidate.Domain.Quizzes.Quiz", null)
                         .WithMany("QuestionCollection")
                         .HasForeignKey("QuizId");
+                });
+
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.Exam", b =>
+                {
+                    b.Navigation("QuestionsCollection");
+                });
+
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+                {
+                    b.Navigation("Answers");
                 });
 
             modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Question", b =>
