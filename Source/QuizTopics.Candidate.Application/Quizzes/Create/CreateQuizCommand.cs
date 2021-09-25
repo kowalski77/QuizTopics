@@ -3,7 +3,7 @@ using QuizDesigner.Common.Mediator;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Create
 {
-    public sealed record CreateQuizCommand(string Name, string Exam, IEnumerable<ExamQuestion> ExamQuestionCollection) : ICommand;
+    public sealed record CreateQuizCommand(string Name, string Category, IEnumerable<ExamQuestion> ExamQuestionCollection) : ICommand;
 
     public sealed record ExamQuestion(string Text, string Tag, int Difficulty, IEnumerable<ExamAnswer> ExamAnswerCollection);
 

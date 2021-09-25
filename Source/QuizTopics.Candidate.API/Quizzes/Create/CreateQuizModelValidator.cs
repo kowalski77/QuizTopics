@@ -7,8 +7,8 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
     {
         public CreateQuizModelValidator()
         {
-            this.RuleFor(x => x.Exam).NotEmpty().MaximumLength(200);
-            this.RuleFor(x => x.Name).NotEmpty().MaximumLength(2000);
+            this.RuleFor(x => x.Exam).NotEmpty().MaximumLength(2000);
+            this.RuleFor(x => x.Category).NotEmpty().MaximumLength(200);
             this.RuleForEach(x => x.ExamQuestionCollection).SetValidator(new QuestionValidator());
         }
     }

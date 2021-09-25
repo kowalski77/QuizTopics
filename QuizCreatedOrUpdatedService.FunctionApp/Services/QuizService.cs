@@ -32,7 +32,8 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             var response = await this.httpClient.PostAsync("api/v1/Quiz", quizJson);
             if (!response.IsSuccessStatusCode)
             {
-                throw new InvalidOperationException(response.ReasonPhrase);
+                var content = await response.Content.ReadAsStringAsync();
+                throw new InvalidOperationException($"{response.ReasonPhrase}: {content}");
             }
         }
 

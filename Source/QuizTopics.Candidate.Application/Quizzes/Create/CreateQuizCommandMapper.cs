@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using QuizTopics.Candidate.Domain;
 using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Create
@@ -15,16 +14,16 @@ namespace QuizTopics.Candidate.Application.Quizzes.Create
             }
 
             return new Quiz(
-                command.Name, 
-                command.Exam, 
-                command.ExamQuestionCollection.Select(x => 
+                command.Name,
+                command.Category,
+                command.ExamQuestionCollection.Select(x =>
                     new Question(
-                        x.Text, 
-                        x.Tag, 
-                        (Difficulty)x.Difficulty, 
-                        x.ExamAnswerCollection.Select(y => 
+                        x.Text,
+                        x.Tag,
+                        (Difficulty)x.Difficulty,
+                        x.ExamAnswerCollection.Select(y =>
                             new Answer(
-                                y.Text, 
+                                y.Text,
                                 y.IsCorrect)))));
         }
     }

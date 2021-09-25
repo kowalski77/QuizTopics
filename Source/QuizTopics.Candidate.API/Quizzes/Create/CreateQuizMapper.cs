@@ -15,8 +15,8 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
             }
 
             return new CreateQuizCommand(
-                model.Name,
                 model.Exam,
+                model.Category,
                 model.ExamQuestionCollection.Select(x =>
                     new ExamQuestion(
                         x.Text,
