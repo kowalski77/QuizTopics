@@ -8,6 +8,7 @@ using QuizDesigner.Shared;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {
+    //TODO: use gRPC for internal calls
     [ApiController, Route("api/v1/[controller]"), Authorize]
     [Produces(MediaTypeNames.Application.Json), Consumes(MediaTypeNames.Application.Json)]
     public class QuizController : ControllerBase
@@ -30,7 +31,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
             var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
             if (response.Success)
             {
-                return this.Ok();
+                return this.NoContent();
             }
 
             return this.BadRequest(response.ResultOperation.ToString());

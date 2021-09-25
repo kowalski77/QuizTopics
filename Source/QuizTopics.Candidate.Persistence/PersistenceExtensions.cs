@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuizDesigner.Common.DomainDriven;
+using QuizTopics.Candidate.Application.Quizzes.Commands.Queries;
 using QuizTopics.Candidate.Domain.Exams;
 using QuizTopics.Candidate.Domain.Quizzes;
 
@@ -15,6 +16,7 @@ namespace QuizTopics.Candidate.Persistence
             services.AddRepository<Exam, QuizTopicsContext>();
             services.AddScoped<IExamRepository, ExamRepository>();
             services.AddScoped<IRepository<Quiz>, QuizRepository>();
+            services.AddScoped<IQuizProvider, QuizProvider>();
 
             return services;
         }
