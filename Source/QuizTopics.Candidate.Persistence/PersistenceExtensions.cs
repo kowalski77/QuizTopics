@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuizDesigner.Common.DomainDriven;
-using QuizTopics.Candidate.Application.Quizzes.Commands.Queries;
+using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Candidate.Domain.Exams;
 using QuizTopics.Candidate.Domain.Quizzes;
 

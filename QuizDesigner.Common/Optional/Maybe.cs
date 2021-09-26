@@ -1,5 +1,6 @@
 ﻿using System;
 
+//TODO: review implementation
 namespace QuizDesigner.Common.Optional
 {
     public readonly struct Maybe<T>

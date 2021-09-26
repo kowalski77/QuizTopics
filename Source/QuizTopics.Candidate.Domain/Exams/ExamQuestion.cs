@@ -42,6 +42,13 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public Difficulty Difficulty { get; private set; }
 
+        public bool Answered { get; private set; }
+
         public IEnumerable<ExamAnswer> Answers => this.answerCollection;
+
+        public void SetAsAnswered()
+        {
+            this.Answered = true;
+        }
     }
 }

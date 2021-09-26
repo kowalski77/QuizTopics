@@ -24,13 +24,13 @@ namespace QuizTopics.Candidate.Domain.Exams
                 throw new ArgumentNullException(nameof(quiz));
             }
 
-            var maybeExam = await this.examRepository.GetExamByQuizAndCandidate(quiz.Name, userEmail, cancellationToken).ConfigureAwait(false);
+            var maybeExam = await this.examRepository.GetExamByQuizAndCandidateAsync(quiz.Name, userEmail, cancellationToken).ConfigureAwait(false);
             if (maybeExam.TryGetValue(out var existingExam))
             {
                 return Result.Fail<Exam>(nameof(userEmail), $" this user: {userEmail} already toke the exam: {existingExam.QuizName}");
             }
 
-            var exam = new Exam(quiz.Name, userEmail, GetExamQuestions(quiz.QuestionCollection));
+            var exam = new Exam(quiz.Name, userEmail, DateTime.UtcNow, GetExamQuestions(quiz.QuestionCollection));
 
             return Result.Ok(exam);
         }

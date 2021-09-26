@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QuizTopics.Candidate.Application.Quizzes.Commands.Queries;
+using QuizTopics.Candidate.Application.Quizzes.Queries;
 
 namespace QuizTopics.Candidate.Persistence
 {

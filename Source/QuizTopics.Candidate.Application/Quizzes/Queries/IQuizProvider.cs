@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace QuizTopics.Candidate.Application.Quizzes.Commands.Queries
+namespace QuizTopics.Candidate.Application.Quizzes.Queries
 {
     public interface IQuizProvider
     {

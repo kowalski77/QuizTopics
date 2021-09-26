@@ -22,5 +22,12 @@ namespace QuizTopics.Candidate.Domain.Exams
         public string Text { get; private set; }
 
         public bool IsCorrect { get; private set; }
+
+        public bool Selected { get; private set; }
+
+        public void Select()
+        {
+            this.Selected = true;
+        }
     }
 }

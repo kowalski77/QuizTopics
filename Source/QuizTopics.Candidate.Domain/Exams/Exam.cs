@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
+using QuizDesigner.Common.Optional;
 
 namespace QuizTopics.Candidate.Domain.Exams
 {
@@ -12,7 +13,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         private Exam() { }
 
-        public Exam(string quizName, string candidate, IEnumerable<ExamQuestion> questions)
+        public Exam(string quizName, string candidate, DateTime createdAt, IEnumerable<ExamQuestion> questions)
         {
             if (string.IsNullOrEmpty(quizName))
             {
@@ -20,14 +21,22 @@ namespace QuizTopics.Candidate.Domain.Exams
             }
 
             this.QuizName = quizName;
-            this.questions = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
             this.Candidate = candidate;
+            this.CreatedAt = createdAt;
+            this.questions = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
         }
 
         public string QuizName { get; private set; }
 
         public string Candidate { get; private set; }
 
+        public DateTime CreatedAt { get; private set; }
+
         public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questions;
+
+        public Maybe<ExamQuestion> GetFirstAvailableExamQuestion()
+        {
+            return this.questions.FirstOrDefault(x => x.Answered)!;
+        }
     }
 }

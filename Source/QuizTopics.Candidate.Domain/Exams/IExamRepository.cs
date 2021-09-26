@@ -7,6 +7,6 @@ namespace QuizTopics.Candidate.Domain.Exams
 {
     public interface IExamRepository : IRepository<Exam>
     {
-        Task<Maybe<Exam>> GetExamByQuizAndCandidate(string quizName, string candidate, CancellationToken cancellationToken = default);
+        Task<Maybe<Exam>> GetExamByQuizAndCandidateAsync(string quizName, string candidate, CancellationToken cancellationToken = default);
     }
 }

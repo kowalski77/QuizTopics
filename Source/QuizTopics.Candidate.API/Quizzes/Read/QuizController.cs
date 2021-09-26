@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Candidate.Application.Quizzes.Commands.Queries;
+using QuizTopics.Candidate.Application.Quizzes.Queries;
 
 namespace QuizTopics.Candidate.API.Quizzes.Read
 {

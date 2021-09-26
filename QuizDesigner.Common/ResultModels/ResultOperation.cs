@@ -5,6 +5,7 @@ using QuizDesigner.Common.Results;
 
 namespace QuizDesigner.Common.ResultModels
 {
+    //TODO: get rid of Result class?
     public sealed class ResultOperation
     {
         private readonly ResultCode code;

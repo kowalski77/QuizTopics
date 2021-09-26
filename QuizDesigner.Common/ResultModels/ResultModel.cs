@@ -31,5 +31,10 @@
         {
             return new ResultModel<T>(default!, false, resultOperation);
         }
+
+        public static IResultModel<T> Fail<T>( T value, ResultOperation resultOperation)
+        {
+            return new ResultModel<T>(value, false, resultOperation);
+        }
     }
 }
