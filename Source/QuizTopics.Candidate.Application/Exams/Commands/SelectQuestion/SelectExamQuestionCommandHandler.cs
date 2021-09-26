@@ -31,7 +31,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
             {
                 var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.ExamId), $" could not find exam with id: {request.ExamId}"));
 
-                return ResultModel.Fail(Maybe<ExamQuestionDto>.None,  resultOperation);
+                return ResultModel.Fail(Maybe<ExamQuestionDto>.None, resultOperation);
             }
 
             var maybeQuestion = exam.GetFirstAvailableExamQuestion();
