@@ -1,6 +1,5 @@
 ﻿using System;
 
-//TODO: review implementation
 namespace QuizDesigner.Common.Optional
 {
     public readonly struct Maybe<T>
@@ -35,6 +34,14 @@ namespace QuizDesigner.Common.Optional
             tryValue = default!;
 
             return false;
+        }
+
+        public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> convert)
+            where TResult : class
+        {
+            return !this.hasValue ?
+                new Maybe<TResult>() :
+                convert(this.value);
         }
 
         public TResult Unwrap<TResult>(Func<T, TResult> some, Func<TResult> none)

@@ -35,14 +35,9 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
             }
 
             var maybeQuestion = exam.GetFirstAvailableExamQuestion();
-            if (!maybeQuestion.TryGetValue(out var question))
-            {
-                return ResultModel.Ok(Maybe<ExamQuestionDto>.None);
-            }
+            var maybeExamQuestionDto = maybeQuestion.Bind<ExamQuestionDto>(examQuestion => examQuestion.AsExamQuestionDto());
 
-            Maybe<ExamQuestionDto> examQuestionDto = question.AsExamQuestionDto();
-
-            return ResultModel.Ok(examQuestionDto);
+            return ResultModel.Ok(maybeExamQuestionDto);
         }
     }
 }
