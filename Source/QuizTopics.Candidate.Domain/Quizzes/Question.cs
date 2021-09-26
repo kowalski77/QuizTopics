@@ -8,7 +8,7 @@ namespace QuizTopics.Candidate.Domain.Quizzes
 {
     public sealed class Question : Entity
     {
-        private readonly List<Answer> answerCollection;
+        private readonly List<Answer> answerCollection = new();
 
         private Question() { }
 
@@ -41,6 +41,6 @@ namespace QuizTopics.Candidate.Domain.Quizzes
 
         public Difficulty Difficulty { get; private set; }
 
-        public IEnumerable<Answer> Answers => this.answerCollection;
+        public IReadOnlyList<Answer> Answers => this.answerCollection;
     }
 }

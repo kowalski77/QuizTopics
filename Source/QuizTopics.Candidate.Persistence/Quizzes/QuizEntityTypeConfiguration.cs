@@ -17,6 +17,10 @@ namespace QuizTopics.Candidate.Persistence.Quizzes
             builder.Property(x => x.Category)
                 .HasMaxLength(200)
                 .IsRequired();
+
+            builder.HasMany(x => x.QuestionCollection)
+                .WithOne()
+                .HasForeignKey("QuizId");
         }
     }
 }

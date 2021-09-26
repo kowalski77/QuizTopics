@@ -10,7 +10,7 @@ using QuizTopics.Candidate.Persistence;
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
     [DbContext(typeof(QuizTopicsContext))]
-    [Migration("20210926192502_Initial")]
+    [Migration("20210926193729_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

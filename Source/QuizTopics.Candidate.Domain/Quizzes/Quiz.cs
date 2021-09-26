@@ -8,7 +8,7 @@ namespace QuizTopics.Candidate.Domain.Quizzes
 {
     public sealed class Quiz : Entity, IAggregateRoot
     {
-        private readonly List<Question> questions;
+        private readonly List<Question> questions = new();
 
         private Quiz() { }
 
