@@ -30,7 +30,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
                 return ResultModel.Fail(new ExamQuestionDto(), GeneralErrors.NotFound(request.ExamId));
             }
 
-            var maybeQuestion = exam.GetFirstAvailableExamQuestion();
+            var maybeQuestion = exam.GetFirstAvailableQuestion();
             var maybeExamQuestionDto = maybeQuestion.Bind<ExamQuestionDto>(examQuestion =>
                 examQuestion.AsExamQuestionDto()).ValueOr(new ExamQuestionDto());
 

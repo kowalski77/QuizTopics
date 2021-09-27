@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Exams\Commands\SelectAnswer\" />
     <Folder Include="Exams\Queries\" />
   </ItemGroup>
 

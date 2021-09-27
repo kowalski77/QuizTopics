@@ -9,7 +9,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 {
     public class Exam : Entity, IAggregateRoot
     {
-        private readonly List<ExamQuestion> questions = new();
+        private readonly List<ExamQuestion> questionsCollection = new();
 
         private Exam() { }
 
@@ -23,7 +23,7 @@ namespace QuizTopics.Candidate.Domain.Exams
             this.QuizName = quizName;
             this.Candidate = candidate;
             this.CreatedAt = createdAt;
-            this.questions = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
+            this.questionsCollection = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
         }
 
         public string QuizName { get; private set; }
@@ -32,11 +32,16 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public DateTime CreatedAt { get; private set; }
 
-        public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questions;
+        public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questionsCollection;
 
-        public Maybe<ExamQuestion> GetFirstAvailableExamQuestion()
+        public Maybe<ExamQuestion> GetFirstAvailableQuestion()
         {
-            return this.questions.FirstOrDefault(x => !x.Answered)!;
+            return this.questionsCollection.FirstOrDefault(x => !x.Answered)!;
+        }
+
+        public Maybe<ExamQuestion> GetQuestion(Guid id)
+        {
+            return this.questionsCollection.FirstOrDefault(x => x.Id == id)!;
         }
     }
 }

@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
+using QuizDesigner.Common.Optional;
+using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Domain.Exams
 {
     public sealed class ExamQuestion : Entity
     {
-        private readonly List<ExamAnswer> answerCollection = new();
+        private readonly List<ExamAnswer> answersCollection = new();
 
         private ExamQuestion() { }
 
@@ -33,7 +35,7 @@ namespace QuizTopics.Candidate.Domain.Exams
             this.Text = text;
             this.Tag = tag;
             this.Difficulty = difficulty;
-            this.answerCollection = answers.ToList();
+            this.answersCollection = answers.ToList();
         }
 
         public string Text { get; private set; }
@@ -44,11 +46,37 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public bool Answered { get; private set; }
 
-        public IEnumerable<ExamAnswer> Answers => this.answerCollection;
+        public IEnumerable<ExamAnswer> Answers => this.answersCollection;
 
         public void SetAsAnswered()
         {
             this.Answered = true;
+        }
+
+        public Result CanSelectAnswer(Guid answerId)
+        {
+            var answerExists = this.answersCollection.Any(x => x.Id == answerId);
+
+            return answerExists ? 
+                Result.Ok() : 
+                Result.Fail(ExamErrors.AnswerDoesNotExists(answerId));
+        }
+
+        public void SelectAnswer(Guid answerId)
+        {
+            var result = this.CanSelectAnswer(answerId);
+            if (result.Failure)
+            {
+                throw new InvalidOperationException(result.Error?.Message);
+            }
+
+            var answer = this.answersCollection.First(x => x.Id == answerId);
+            answer.Select();
+        }
+
+        public Maybe<ExamAnswer> GetAnswer(Guid id)
+        {
+            return this.answersCollection.FirstOrDefault(x => x.Id == id)!;
         }
     }
 }
