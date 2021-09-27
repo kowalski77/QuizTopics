@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using MediatR;
@@ -23,7 +24,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Read
         }
 
         [HttpGet]
-        public async Task<ActionResult<QuizDto>> GetQuizCollection()
+        public async Task<ActionResult<IEnumerable<QuizDto>>> GetQuizCollection()
         {
             var quizDtoCollection = await this.mediator.Send(new GetQuizCollectionRequest()).ConfigureAwait(false);
 
