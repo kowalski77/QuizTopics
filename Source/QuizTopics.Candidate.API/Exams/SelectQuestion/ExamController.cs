@@ -34,9 +34,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
                 return this.BadRequest(response.ResultOperation.ToString());
             }
 
-            return response.Value.TryGetValue(out var examQuestion) ? 
-                this.Ok(examQuestion) : 
-                this.Ok("No more questions available");
+            return this.Ok(response.Value.ValueOr(new ExamQuestionDto()));
         }
     }
 }
