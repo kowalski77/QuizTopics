@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using QuizDesigner.Common.Errors;
 using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.Exams;
@@ -26,9 +27,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
             var maybeExam = await this.examRepository.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
             if (!maybeExam.TryGetValue(out var exam))
             {
-                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, $"Could not find exam with id: {request.ExamId}");
-
-                return ResultModel.Fail(new ExamQuestionDto(), resultOperation);
+                return ResultModel.Fail(new ExamQuestionDto(), GeneralErrors.NotFound(request.ExamId));
             }
 
             var maybeQuestion = exam.GetFirstAvailableExamQuestion();

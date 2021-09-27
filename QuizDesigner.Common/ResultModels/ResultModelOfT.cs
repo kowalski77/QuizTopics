@@ -1,4 +1,5 @@
 ﻿using System;
+using QuizDesigner.Common.Errors;
 
 namespace QuizDesigner.Common.ResultModels
 {
@@ -8,8 +9,12 @@ namespace QuizDesigner.Common.ResultModels
 
         public ResultModel(
             T value,
-            bool success,
-            ResultOperation error) : base(error, success)
+            Error error) : base(error)
+        {
+            this.value = value;
+        }
+
+        public ResultModel(T value)
         {
             this.value = value;
         }

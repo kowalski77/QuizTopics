@@ -31,7 +31,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
             var response = await this.mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
             if (!response.Success)
             {
-                return this.BadRequest(response.ResultOperation.ToString());
+                return this.BadRequest(response.Error);
             }
 
             return this.Ok(response.Value);

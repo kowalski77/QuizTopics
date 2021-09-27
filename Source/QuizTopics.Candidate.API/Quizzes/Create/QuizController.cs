@@ -34,7 +34,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
                 return this.NoContent();
             }
 
-            return this.BadRequest(response.ResultOperation.ToString());
+            return this.BadRequest(response.Error);
         }
     }
 }

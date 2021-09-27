@@ -1,40 +1,47 @@
-﻿namespace QuizDesigner.Common.ResultModels
+﻿using QuizDesigner.Common.Errors;
+
+namespace QuizDesigner.Common.ResultModels
 {
     public class ResultModel : IResultModel
     {
-        protected ResultModel(ResultOperation resultOperation, bool success)
+        protected ResultModel(Error error)
         {
-            this.ResultOperation = resultOperation;
-            this.Success = success;
+            this.Error = error;
+            this.Success = false;
         }
 
-        public ResultOperation ResultOperation { get; }
+        protected ResultModel()
+        {
+            this.Success = true;
+        }
+
+        public Error? Error { get; }
 
         public bool Success { get; }
 
         public static IResultModel Ok()
         {
-            return new ResultModel(ResultOperation.Ok, true);
+            return new ResultModel();
         }
 
         public static IResultModel<T> Ok<T>(T value)
         {
-            return new ResultModel<T>(value, true, ResultOperation.Ok);
+            return new ResultModel<T>(value);
         }
 
-        public static IResultModel Fail(ResultOperation resultOperation)
+        public static IResultModel Fail(Error error)
         {
-            return new ResultModel(resultOperation, false);
+            return new ResultModel(error);
         }
 
-        public static IResultModel<T> Fail<T>(ResultOperation resultOperation)
+        public static IResultModel<T> Fail<T>(Error error)
         {
-            return new ResultModel<T>(default!, false, resultOperation);
+            return new ResultModel<T>(default!, error);
         }
 
-        public static IResultModel<T> Fail<T>( T value, ResultOperation resultOperation)
+        public static IResultModel<T> Fail<T>(T value, Error error)
         {
-            return new ResultModel<T>(value, false, resultOperation);
+            return new ResultModel<T>(value, error);
         }
     }
 }

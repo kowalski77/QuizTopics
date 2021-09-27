@@ -1,4 +1,6 @@
-﻿namespace QuizDesigner.Common.ResultModels
+﻿using QuizDesigner.Common.Errors;
+
+namespace QuizDesigner.Common.ResultModels
 {
     public interface IResultModel<out T> : IResultModel
     {
@@ -9,6 +11,6 @@
     {
         bool Success { get; }
 
-        ResultOperation ResultOperation { get; }
+        Error? Error { get; }
     }
 }

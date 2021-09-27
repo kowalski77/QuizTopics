@@ -1,4 +1,5 @@
 ﻿using System;
+using QuizDesigner.Common.Errors;
 
 namespace QuizDesigner.Common.Results
 {
@@ -6,13 +7,14 @@ namespace QuizDesigner.Common.Results
     {
         private readonly T value;
 
-        public Result(
-            T value,
-            bool success,
-            string field,
-            string error) : base(success, field, error)
+        public Result(T value)
         {
             this.value = value;
+        }
+
+        public Result(Error error) : base(error)
+        {
+            this.value = default!;
         }
 
         public T Value

@@ -1,40 +1,41 @@
-﻿namespace QuizDesigner.Common.Results
+﻿using QuizDesigner.Common.Errors;
+
+namespace QuizDesigner.Common.Results
 {
     public class Result
     {
-        protected Result(
-            bool success,
-            string field,
-            string error)
+        protected Result(Error error)
         {
-            this.Success = success;
-            this.Field = field;
+            this.Success = false;
             this.Error = error;
         }
 
-        public string Field { get; }
+        protected Result()
+        {
+            this.Success = true;
+        }
 
-        public string Error { get; }
+        public Error? Error { get; set; }
 
         public bool Success { get; }
 
         public bool Failure => !this.Success;
 
-        public static Result Ok() => new Result(true, string.Empty, string.Empty);
+        public static Result Ok() => new();
 
-        public static Result Fail(string field, string error)
+        public static Result Fail(Error error)
         {
-            return new(false, field, error);
+            return new(error);
         }
 
         public static Result<T> Ok<T>(T value)
         {
-            return new(value, true, typeof(T).Name, string.Empty);
+            return new(value);
         }
 
-        public static Result<T> Fail<T>(string field, string error)
+        public static Result<T> Fail<T>(Error error)
         {
-            return new(default!, false, field, error);
+            return new(error);
         }
     }
 }

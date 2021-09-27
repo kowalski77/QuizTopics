@@ -27,7 +27,7 @@ namespace QuizTopics.Candidate.Domain.Exams
             var maybeExam = await this.examRepository.GetExamByQuizAndCandidateAsync(quiz.Name, userEmail, cancellationToken).ConfigureAwait(false);
             if (maybeExam.TryGetValue(out var existingExam))
             {
-                return Result.Fail<Exam>(nameof(userEmail), $" this user: {userEmail} already toke the exam: {existingExam.QuizName}");
+                return Result.Fail<Exam>(ExamErrors.UserAlreadyTokeExam(userEmail, existingExam.QuizName));
             }
 
             var exam = new Exam(quiz.Name, userEmail, DateTime.UtcNow, GetExamQuestions(quiz.QuestionCollection));

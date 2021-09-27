@@ -2,10 +2,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.DomainDriven;
+using QuizDesigner.Common.Errors;
 using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.Optional;
 using QuizDesigner.Common.ResultModels;
-using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.Exams;
 using QuizTopics.Candidate.Domain.Quizzes;
 
@@ -34,16 +34,13 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             var maybeQuiz = await this.quizRepository.GetAsync(request.QuizId, cancellationToken).ConfigureAwait(false);
             if (!maybeQuiz.TryGetValue(out var quiz))
             {
-                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, $"Quiz with id: {request.QuizId} not found");
-
-                return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
+                return ResultModel.Fail(Maybe<ExamDto>.None, GeneralErrors.NotFound(request.QuizId));
             }
 
             var result = await this.examService.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
-                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, result.Error);
-                return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
+                return ResultModel.Fail(Maybe<ExamDto>.None, result.Error!);
             }
 
             var exam = this.examRepository.Add(result.Value);
