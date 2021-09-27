@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Shared;
+using QuizTopics.Candidate.Application.Exams.Commands;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {
@@ -20,17 +21,17 @@ namespace QuizTopics.Candidate.API.Exams.Create
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateExam([FromBody] CreateExamModel model)
+        public async Task<ActionResult<ExamDto>> CreateExam([FromBody] CreateExamModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var response = await this.mediator.Send(model.AsCommand());
+            var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
             if (response.Success)
             {
-                return this.Ok();
+                return this.Ok(response.Value.GetValue());
             }
 
             return this.BadRequest(response.ResultOperation.ToString());

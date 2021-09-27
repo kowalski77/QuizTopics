@@ -8,7 +8,7 @@ using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {
-    public class CreateQuizCommandHandler : ICommandHandler<CreateQuizCommand>
+    public class CreateQuizCommandHandler : ICommandHandler<CreateQuizCommand, IResultModel>
     {
         private readonly IRepository<Quiz> quizRepository;
 

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
+using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.Optional;
 using QuizDesigner.Common.ResultModels;
 using QuizDesigner.Common.Results;
-using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Domain.Exams;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
 {
-    public class SelectExamQuestionCommandHandler : IRequestHandler<SelectExamQuestionCommand, IResultModel<Maybe<ExamQuestionDto>>>
+    public class SelectExamQuestionCommandHandler : ICommandHandler<SelectExamQuestionCommand, IResultModel<Maybe<ExamQuestionDto>>>
     {
         private readonly IExamRepository examRepository;
 

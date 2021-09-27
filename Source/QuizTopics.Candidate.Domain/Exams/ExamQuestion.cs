@@ -9,7 +9,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 {
     public sealed class ExamQuestion : Entity
     {
-        private readonly List<ExamAnswer> answerCollection;
+        private readonly List<ExamAnswer> answerCollection = new();
 
         private ExamQuestion() { }
 

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Mediator;
+using QuizDesigner.Common.Optional;
 using QuizDesigner.Common.ResultModels;
 using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.Exams;
@@ -10,7 +11,7 @@ using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {
-    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand>
+    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<Maybe<ExamDto>>>
     {
         private readonly IExamService examService;
         private readonly IRepository<Exam> examRepository;
@@ -23,7 +24,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             this.quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }
 
-        public async Task<IResultModel> Handle(CreateExamCommand request, CancellationToken cancellationToken)
+        public async Task<IResultModel<Maybe<ExamDto>>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -33,20 +34,22 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             var maybeQuiz = await this.quizRepository.GetAsync(request.QuizId, cancellationToken).ConfigureAwait(false);
             if (!maybeQuiz.TryGetValue(out var quiz))
             {
-                return ResultModel.Fail(ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.QuizId), $"quiz with id: {request.QuizId} not found")));
+                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.QuizId), $"quiz with id: {request.QuizId} not found"));
+
+                return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
             }
 
             var result = await this.examService.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
-                return ResultModel.Fail(ResultOperation.Fail(ResultCode.BadRequest, result));
+                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, result);
+                return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
             }
 
-            this.examRepository.Add(result.Value);
+            var exam = this.examRepository.Add(result.Value);
             await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
 
-            // TODO: return an exam dto
-            return ResultModel.Ok();
+            return ResultModel.Ok((Maybe<ExamDto>)exam.AsExamDto());
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using QuizDesigner.Common.Results.Extensions;
 using QuizDesigner.Shared;
 
 namespace QuizTopics.Candidate.API.Exams.Create
@@ -8,7 +7,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
     {
         public CreateExamModelValidator()
         {
-            this.RuleFor(x => x.UserEmail.EnsureValidEmailAddress());
+            this.RuleFor(x => x.UserEmail).NotEmpty().EmailAddress();
         }
     }
 }

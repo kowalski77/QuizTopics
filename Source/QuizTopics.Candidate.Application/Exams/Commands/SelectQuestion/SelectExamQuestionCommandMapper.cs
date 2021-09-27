@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Domain.Exams;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion

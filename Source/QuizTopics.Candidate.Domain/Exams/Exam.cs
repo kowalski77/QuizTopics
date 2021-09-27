@@ -9,7 +9,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 {
     public class Exam : Entity, IAggregateRoot
     {
-        private readonly List<ExamQuestion> questions;
+        private readonly List<ExamQuestion> questions = new();
 
         private Exam() { }
 
@@ -36,7 +36,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public Maybe<ExamQuestion> GetFirstAvailableExamQuestion()
         {
-            return this.questions.FirstOrDefault(x => x.Answered)!;
+            return this.questions.FirstOrDefault(x => !x.Answered)!;
         }
     }
 }

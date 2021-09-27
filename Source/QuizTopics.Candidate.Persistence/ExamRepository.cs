@@ -20,7 +20,7 @@ namespace QuizTopics.Candidate.Persistence
         public async Task<Maybe<Exam>> GetExamByQuizAndCandidateAsync(string quizName, string candidate, CancellationToken cancellationToken = default)
         {
             var exam = await this.context.Exams!
-                .Include(x => x.QuizName)
+                .Include(x => x.QuestionsCollection)
                 .FirstOrDefaultAsync(x => x.QuizName == quizName && x.Candidate == candidate, cancellationToken);
 
             return exam;

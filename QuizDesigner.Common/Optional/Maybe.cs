@@ -36,6 +36,23 @@ namespace QuizDesigner.Common.Optional
             return false;
         }
 
+        public T GetValue()
+        {
+            if (this.hasValue)
+            {
+                return this.value;
+            }
+
+            throw new InvalidOperationException($"Value of {typeof(T).FullName} is null");
+        }
+
+        public T ValueOr(T defaultValue)
+        {
+            return this.hasValue ?
+                this.value :
+                defaultValue;
+        }
+
         public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> convert)
             where TResult : class
         {
