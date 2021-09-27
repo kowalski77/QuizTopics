@@ -3,8 +3,10 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Common.Api;
+using QuizTopics.Candidate.Application.Exams.Commands;
 using QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion
@@ -21,6 +23,8 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
         }
 
         [HttpGet("{examId:guid}/selectExamQuestion")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExamQuestionDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
         public async Task<IActionResult> SelectExamQuestion(Guid examId)
         {
             if (examId == Guid.Empty)
