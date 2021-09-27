@@ -9,7 +9,7 @@ namespace QuizDesigner.Common.ResultModels
 
         public ResultModel(
             T value,
-            Error error) : base(error)
+            Error? error) : base(error)
         {
             this.value = value;
         }

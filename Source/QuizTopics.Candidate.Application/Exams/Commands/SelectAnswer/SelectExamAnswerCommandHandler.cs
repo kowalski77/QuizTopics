@@ -24,30 +24,42 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectAnswer
                 throw new ArgumentNullException(nameof(request));
             }
 
+            var resultModel = ResultModel.Init();
+
             var maybeExam = await this.examRepository.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
             if (!maybeExam.TryGetValue(out var exam))
             {
-                return ResultModel.Fail(GeneralErrors.NotFound(request.ExamId));
+                resultModel = ResultModel.Fail(GeneralErrors.NotFound(request.ExamId));
             }
 
-            var maybeQuestion = exam.GetQuestion(request.QuestionId);
-            if (!maybeQuestion.TryGetValue(out var question))
+            await resultModel.OnSuccess(() =>
             {
-                return ResultModel.Fail(GeneralErrors.NotFound(request.QuestionId));
-            }
+                var maybeQuestion = exam.GetQuestion(request.QuestionId);
+                if (!maybeQuestion.TryGetValue(out var question))
+                {
+                    resultModel = ResultModel.Fail(GeneralErrors.NotFound(request.QuestionId));
+                }
 
-            var result = question.CanSelectAnswer(request.AnswerId);
-            if (!result.Success)
-            {
-                return ResultModel.Fail(result.Error!);
-            }
+                return question;
+            })
+                .OnSuccess(async question =>
+                {
+                    var result = question.CanSelectAnswer(request.AnswerId);
+                    if (!result.Success)
+                    {
+                        return ResultModel.Fail(result.Error!);
+                    }
 
-            question.SelectAnswer(request.AnswerId);
-            question.SetAsAnswered();
+                    question.SelectAnswer(request.AnswerId);
+                    question.SetAsAnswered();
 
-            await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
+                    await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
 
-            return ResultModel.Ok();
+                    return ResultModel.Ok();
+                })
+                .ConfigureAwait(false);
+
+            return resultModel;
         }
     }
 }
