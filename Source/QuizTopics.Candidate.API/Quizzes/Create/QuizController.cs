@@ -4,14 +4,15 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuizDesigner.Common.Api;
 using QuizDesigner.Shared;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {
     //TODO: use gRPC for internal calls
-    [ApiController, Route("api/v1/[controller]"), Authorize]
+    [Route("api/v1/[controller]"), Authorize]
     [Produces(MediaTypeNames.Application.Json), Consumes(MediaTypeNames.Application.Json)]
-    public class QuizController : ControllerBase
+    public class QuizController : ApplicationController
     {
         private readonly IMediator mediator;
 
@@ -29,12 +30,10 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
             }
 
             var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
-            if (response.Success)
-            {
-                return this.NoContent();
-            }
 
-            return this.BadRequest(response.Error);
+            return response.Success ? 
+                this.NoContent() : 
+                this.Error(response.Error);
         }
     }
 }

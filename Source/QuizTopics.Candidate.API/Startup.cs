@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.API.Exams.Create;
 using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Domain;
@@ -44,6 +45,10 @@ namespace QuizTopics.Candidate.API
             });
 
             services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState;
+                })
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateExamModelValidator>());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

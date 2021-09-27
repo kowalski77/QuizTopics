@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Candidate.Application.Exams.Commands;
+using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 {
-    [ApiController, Route("api/v1/[controller]"), Authorize]
+    [Route("api/v1/[controller]"), Authorize]
     [Produces(MediaTypeNames.Application.Json), Consumes(MediaTypeNames.Application.Json)]
-    public class ExamController : ControllerBase
+    public class ExamController : ApplicationController
     {
         private readonly IMediator mediator;
 
@@ -21,7 +21,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
         }
 
         [HttpGet("{examId:guid}/selectExamQuestion")]
-        public async Task<ActionResult<ExamQuestionDto>> SelectExamQuestion(Guid examId)
+        public async Task<IActionResult> SelectExamQuestion(Guid examId)
         {
             if (examId == Guid.Empty)
             {
@@ -29,12 +29,10 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
             }
 
             var response = await this.mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
-            if (!response.Success)
-            {
-                return this.BadRequest(response.Error);
-            }
 
-            return this.Ok(response.Value);
+            return response.Success ? 
+                this.Ok(response.Value) : 
+                this.Error(response.Error);
         }
     }
 }
