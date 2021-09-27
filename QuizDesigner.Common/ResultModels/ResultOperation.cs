@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using QuizDesigner.Common.Results;
 
 namespace QuizDesigner.Common.ResultModels
 {
-    //TODO: get rid of Result class?
     public sealed class ResultOperation
     {
         private readonly ResultCode code;
@@ -17,40 +15,30 @@ namespace QuizDesigner.Common.ResultModels
 
         private ResultOperation(
             ResultCode code,
-            IReadOnlyList<Result> results) : this(code)
+            IReadOnlyList<string> results) : this(code)
         {
-            if (results == null)
-            {
-                throw new ArgumentNullException(nameof(results));
-            }
-
-            this.ValidationErrors = results.Select(x =>
-                new ResultError(x.Field, x.Error))
-                .ToList();
+            this.ValidationErrors = results ?? throw new ArgumentNullException(nameof(results));
         }
 
         private ResultOperation(
             ResultCode code,
-            Result result) : this(code)
+            string result) : this(code)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            this.ValidationErrors = new[]
-            {
-                new ResultError(result.Field, result.Error)
-            };
+            this.ValidationErrors = new[] { result };
         }
 
-        public IReadOnlyList<ResultError> ValidationErrors { get; } = new List<ResultError>();
+        public IReadOnlyList<string> ValidationErrors { get; } = new List<string>();
 
         public static ResultOperation Ok => new(ResultCode.Ok);
 
-        public static ResultOperation Fail(ResultCode resultCode, Result result) => new(resultCode, result);
+        public static ResultOperation Fail(ResultCode resultCode, string result) => new(resultCode, result);
 
-        public static ResultOperation Fail(ResultCode resultCode, IReadOnlyList<Result> resultCollection) => new(resultCode, resultCollection);
+        public static ResultOperation Fail(ResultCode resultCode, IReadOnlyList<string> resultCollection) => new(resultCode, resultCollection);
 
         public override string ToString()
         {

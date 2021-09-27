@@ -34,7 +34,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             var maybeQuiz = await this.quizRepository.GetAsync(request.QuizId, cancellationToken).ConfigureAwait(false);
             if (!maybeQuiz.TryGetValue(out var quiz))
             {
-                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, Result.Fail(nameof(request.QuizId), $"quiz with id: {request.QuizId} not found"));
+                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, $"Quiz with id: {request.QuizId} not found");
 
                 return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
             }
@@ -42,7 +42,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             var result = await this.examService.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
-                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, result);
+                var resultOperation = ResultOperation.Fail(ResultCode.BadRequest, result.Error);
                 return ResultModel.Fail(Maybe<ExamDto>.None, resultOperation);
             }
 
