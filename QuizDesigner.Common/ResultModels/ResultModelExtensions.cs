@@ -7,12 +7,9 @@ namespace QuizDesigner.Common.ResultModels
     {
         public static async Task<IResultModel<T>> OnSuccess<T>(this IResultModel resultModel, Func<Task<IResultModel<T>>> func)
         {
-            if (!resultModel.Success)
-            {
-                return ResultModel.Fail<T>(resultModel.Error);
-            }
-
-            return await func();
+            return resultModel.Success ?
+                await func() :
+                ResultModel.Fail<T>(resultModel.Error);
         }
 
         public static async Task<IResultModel<TR>> OnSuccess<T, TR>(this Task<IResultModel<T>> resultModel, Func<T, IResultModel<TR>> func)
@@ -29,8 +26,17 @@ namespace QuizDesigner.Common.ResultModels
             var awaitedResultModel = await resultModel;
 
             return awaitedResultModel.Success ?
-                ResultModel.Ok(await func(awaitedResultModel.Value)) :
+                await func(awaitedResultModel.Value) :
                 ResultModel.Fail(awaitedResultModel.Error);
+        }
+
+        public static async Task<IResultModel<TR>> OnSuccess<T, TR>(this Task<IResultModel<T>> resultModel, Func<T, Task<IResultModel<TR>>> func)
+        {
+            var awaitedResultModel = await resultModel;
+
+            return awaitedResultModel.Success ?
+                await func(awaitedResultModel.Value) :
+                ResultModel.Fail<TR>(awaitedResultModel.Error);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
 
             var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
-            return response.Success ? this.Ok(response.Value.GetValue()) : this.Error(response.Error);
+            return response.Success ? this.Ok(response.Value) : this.Error(response.Error);
         }
     }
 }

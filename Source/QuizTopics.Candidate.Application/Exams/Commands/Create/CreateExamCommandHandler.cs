@@ -4,14 +4,13 @@ using System.Threading.Tasks;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Errors;
 using QuizDesigner.Common.Mediator;
-using QuizDesigner.Common.Optional;
 using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.Exams;
 using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {
-    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<Maybe<ExamDto>>>
+    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<ExamDto>>
     {
         private readonly IExamService examService;
         private readonly IRepository<Exam> examRepository;
@@ -24,29 +23,42 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             this.quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }
 
-        public async Task<IResultModel<Maybe<ExamDto>>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
+        public async Task<IResultModel<ExamDto>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var maybeQuiz = await this.quizRepository.GetAsync(request.QuizId, cancellationToken).ConfigureAwait(false);
-            if (!maybeQuiz.TryGetValue(out var quiz))
-            {
-                return ResultModel.Fail(Maybe<ExamDto>.None, GeneralErrors.NotFound(request.QuizId));
-            }
+            var resultModel = await ResultModel.Init()
+                .OnSuccess(async () => await this.GetQuizAsync(request.QuizId, cancellationToken).ConfigureAwait(false))
+                .OnSuccess(async quiz => await this.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false))
+                .ConfigureAwait(false);
 
-            var result = await this.examService.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false);
+            return resultModel;
+        }
+
+        private async Task<IResultModel<Quiz>> GetQuizAsync(Guid quizId, CancellationToken cancellationToken)
+        {
+            var maybeQuiz = await this.quizRepository.GetAsync(quizId, cancellationToken).ConfigureAwait(false);
+
+            return !maybeQuiz.TryGetValue(out var quiz) ? 
+                ResultModel.Ok(quiz) :
+                ResultModel.Fail<Quiz>(GeneralErrors.NotFound(quizId)) ;
+        }
+
+        private async Task<IResultModel<ExamDto>> CreateExamAsync(Quiz quiz, string userEmail, CancellationToken cancellationToken)
+        {
+            var result = await this.examService.CreateExamAsync(quiz, userEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
-                return ResultModel.Fail(Maybe<ExamDto>.None, result.Error!);
+                return ResultModel.Fail<ExamDto>(result.Error);
             }
 
             var exam = this.examRepository.Add(result.Value);
             await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
 
-            return ResultModel.Ok((Maybe<ExamDto>)exam.AsExamDto());
+            return ResultModel.Ok(exam.AsExamDto());
         }
     }
 }
