@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace QuizDesigner.Common.DatabaseContext
+namespace QuizDesigner.Common.Database
 {
     public interface IDbContext
     {

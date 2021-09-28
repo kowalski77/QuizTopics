@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
-using QuizDesigner.Common.DatabaseContext;
+using QuizDesigner.Common.Database;
 
 namespace QuizDesigner.Common.DomainDriven
 {

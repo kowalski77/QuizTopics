@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace QuizDesigner.Common.DatabaseContext
+namespace QuizDesigner.Common.Database
 {
     public static class DatabaseStartUpExtensions
     {
