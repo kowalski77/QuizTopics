@@ -24,15 +24,30 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var maybeExam = await this.examRepository.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
-            if (!maybeExam.TryGetValue(out var exam))
-            {
-                return ResultModel.Fail(new ExamQuestionDto(), GeneralErrors.NotFound(request.ExamId));
-            }
+            var resultModel = await ResultModel.Init()
+                .OnSuccess(async () => await this.GetExamAsync(request, cancellationToken).ConfigureAwait(false))
+                .OnSuccess(SelectAvailableQuestion)
+                .ConfigureAwait(false);
 
+            return resultModel;
+        }
+
+        private async Task<IResultModel<Exam>> GetExamAsync(SelectExamQuestionCommand request, CancellationToken cancellationToken)
+        {
+            var maybeExam = await this.examRepository.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
+
+            return !maybeExam.TryGetValue(out var exam) ? 
+                ResultModel.Fail<Exam>(GeneralErrors.NotFound(request.ExamId)) : 
+                ResultModel.Ok(exam);
+        }
+
+        private static IResultModel<ExamQuestionDto> SelectAvailableQuestion(Exam exam)
+        {
             var maybeQuestion = exam.GetFirstAvailableQuestion();
+
             var maybeExamQuestionDto = maybeQuestion.Bind<ExamQuestionDto>(examQuestion =>
-                examQuestion.AsExamQuestionDto()).ValueOr(new ExamQuestionDto());
+                    examQuestion.AsExamQuestionDto())
+                .ValueOr(ExamQuestionDto.None);
 
             return ResultModel.Ok(maybeExamQuestionDto);
         }

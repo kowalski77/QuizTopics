@@ -8,9 +8,11 @@ namespace QuizTopics.Candidate.Application.Exams.Commands
 
     public sealed record ExamQuestionDto(Guid Id, string Text, Difficulty Difficulty, bool Answered, IEnumerable<ExamAnswerDto> ExamAnswersCollection)
     {
-        public ExamQuestionDto() : this(Guid.Empty, string.Empty, Difficulty.Unknown, false, new List<ExamAnswerDto>())
+        private ExamQuestionDto() : this(Guid.Empty, string.Empty, Difficulty.Unknown, false, new List<ExamAnswerDto>())
         {
         }
+
+        public static ExamQuestionDto None => new();
     }
 
     public sealed record ExamAnswerDto(Guid Id, string Text);
