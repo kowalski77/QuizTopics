@@ -4,15 +4,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QuizTopics.Candidate.Application.Quizzes.Queries;
+using QuizTopics.Candidate.Application.Exams.Queries;
 
 namespace QuizTopics.Candidate.Persistence
 {
-    public sealed class QuizProvider : IQuizProvider
+    public class ExamProvider : IExamProvider
     {
         private readonly QuizTopicsContext context;
 
-        public QuizProvider(QuizTopicsContext context)
+        public ExamProvider(QuizTopicsContext context)
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
 
@@ -20,10 +20,10 @@ namespace QuizTopics.Candidate.Persistence
             this.context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        public async Task<IEnumerable<QuizDto>> GetQuizCollectionAsync(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<ExamDto>> GetExamCollectionAsync(CancellationToken cancellationToken = default)
         {
-            return await this.context.Quizzes!
-                .Select(x => new QuizDto(x.Id, x.Name, x.Category))
+            return await this.context.Exams!
+                .Select(x => new ExamDto(x.Id, x.QuizName, x.Candidate))
                 .ToListAsync(cancellationToken);
         }
     }
