@@ -34,9 +34,9 @@ namespace QuizTopics.Candidate.API.Exams.Create
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var response = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
+            var resultModel = await this.mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
-            return response.Success ? this.Ok(response.Value) : this.Error(response.Error);
+            return this.FromResultModel(resultModel);
         }
     }
 }

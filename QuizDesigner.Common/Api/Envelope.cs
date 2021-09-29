@@ -24,7 +24,7 @@ namespace QuizDesigner.Common.Api
 
         public DateTime TimeGenerated { get; }
 
-        public static Envelope Ok(object? result = null)
+        public static Envelope Ok(object? result)
         {
             return new Envelope(result, null, null);
         }

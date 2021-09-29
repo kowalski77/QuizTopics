@@ -32,11 +32,9 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
                 throw new ArgumentException("Exam id is an empty guid", nameof(examId));
             }
 
-            var response = await this.mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
+            var resultModel = await this.mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
 
-            return response.Success ? 
-                this.Ok(response.Value) : 
-                this.Error(response.Error);
+            return this.FromResultModel(resultModel);
         }
     }
 }

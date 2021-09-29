@@ -33,7 +33,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
 
             return response.Success ? 
                 this.NoContent() : 
-                this.Error(response.Error);
+                this.Error(response.Error, null);
         }
     }
 }

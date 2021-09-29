@@ -28,11 +28,9 @@ namespace QuizTopics.Candidate.API.Exams.SelectAnswer
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var response = await this.mediator.Send(model.AsCommand(examId)).ConfigureAwait(false);
+            var resultModel = await this.mediator.Send(model.AsCommand(examId)).ConfigureAwait(false);
 
-            return response.Success ? 
-                this.Ok() : 
-                this.Error(response.Error);
+            return this.FromResultModel(resultModel);
         }
     }
 }
