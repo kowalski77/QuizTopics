@@ -6,14 +6,14 @@ namespace QuizTopics.Candidate.API.Exams.SelectAnswer
 {
     public static class SelectExamAnswerMapper
     {
-        public static SelectExamAnswerCommand AsCommand(this SelectExamAnswerModel model, Guid ExamId)
+        public static SelectExamAnswerCommand AsCommand(this SelectExamAnswerModel model, Guid examId)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return new SelectExamAnswerCommand(ExamId, model.QuestionId, model.AnswerId);
+            return new SelectExamAnswerCommand(examId, model.QuestionId, model.AnswerId);
         }
     }
 }
