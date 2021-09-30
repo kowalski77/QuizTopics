@@ -26,15 +26,17 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Finish
 
             var resultModel = await ResultModel.Init()
                 .OnSuccess(async () => await this.GetExamAsync(request.ExamId, cancellationToken).ConfigureAwait(false))
-                .OnSuccess(exam =>
-                {
-                    exam.Finish(DateTime.UtcNow);
-                    exam.Summarize();
-                })
+                .OnSuccess(FinishExam)
                 .OnSuccess(async () => await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return resultModel;
+        }
+
+        private static void FinishExam(Exam exam)
+        {
+            exam.Finish(DateTime.UtcNow);
+            exam.Summarize();
         }
 
         private async Task<IResultModel<Exam>> GetExamAsync(Guid examId, CancellationToken cancellationToken)
