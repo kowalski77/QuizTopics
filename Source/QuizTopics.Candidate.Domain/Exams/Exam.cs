@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
+using QuizDesigner.Common.Results;
 
 namespace QuizTopics.Candidate.Domain.Exams
 {
@@ -54,8 +55,20 @@ namespace QuizTopics.Candidate.Domain.Exams
             this.FinishedAt = finishedAt;
         }
 
+        public Result CanSummarize()
+        {
+            return this.FinishedAt == null ? 
+                Result.Fail(ExamErrors.ExamNotFinishedYet(this.Id)) : 
+                Result.Ok();
+        }
+
         public void Summarize()
         {
+            if (!this.CanSummarize().Success)
+            {
+                throw new InvalidOperationException($"Exam with id: {this.Id} is not finished yet");
+            }
+
             this.ExamSummary = new ExamSummary(this.questionsCollection);
             this.ExamSummary.Calculate();
         }

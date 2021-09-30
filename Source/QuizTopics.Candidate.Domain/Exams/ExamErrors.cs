@@ -13,5 +13,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public static Error AnswerDoesNotExists(Guid id) => 
             new("answer.not.exists", $"Answer with id: {id} does not exists");
+
+        public static Error ExamNotFinishedYet(Guid id) => new("exam.not.finished", $"Exam with id: {id} is not finished yet");
     }
 }

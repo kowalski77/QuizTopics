@@ -18,4 +18,6 @@ namespace QuizTopics.Candidate.Application.Exams
     }
 
     public sealed record ExamAnswerDto(Guid Id, string Text);
+
+    public sealed record ExamResultDto();
 }
