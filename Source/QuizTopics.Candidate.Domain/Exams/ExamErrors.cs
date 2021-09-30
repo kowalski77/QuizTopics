@@ -13,5 +13,8 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public static Error AnswerDoesNotExists(Guid id) => 
             new("answer.not.exists", $"Answer with id: {id} does not exists");
+
+        public static Error QuestionAlreadyAnswered(Guid id) =>
+            new("question.already.answered", $"Question with id: {id} already answered");
     }
 }

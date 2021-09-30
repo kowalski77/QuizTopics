@@ -8,6 +8,7 @@ using QuizTopics.Candidate.Domain.Exams;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
 {
+    // TODO: to queries?
     public class SelectExamQuestionCommandHandler : ICommandHandler<SelectExamQuestionCommand, IResultModel<ExamQuestionDto>>
     {
         private readonly IExamRepository examRepository;

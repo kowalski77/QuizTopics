@@ -57,9 +57,14 @@ namespace QuizTopics.Candidate.Domain.Exams
         {
             var answerExists = this.answersCollection.Any(x => x.Id == answerId);
 
-            return answerExists ? 
-                Result.Ok() : 
-                Result.Fail(ExamErrors.AnswerDoesNotExists(answerId));
+            var result = (answerExists, this.Answered) switch
+            {
+                (false, _ ) =>  Result.Fail(ExamErrors.AnswerDoesNotExists(answerId)),
+                (_, true) => Result.Fail(ExamErrors.QuestionAlreadyAnswered(this.Id)),
+                _ => Result.Ok()
+            };
+
+            return result;
         }
 
         public void SelectAnswer(Guid answerId)
