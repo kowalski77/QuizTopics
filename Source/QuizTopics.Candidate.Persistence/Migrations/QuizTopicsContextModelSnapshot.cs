@@ -33,6 +33,9 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("QuizName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

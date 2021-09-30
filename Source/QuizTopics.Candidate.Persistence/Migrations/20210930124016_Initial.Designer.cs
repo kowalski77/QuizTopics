@@ -10,7 +10,7 @@ using QuizTopics.Candidate.Persistence;
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
     [DbContext(typeof(QuizTopicsContext))]
-    [Migration("20210926193729_Initial")]
+    [Migration("20210930124016_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("QuizName")

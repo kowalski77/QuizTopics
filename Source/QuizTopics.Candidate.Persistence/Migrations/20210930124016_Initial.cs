@@ -15,6 +15,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     QuizName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Candidate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FinishedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     SoftDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
