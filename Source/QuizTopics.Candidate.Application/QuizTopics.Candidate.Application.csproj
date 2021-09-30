@@ -16,9 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Exams\Commands\Finish\" />
     <Folder Include="Exams\Commands\SetFailedQuestion\" />
     <Folder Include="Exams\Commands\SelectAnswer\" />
-    <Folder Include="Exams\Queries\GetExamResult\" />
   </ItemGroup>
 
 </Project>

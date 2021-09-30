@@ -6,18 +6,18 @@ using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.Exams;
 
-namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
+namespace QuizTopics.Candidate.Application.Exams.Commands.Finish
 {
-    public class SelectExamQuestionCommandHandler : ICommandHandler<SelectExamQuestionCommand, IResultModel<ExamQuestionDto>>
+    public class FinishExamCommandHandler : ICommandHandler<FinishExamCommand, IResultModel>
     {
         private readonly IExamRepository examRepository;
 
-        public SelectExamQuestionCommandHandler(IExamRepository examRepository)
+        public FinishExamCommandHandler(IExamRepository examRepository)
         {
             this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
         }
 
-        public async Task<IResultModel<ExamQuestionDto>> Handle(SelectExamQuestionCommand request, CancellationToken cancellationToken)
+        public async Task<IResultModel> Handle(FinishExamCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -26,10 +26,18 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
 
             var resultModel = await ResultModel.Init()
                 .OnSuccess(async () => await this.GetExamAsync(request.ExamId, cancellationToken).ConfigureAwait(false))
-                .OnSuccess(SelectAvailableQuestion)
+                .OnSuccess(async exam => await this.FinishExamAsync(exam, cancellationToken).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return resultModel;
+        }
+
+        private async Task<IResultModel> FinishExamAsync(Exam exam, CancellationToken cancellationToken)
+        {
+            exam.Finish(DateTime.UtcNow);
+            await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
+
+            return ResultModel.Ok();
         }
 
         private async Task<IResultModel<Exam>> GetExamAsync(Guid examId, CancellationToken cancellationToken)
@@ -39,17 +47,6 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
             return !maybeExam.TryGetValue(out var exam) ? 
                 ResultModel.Fail<Exam>(GeneralErrors.NotFound(examId)) : 
                 ResultModel.Ok(exam);
-        }
-
-        private static IResultModel<ExamQuestionDto> SelectAvailableQuestion(Exam exam)
-        {
-            var maybeQuestion = exam.GetFirstAvailableQuestion();
-
-            var maybeExamQuestionDto = maybeQuestion.Bind<ExamQuestionDto>(examQuestion =>
-                    examQuestion.AsExamQuestionDto())
-                .ValueOr(ExamQuestionDto.None);
-
-            return ResultModel.Ok(maybeExamQuestionDto);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         private Exam() { }
 
-        public Exam(string quizName, string candidate, DateTime createdAt, IEnumerable<ExamQuestion> questions)
+        public Exam(string quizName, string candidate, 
+            DateTime createdAt, IEnumerable<ExamQuestion> questions)
         {
             if (string.IsNullOrEmpty(quizName))
             {
@@ -32,6 +33,10 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public DateTime CreatedAt { get; private set; }
 
+        public DateTime? FinishedAt { get; private set; }
+
+        public ExamSummary? ExamSummary { get; private set; }
+
         public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questionsCollection;
 
         public Maybe<ExamQuestion> GetFirstAvailableQuestion()
@@ -42,6 +47,17 @@ namespace QuizTopics.Candidate.Domain.Exams
         public Maybe<ExamQuestion> GetQuestion(Guid id)
         {
             return this.questionsCollection.FirstOrDefault(x => x.Id == id)!;
+        }
+
+        public void Finish(DateTime finishedAt)
+        {
+            this.FinishedAt = finishedAt;
+        }
+
+        public void Summarize()
+        {
+            this.ExamSummary = new ExamSummary(this.questionsCollection);
+            this.ExamSummary.Calculate();
         }
     }
 }
