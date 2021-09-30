@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace QuizTopics.Candidate.Application.Exams.Queries
+namespace QuizTopics.Candidate.Application.Exams.Queries.GetExams
 {
     public sealed class GetExamsRequestHandler : IRequestHandler<GetExamsRequest, IReadOnlyList<ExamDto>>
     {
