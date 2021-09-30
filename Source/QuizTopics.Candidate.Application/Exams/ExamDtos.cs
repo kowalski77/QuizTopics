@@ -17,7 +17,7 @@ namespace QuizTopics.Candidate.Application.Exams
         public static ExamQuestionDto None => new();
     }
 
-    public sealed record ExamAnswerDto(Guid Id, string Text);
+    public sealed record ExamAnswerDto(Guid Id, string Text, bool Selected);
 
-    public sealed record ExamResultDto();
+    public sealed record SummaryDto(Guid ExamId, IEnumerable<ExamQuestionDto> CorrectQuestionsCollection, IEnumerable<ExamQuestionDto> WrongQuestionsCollection, bool Passed);
 }

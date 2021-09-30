@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Exams\Finish\" />
+    <Folder Include="Exams\Summary\" />
     <Folder Include="Quizzes\Read\" />
     <Folder Include="Quizzes\Update\" />
   </ItemGroup>

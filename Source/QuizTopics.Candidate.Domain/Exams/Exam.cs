@@ -9,6 +9,8 @@ namespace QuizTopics.Candidate.Domain.Exams
 {
     public class Exam : Entity, IAggregateRoot
     {
+        private const int PercentageToPass = 70;
+
         private readonly List<ExamQuestion> questionsCollection = new();
 
         private Exam() { }
@@ -50,6 +52,27 @@ namespace QuizTopics.Candidate.Domain.Exams
         public void Finish(DateTime finishedAt)
         {
             this.FinishedAt = finishedAt;
+        }
+
+        public IEnumerable<ExamQuestion> GetCorrectQuestions()
+        {
+            return this.questionsCollection.Where(x => x.Answered && x.Answers.Any(y => y.Selected && y.IsCorrect));
+        }
+
+        public IEnumerable<ExamQuestion> GetWrongQuestions()
+        {
+            return this.questionsCollection.Where(x => !x.Answered || !x.Answers.Any(y => y.Selected && y.IsCorrect));
+        }
+
+        public bool IsExamPassed
+        {
+            get
+            {
+                var correctQuestionsCount = this.GetCorrectQuestions().Count();
+                var percentComplete = (int)Math.Round((double)(100 * correctQuestionsCount) / this.QuestionsCollection.Count);
+
+                return percentComplete >= PercentageToPass;
+            }
         }
     }
 }

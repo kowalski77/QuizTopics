@@ -21,7 +21,8 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
                 examQuestion.Answers.Select(x => 
                     new ExamAnswerDto(
                         x.Id, 
-                        x.Text)));
+                        x.Text,
+                        x.Selected)));
         }
     }
 }
