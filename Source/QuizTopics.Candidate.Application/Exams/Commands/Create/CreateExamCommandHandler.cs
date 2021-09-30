@@ -42,7 +42,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
         {
             var maybeQuiz = await this.quizRepository.GetAsync(quizId, cancellationToken).ConfigureAwait(false);
 
-            return !maybeQuiz.TryGetValue(out var quiz) ? 
+            return maybeQuiz.TryGetValue(out var quiz) ? 
                 ResultModel.Ok(quiz) :
                 ResultModel.Fail<Quiz>(GeneralErrors.NotFound(quizId)) ;
         }
