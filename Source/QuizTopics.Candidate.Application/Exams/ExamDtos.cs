@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using QuizTopics.Candidate.Domain.Quizzes;
 
-namespace QuizTopics.Candidate.Application.Exams.Commands
+namespace QuizTopics.Candidate.Application.Exams
 {
-    public sealed record ExamDto(Guid Id, string QuizName, int QuestionsNumber);
+    public sealed record ExamDto(Guid Id, string Name, string Candidate);
+
+    public sealed record CreateExamDto(Guid Id, string QuizName, int QuestionsNumber);
 
     public sealed record ExamQuestionDto(Guid Id, string Text, Difficulty Difficulty, bool Answered, IEnumerable<ExamAnswerDto> ExamAnswersCollection)
     {

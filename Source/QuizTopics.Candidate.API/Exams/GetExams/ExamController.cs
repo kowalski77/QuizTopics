@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Common.Api;
-using QuizTopics.Candidate.Application.Exams.Queries;
+using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.GetExams;
-using ExamDto = QuizTopics.Candidate.Application.Exams.Commands.ExamDto;
 
 namespace QuizTopics.Candidate.API.Exams.GetExams
 {

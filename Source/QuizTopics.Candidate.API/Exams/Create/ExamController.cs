@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Common.Api;
 using QuizDesigner.Shared;
-using QuizTopics.Candidate.Application.Exams.Commands;
+using QuizTopics.Candidate.Application.Exams;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {
@@ -25,7 +25,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExamDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateExamDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
         public async Task<IActionResult> CreateExam([FromBody] CreateExamModel model)
         {

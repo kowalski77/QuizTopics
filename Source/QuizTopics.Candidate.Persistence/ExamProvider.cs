@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries;
 
 namespace QuizTopics.Candidate.Persistence

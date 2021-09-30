@@ -10,7 +10,7 @@ using QuizTopics.Candidate.Domain.Quizzes;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {
-    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<ExamDto>>
+    public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<CreateExamDto>>
     {
         private readonly IExamService examService;
         private readonly IRepository<Exam> examRepository;
@@ -23,7 +23,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
             this.quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }
 
-        public async Task<IResultModel<ExamDto>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
+        public async Task<IResultModel<CreateExamDto>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
@@ -47,12 +47,12 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
                 ResultModel.Fail<Quiz>(GeneralErrors.NotFound(quizId)) ;
         }
 
-        private async Task<IResultModel<ExamDto>> CreateExamAsync(Quiz quiz, string userEmail, CancellationToken cancellationToken)
+        private async Task<IResultModel<CreateExamDto>> CreateExamAsync(Quiz quiz, string userEmail, CancellationToken cancellationToken)
         {
             var result = await this.examService.CreateExamAsync(quiz, userEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
-                return ResultModel.Fail<ExamDto>(result.Error);
+                return ResultModel.Fail<CreateExamDto>(result.Error);
             }
 
             var exam = this.examRepository.Add(result.Value);
