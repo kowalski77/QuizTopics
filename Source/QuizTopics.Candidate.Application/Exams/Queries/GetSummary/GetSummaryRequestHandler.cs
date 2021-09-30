@@ -26,7 +26,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.GetSummary
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var maybeExam = await this.examProvider.GetExamAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
+            var maybeExam = await this.examProvider.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
             if (!maybeExam.TryGetValue(out var exam))
             {
                 return ResultModel.Fail<SummaryDto>(GeneralErrors.NotFound(request.ExamId));

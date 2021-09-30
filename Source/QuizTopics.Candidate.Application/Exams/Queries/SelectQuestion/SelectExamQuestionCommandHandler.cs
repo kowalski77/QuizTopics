@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using MediatR;
 using QuizDesigner.Common.Errors;
-using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.Exams;
 
-namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
+namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {
-    // TODO: to queries?
-    public class SelectExamQuestionCommandHandler : ICommandHandler<SelectExamQuestionCommand, IResultModel<ExamQuestionDto>>
+    public class SelectExamQuestionCommandHandler : IRequestHandler<SelectExamQuestionCommand, IResultModel<ExamQuestionDto>>
     {
-        private readonly IExamRepository examRepository;
+        private readonly IExamProvider examProvider;
 
-        public SelectExamQuestionCommandHandler(IExamRepository examRepository)
+        public SelectExamQuestionCommandHandler(IExamProvider examProvider)
         {
-            this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
+            this.examProvider = examProvider ?? throw new ArgumentNullException(nameof(examProvider));
         }
 
         public async Task<IResultModel<ExamQuestionDto>> Handle(SelectExamQuestionCommand request, CancellationToken cancellationToken)
@@ -35,7 +34,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
 
         private async Task<IResultModel<Exam>> GetExamAsync(Guid examId, CancellationToken cancellationToken)
         {
-            var maybeExam = await this.examRepository.GetAsync(examId, cancellationToken).ConfigureAwait(false);
+            var maybeExam = await this.examProvider.GetAsync(examId, cancellationToken).ConfigureAwait(false);
 
             return !maybeExam.TryGetValue(out var exam) ? 
                 ResultModel.Fail<Exam>(GeneralErrors.NotFound(examId)) : 

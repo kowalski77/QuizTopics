@@ -30,12 +30,13 @@ namespace QuizTopics.Candidate.Persistence
                 .ToListAsync(cancellationToken);
         }
 
-        public async Task<Maybe<Exam>> GetExamAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Maybe<Exam>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var exam = await this.context.Exams!
                 .Include(x => x.QuestionsCollection)
                 .ThenInclude(x => x.Answers)
-                .FirstOrDefaultAsync(cancellationToken);
+                .FirstOrDefaultAsync(x => x.Id == id, cancellationToken)
+                .ConfigureAwait(false);
 
             return exam;
         }

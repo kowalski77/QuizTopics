@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.Application.Exams;
-using QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion;
+using QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 {

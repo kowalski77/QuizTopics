@@ -11,6 +11,6 @@ namespace QuizTopics.Candidate.Application.Exams.Queries
     {
         Task<IReadOnlyList<ExamDto>> GetExamCollectionAsync(CancellationToken cancellationToken = default);
 
-        Task<Maybe<Exam>> GetExamAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<Maybe<Exam>> GetAsync(Guid id, CancellationToken cancellationToken = default);
     }
 }

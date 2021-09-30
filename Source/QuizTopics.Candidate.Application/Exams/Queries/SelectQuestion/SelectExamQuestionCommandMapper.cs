@@ -2,7 +2,7 @@
 using System.Linq;
 using QuizTopics.Candidate.Domain.Exams;
 
-namespace QuizTopics.Candidate.Application.Exams.Commands.SelectQuestion
+namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {
     public static class SelectExamQuestionCommandMapper
     {
