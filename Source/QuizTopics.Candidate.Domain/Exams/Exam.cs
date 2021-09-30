@@ -11,10 +11,7 @@ namespace QuizTopics.Candidate.Domain.Exams
     {
         private readonly List<ExamQuestion> questionsCollection = new();
 
-        private Exam()
-        {
-            this.Summary = new Summary(this.questionsCollection);
-        }
+        private Exam() { }
 
         public Exam(string quizName, string candidate, 
             DateTime createdAt, IEnumerable<ExamQuestion> questions)
@@ -40,7 +37,7 @@ namespace QuizTopics.Candidate.Domain.Exams
 
         public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questionsCollection;
 
-        public Summary Summary { get;  }
+        public Summary Summary => new(this.questionsCollection);
 
         public Maybe<ExamQuestion> GetFirstAvailableQuestion()
         {
