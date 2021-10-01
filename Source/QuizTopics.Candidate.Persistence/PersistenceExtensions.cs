@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using QuizDesigner.Common.Database;
 using QuizDesigner.Common.DomainDriven;
 using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
@@ -32,6 +33,8 @@ namespace QuizTopics.Candidate.Persistence
             services.AddDbContext<QuizTopicsContext>(options =>
                 options.UseSqlServer(connectionString, sqlOptions =>
                     sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null)));
+
+            services.AddScoped<IDbContext, QuizTopicsContext>();
         }
     }
 }

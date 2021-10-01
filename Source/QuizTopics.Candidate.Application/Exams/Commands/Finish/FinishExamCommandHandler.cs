@@ -26,11 +26,25 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Finish
 
             var resultModel = await ResultModel.Init()
                 .OnSuccess(async () => await this.GetExamAsync(request.ExamId, cancellationToken).ConfigureAwait(false))
-                .OnSuccess(exam => exam.Finish(DateTime.UtcNow))
+                .OnSuccess(exam => FinishExam(exam, DateTime.UtcNow))
                 .OnSuccess(async () => await this.examRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return resultModel;
+        }
+
+
+        private static IResultModel FinishExam(Exam exam, DateTime finishedAt)
+        {
+            var resultModel = exam.CanFinish();
+            if (resultModel.Failure)
+            {
+                return ResultModel.Fail(resultModel.Error);
+            }
+
+            exam.Finish(finishedAt);
+
+            return ResultModel.Ok();
         }
 
         private async Task<IResultModel<Exam>> GetExamAsync(Guid examId, CancellationToken cancellationToken)

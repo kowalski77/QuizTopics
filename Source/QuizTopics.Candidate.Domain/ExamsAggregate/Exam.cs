@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
+using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.ExamsAggregate.DomainEvents;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
@@ -50,11 +51,24 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             return this.questionsCollection.FirstOrDefault(x => x.Id == id)!;
         }
 
+        public Result CanFinish()
+        {
+            return this.FinishedAt == null ? 
+                Result.Ok() : 
+                Result.Fail(ExamErrors.ExamAlreadyFinished(this.Id));
+        }
+
         public void Finish(DateTime finishedAt)
         {
+            var result = this.CanFinish();
+            if (result.Failure)
+            {
+                throw new InvalidOperationException(result.Error?.Message);
+            }
+
             this.FinishedAt = finishedAt;
             
-            this.AddDomainEvent(new FinishedExamDomainEvent(this.Summary, finishedAt));
+            this.AddDomainEvent(new ExamFinishedDomainEvent(this.Summary, finishedAt));
         }
     }
 }

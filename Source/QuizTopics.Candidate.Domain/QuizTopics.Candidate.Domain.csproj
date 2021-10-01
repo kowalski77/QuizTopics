@@ -14,8 +14,4 @@
 	  <ProjectReference Include="..\..\QuizDesigner.Common\QuizDesigner.Common.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ExamsAggregate\DomainEvents\" />
-	</ItemGroup>
-
 </Project>
