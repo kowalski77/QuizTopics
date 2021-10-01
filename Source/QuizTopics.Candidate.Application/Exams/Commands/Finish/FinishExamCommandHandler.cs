@@ -33,7 +33,6 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Finish
             return resultModel;
         }
 
-
         private static IResultModel FinishExam(Exam exam, DateTime finishedAt)
         {
             var resultModel = exam.CanFinish();
