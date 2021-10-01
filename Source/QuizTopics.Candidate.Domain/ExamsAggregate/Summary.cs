@@ -8,21 +8,20 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
     {
         private const int PercentageToPass = 70;
 
-        private readonly IReadOnlyList<ExamQuestion> questionsCollection;
+        private readonly Exam exam;
 
-        public Summary(IReadOnlyList<ExamQuestion> questionsCollection)
+        public Summary(Exam exam)
         {
-            this.questionsCollection = questionsCollection ?? 
-                                       throw new ArgumentNullException(nameof(questionsCollection));
+            this.exam = exam ?? throw new ArgumentNullException(nameof(exam));
         }
 
         public IReadOnlyList<ExamQuestion> CorrectExamQuestions =>
-            this.questionsCollection
+            this.exam.QuestionsCollection
                 .Where(x => x.Answered && x.Answers.Any(y => y.Selected && y.IsCorrect))
                 .ToList();
 
         public IReadOnlyList<ExamQuestion> WrongExamQuestions => 
-            this.questionsCollection
+            this.exam.QuestionsCollection
                 .Where(x => !x.Answered || !x.Answers.Any(y => y.Selected && y.IsCorrect))
                 .ToList();
 
@@ -31,7 +30,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             get
             {
                 var correctQuestionsCount = this.CorrectExamQuestions.Count;
-                var percentComplete = (int)Math.Round((double)(100 * correctQuestionsCount) / this.questionsCollection.Count);
+                var percentComplete = (int)Math.Round((double)(100 * correctQuestionsCount) / this.exam.QuestionsCollection.Count);
 
                 return percentComplete >= PercentageToPass;
             }

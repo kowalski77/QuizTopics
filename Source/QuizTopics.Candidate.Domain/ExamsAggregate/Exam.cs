@@ -38,7 +38,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
         public IReadOnlyList<ExamQuestion> QuestionsCollection => this.questionsCollection;
 
-        public Summary Summary => new(this.questionsCollection);
+        public Summary Summary => new(this);
 
         public Maybe<ExamQuestion> GetFirstAvailableQuestion()
         {
