@@ -25,19 +25,20 @@ namespace QuizDesigner.Common.DomainDriven
 
         public bool HasActiveTransaction => this.currentTransaction != null;
 
-        public async Task<IDbContextTransaction> BeginTransactionAsync()
+        public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
             if (this.currentTransaction != null)
             {
                 throw new InvalidOperationException("There is already a transaction in progress.");
             }
 
-            this.currentTransaction = await this.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted).ConfigureAwait(false);
+            this.currentTransaction = await this.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken)
+                .ConfigureAwait(false);
 
             return this.currentTransaction;
         }
 
-        public Task CommitTransactionAsync(IDbContextTransaction transaction)
+        public Task CommitTransactionAsync(IDbContextTransaction transaction, CancellationToken cancellationToken = default)
         {
             if (transaction == null)
             {
@@ -49,7 +50,7 @@ namespace QuizDesigner.Common.DomainDriven
                 throw new InvalidOperationException($"Transaction {transaction.TransactionId} is not current");
             }
 
-            return this.TryCommitTransactionAsync(transaction);
+            return this.TryCommitTransactionAsync(transaction, cancellationToken);
         }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
@@ -59,11 +60,11 @@ namespace QuizDesigner.Common.DomainDriven
             return await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false) > 0;
         }
 
-        private async Task TryCommitTransactionAsync(IDbContextTransaction transaction)
+        private async Task TryCommitTransactionAsync(IDbContextTransaction transaction, CancellationToken cancellationToken)
         {
             try
             {
-                await transaction.CommitAsync().ConfigureAwait(false);
+                await transaction.CommitAsync(cancellationToken).ConfigureAwait(false);
             }
             catch
             {

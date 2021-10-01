@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using QuizDesigner.Common.Database;
 
 namespace QuizTopics.Candidate.Application.Behaviors
@@ -11,10 +12,12 @@ namespace QuizTopics.Candidate.Application.Behaviors
         where TRequest : notnull
     {
         private readonly IDbContext dbContext;
+        private readonly ILogger<TransactionBehaviour<TRequest, TResponse>> logger;
 
-        public TransactionBehaviour(IDbContext dbContext)
+        public TransactionBehaviour(IDbContext dbContext, ILogger<TransactionBehaviour<TRequest, TResponse>> logger)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public Task<TResponse> Handle(
@@ -32,31 +35,37 @@ namespace QuizTopics.Candidate.Application.Behaviors
                 throw new ArgumentNullException(nameof(next));
             }
 
-            return this.HandleInternal(request, cancellationToken, next);
+            this.logger.LogInformation($"{typeof(TransactionBehaviour<TRequest, TResponse>).Name} handling: {request.GetType().Name}");
+
+            return this.HandleInternal(next, cancellationToken);
         }
 
         private async Task<TResponse> HandleInternal(
-            TRequest request,
-            CancellationToken cancellationToken,
-            RequestHandlerDelegate<TResponse> next)
+            RequestHandlerDelegate<TResponse> next,
+            CancellationToken cancellationToken)
         {
-            var response = default(TResponse);
             var strategy = this.dbContext.DatabaseFacade.CreateExecutionStrategy();
 
-            await strategy.ExecuteAsync(async () =>
-           {
-               Guid transactionId;
-               await using var transaction = await this.dbContext.BeginTransactionAsync().ConfigureAwait(false);
-               response = await next().ConfigureAwait(false);
-               await this.dbContext.CommitTransactionAsync(transaction).ConfigureAwait(false);
-
-               transactionId = transaction.TransactionId;
-
-                //await this.outboxService.PublishTransactionEventsAsync(transactionId);
-            })
+            var response = await strategy.ExecuteAsync(async () => 
+                    await this.ExecuteTransactionAsync(next, cancellationToken).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return response ?? throw new InvalidOperationException("Response is null");
+        }
+
+        private async Task<TResponse> ExecuteTransactionAsync(RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        {
+            Guid transactionId;
+
+            await using var transaction = await this.dbContext.BeginTransactionAsync(cancellationToken).ConfigureAwait(false);
+            var response = await next().ConfigureAwait(false);
+            await this.dbContext.CommitTransactionAsync(transaction, cancellationToken).ConfigureAwait(false);
+
+            transactionId = transaction.TransactionId;
+
+            //await this.outboxService.PublishTransactionEventsAsync(transactionId);
+
+            return response;
         }
     }
 }
