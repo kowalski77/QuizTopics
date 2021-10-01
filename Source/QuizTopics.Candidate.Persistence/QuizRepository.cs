@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Persistence
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public interface IExamRepository : IRepository<Exam>
     {

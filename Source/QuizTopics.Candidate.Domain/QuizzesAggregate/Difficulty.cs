@@ -1,4 +1,4 @@
-﻿namespace QuizTopics.Candidate.Domain.Quizzes
+﻿namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 {
     public enum Difficulty
     {

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
+using QuizTopics.Candidate.Domain.ExamsAggregate.DomainEvents;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public class Exam : Entity, IAggregateRoot
     {
@@ -52,6 +53,8 @@ namespace QuizTopics.Candidate.Domain.Exams
         public void Finish(DateTime finishedAt)
         {
             this.FinishedAt = finishedAt;
+            
+            this.AddDomainEvent(new FinishedExamDomainEvent(this.Summary, finishedAt));
         }
     }
 }

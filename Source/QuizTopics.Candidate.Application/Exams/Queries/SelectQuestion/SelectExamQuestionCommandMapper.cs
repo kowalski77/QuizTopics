@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {

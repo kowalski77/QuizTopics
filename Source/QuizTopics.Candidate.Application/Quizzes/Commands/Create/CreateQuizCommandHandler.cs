@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {

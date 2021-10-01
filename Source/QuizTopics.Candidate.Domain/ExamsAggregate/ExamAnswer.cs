@@ -2,7 +2,7 @@
 using System;
 using QuizDesigner.Common.DomainDriven;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public sealed class ExamAnswer : Entity
     {

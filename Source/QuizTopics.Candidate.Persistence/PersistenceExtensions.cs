@@ -4,8 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using QuizDesigner.Common.DomainDriven;
 using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
-using QuizTopics.Candidate.Domain.Exams;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Persistence
 {

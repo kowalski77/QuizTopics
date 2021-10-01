@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.Optional;
-using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries
 {

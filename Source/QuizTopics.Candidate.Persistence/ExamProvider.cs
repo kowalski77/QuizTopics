@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using QuizDesigner.Common.Optional;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries;
-using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Persistence
 {

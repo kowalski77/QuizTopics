@@ -5,8 +5,8 @@ using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Errors;
 using QuizDesigner.Common.Mediator;
 using QuizDesigner.Common.ResultModels;
-using QuizTopics.Candidate.Domain.Exams;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {

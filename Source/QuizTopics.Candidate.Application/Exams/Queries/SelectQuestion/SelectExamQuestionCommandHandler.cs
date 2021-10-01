@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MediatR;
 using QuizDesigner.Common.Errors;
 using QuizDesigner.Common.ResultModels;
-using QuizTopics.Candidate.Domain.Exams;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {

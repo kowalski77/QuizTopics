@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public class Summary
     {

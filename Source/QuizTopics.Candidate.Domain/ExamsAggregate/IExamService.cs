@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using QuizDesigner.Common.Results;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public interface IExamService
     {

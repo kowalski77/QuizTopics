@@ -1,7 +1,7 @@
 ﻿using System;
 using QuizDesigner.Common.Errors;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public static class ExamErrors
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {

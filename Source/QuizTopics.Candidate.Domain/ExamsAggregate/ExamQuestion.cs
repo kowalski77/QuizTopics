@@ -5,9 +5,9 @@ using System.Linq;
 using QuizDesigner.Common.DomainDriven;
 using QuizDesigner.Common.Optional;
 using QuizDesigner.Common.Results;
-using QuizTopics.Candidate.Domain.Quizzes;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
-namespace QuizTopics.Candidate.Domain.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public sealed class ExamQuestion : Entity
     {
