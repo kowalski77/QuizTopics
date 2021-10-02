@@ -10,8 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using QuizTopics.AzureServiceBus;
 using QuizTopics.Candidate.API.Exams.Create;
 using QuizTopics.Candidate.Application;
+using QuizTopics.Candidate.Application.Messaging;
 using QuizTopics.Candidate.Domain;
 using QuizTopics.Candidate.Persistence;
 using QuizTopics.Common.Api;
@@ -35,6 +37,10 @@ namespace QuizTopics.Candidate.API
             services.AddApplication();
             services.AddDomainServices();
             services.AddPersistence(this.Configuration.GetConnectionString("DefaultConnection"));
+
+            services.Configure<AzureServiceBusOptions>(this.Configuration.GetSection(nameof(AzureServiceBusOptions)));
+            services.AddSingleton<IMessagePublisher, AzureServiceBusMessagePublisher>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy(AllowSpecificOrigins, // TODO: be more restrictive
