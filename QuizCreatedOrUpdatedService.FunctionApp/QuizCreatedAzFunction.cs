@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using QuizCreatedOrUpdatedService.FunctionApp.Services;
-using QuizDesigner.Shared;
+using QuizTopics.Shared;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp
 {

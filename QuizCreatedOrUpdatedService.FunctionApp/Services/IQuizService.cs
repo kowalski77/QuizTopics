@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using QuizDesigner.Shared;
+using QuizTopics.Shared;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizDesigner.Shared
+namespace QuizTopics.Shared
 {
     public sealed record CreateExamModel(string UserEmail, Guid QuizId);
 

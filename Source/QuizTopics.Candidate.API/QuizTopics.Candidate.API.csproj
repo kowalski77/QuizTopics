@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
-    <ProjectReference Include="..\..\QuizDesigner.Shared\QuizDesigner.Shared.csproj" />
+    <ProjectReference Include="..\..\QuizTopics.Shared\QuizTopics.Shared.csproj" />
     <ProjectReference Include="..\QuizTopics.Candidate.Application\QuizTopics.Candidate.Application.csproj" />
     <ProjectReference Include="..\QuizTopics.Candidate.Persistence\QuizTopics.Candidate.Persistence.csproj" />
   </ItemGroup>

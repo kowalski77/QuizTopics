@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QuizDesigner.Shared;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Common.Api;
+using QuizTopics.Shared;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {

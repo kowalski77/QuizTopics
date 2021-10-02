@@ -1,6 +1,6 @@
 ﻿using System;
-using QuizDesigner.Shared;
 using QuizTopics.Candidate.Application.Exams.Commands.SetFailedQuestion;
+using QuizTopics.Shared;
 
 namespace QuizTopics.Candidate.API.Exams.SetFailedQuestion
 {

@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QuizDesigner.Shared;
 using QuizTopics.Common.Api;
+using QuizTopics.Shared;
 
 namespace QuizTopics.Candidate.API.Exams.SelectAnswer
 {

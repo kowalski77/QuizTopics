@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\QuizDesigner.Shared\QuizDesigner.Shared.csproj" />
+    <ProjectReference Include="..\..\QuizDesigner.Shared\QuizTopics.Shared.csproj" />
   </ItemGroup>
 
 </Project>

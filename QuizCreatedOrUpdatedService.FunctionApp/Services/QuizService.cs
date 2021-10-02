@@ -4,7 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using IdentityModel.Client;
-using QuizDesigner.Shared;
+using QuizTopics.Shared;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 {

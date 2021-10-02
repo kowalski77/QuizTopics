@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QuizDesigner.Shared
+namespace QuizTopics.Shared
 {
     public sealed record CreateQuizModel(string Exam, string Category, IEnumerable<Question> ExamQuestionCollection);
 
