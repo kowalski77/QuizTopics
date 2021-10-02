@@ -55,15 +55,11 @@ namespace QuizTopics.Candidate.Application.Behaviors
 
         private async Task<TResponse> ExecuteTransactionAsync(RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            Guid transactionId;
-
             await using var transaction = await this.dbContext.BeginTransactionAsync(cancellationToken).ConfigureAwait(false);
             var response = await next().ConfigureAwait(false);
             await this.dbContext.CommitTransactionAsync(transaction, cancellationToken).ConfigureAwait(false);
 
-            transactionId = transaction.TransactionId;
-
-            //await this.outboxService.PublishTransactionEventsAsync(transactionId);
+            //await this.outboxService.PublishTransactionEventsAsync(transaction.TransactionId);
 
             return response;
         }
