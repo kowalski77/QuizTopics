@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text.Json;
 
 namespace QuizDesigner.Common.Outbox
@@ -16,13 +17,17 @@ namespace QuizDesigner.Common.Outbox
             return new OutboxMessage(Guid.NewGuid(), DateTime.UtcNow, type.FullName ?? type.Name, data);
         }
 
-        public static T Deserialize<T>(OutboxMessage outboxMessage)
+        public static T Deserialize<T>(OutboxMessage outboxMessage, Assembly assembly)
         {
             if (outboxMessage == null) throw new ArgumentNullException(nameof(outboxMessage));
+            if (assembly == null) throw new ArgumentNullException(nameof(assembly));
 
-            var result = JsonSerializer.Deserialize<T>(outboxMessage.Data);
+            var type = assembly.GetType(outboxMessage.Type) ?? 
+                       throw new InvalidOperationException($"Could not find type {outboxMessage.Type}");
 
-            return result!;
+            var result = (T)JsonSerializer.Deserialize(outboxMessage.Data, type)!;
+
+            return result;
         }
     }
 }

@@ -15,6 +15,10 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             this.exam = exam ?? throw new ArgumentNullException(nameof(exam));
         }
 
+        public string QuizName => this.exam.QuizName;
+
+        public string Candidate => this.exam.Candidate;
+
         public IReadOnlyList<ExamQuestion> CorrectExamQuestions =>
             this.exam.QuestionsCollection
                 .Where(x => x.Answered && x.Answers.Any(y => y.Selected && y.IsCorrect))

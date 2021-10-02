@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using QuizDesigner.Common.Database;
+using QuizTopics.Candidate.Application.Outbox;
 
 namespace QuizTopics.Candidate.Application.Behaviors
 {
@@ -12,11 +13,14 @@ namespace QuizTopics.Candidate.Application.Behaviors
         where TRequest : notnull
     {
         private readonly IDbContext dbContext;
+        private readonly IOutboxService outboxService;
         private readonly ILogger<TransactionBehaviour<TRequest, TResponse>> logger;
 
-        public TransactionBehaviour(IDbContext dbContext, ILogger<TransactionBehaviour<TRequest, TResponse>> logger)
+        public TransactionBehaviour(IDbContext dbContext, IOutboxService outboxService, 
+            ILogger<TransactionBehaviour<TRequest, TResponse>> logger)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            this.outboxService = outboxService ?? throw new ArgumentNullException(nameof(outboxService));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -56,10 +60,11 @@ namespace QuizTopics.Candidate.Application.Behaviors
         private async Task<TResponse> ExecuteTransactionAsync(RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             await using var transaction = await this.dbContext.BeginTransactionAsync(cancellationToken).ConfigureAwait(false);
+
             var response = await next().ConfigureAwait(false);
             await this.dbContext.CommitTransactionAsync(transaction, cancellationToken).ConfigureAwait(false);
 
-            //await this.outboxService.PublishTransactionEventsAsync(transaction.TransactionId);
+            await this.outboxService.PublishTransactionEventsAsync(transaction.TransactionId, cancellationToken).ConfigureAwait(false);
 
             return response;
         }

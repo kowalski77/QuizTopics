@@ -74,7 +74,7 @@ namespace QuizTopics.Candidate.Application.Outbox
         {
             try
             {
-                var message = OutboxSerializer.Deserialize<IIntegrationEvent>(outboxMessage);
+                var message = OutboxSerializer.Deserialize<IIntegrationEvent>(outboxMessage, typeof(ExamFinished).Assembly);
 
                 await this.outboxRepository.MarkMessageAsInProgressAsync(outboxMessage.Id, cancellationToken).ConfigureAwait(false);
 
