@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizDesigner.Common.Outbox
+namespace QuizDesigner.Events
 {
     public interface IIntegrationEvent
     {

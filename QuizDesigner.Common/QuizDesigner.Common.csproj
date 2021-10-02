@@ -19,4 +19,8 @@
       <Folder Include="Api\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
+    </ItemGroup>
+
 </Project>

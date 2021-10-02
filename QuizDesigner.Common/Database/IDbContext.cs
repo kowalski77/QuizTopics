@@ -11,6 +11,8 @@ namespace QuizDesigner.Common.Database
 
         bool HasActiveTransaction { get; }
 
+        IDbContextTransaction GetCurrentTransaction();
+
         Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default);
 
         Task CommitTransactionAsync(IDbContextTransaction transaction, CancellationToken cancellationToken = default);

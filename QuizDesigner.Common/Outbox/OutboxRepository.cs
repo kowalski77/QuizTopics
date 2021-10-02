@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 using QuizDesigner.Common.Optional;
+using QuizDesigner.Events;
 
 namespace QuizDesigner.Common.Outbox
 {
@@ -25,62 +27,63 @@ namespace QuizDesigner.Common.Outbox
                     .UseSqlServer(dbConnection).Options);
         }
 
-        public async Task SaveMessageAsync(IIntegrationEvent integrationEvent, IDbContextTransaction transaction)
+        // TODO: maybe object instead of integration event?
+        public async Task SaveMessageAsync(IIntegrationEvent integrationEvent, IDbContextTransaction transaction, CancellationToken cancellationToken = default)
         {
             if (transaction == null)
             {
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            await this.context.Database.UseTransactionAsync(transaction.GetDbTransaction());
+            await this.context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken);
 
             var outboxMessage = GetOutboxMessage(integrationEvent, transaction.TransactionId);
-            await this.context.AddAsync(outboxMessage);
+            await this.context.AddAsync(outboxMessage, cancellationToken);
 
-            await this.context.SaveEntitiesAsync();
+            await this.context.SaveEntitiesAsync(cancellationToken);
         }
-        
-        public async Task MarkMessageAsInProgressAsync(Guid messageId)
+
+        public async Task MarkMessageAsInProgressAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.InProgress);
+            await this.UpdateStatusAsync(messageId, EventState.InProgress, cancellationToken);
         }
 
-        public async Task MarkMessageAsPublishedAsync(Guid messageId)
+        public async Task MarkMessageAsPublishedAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.Published);
+            await this.UpdateStatusAsync(messageId, EventState.Published, cancellationToken);
         }
 
-        public async Task MarkMessageAsFailedAsync(Guid messageId)
+        public async Task MarkMessageAsFailedAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.PublishedFailed);
+            await this.UpdateStatusAsync(messageId, EventState.PublishedFailed, cancellationToken);
         }
 
-        public async Task<Maybe<IReadOnlyList<OutboxMessage>>> GetNotPublishedAsync(Guid transactionId)
+        public async Task<Maybe<IReadOnlyList<OutboxMessage>>> GetNotPublishedAsync(Guid transactionId, CancellationToken cancellationToken = default)
         {
             var outboxMessages = await (this.context.OutboxMessages!)
                 .Where(e => e.Id == transactionId && e.State == EventState.NotPublished)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return outboxMessages;
         }
 
-        public async Task<Maybe<IReadOnlyList<OutboxMessage>>> GetNotPublishedAsync()
+        public async Task<Maybe<IReadOnlyList<OutboxMessage>>> GetNotPublishedAsync(CancellationToken cancellationToken = default)
         {
             var outboxMessages = await (this.context.OutboxMessages!)
                 .Where(e => e.State == EventState.NotPublished || e.State == EventState.PublishedFailed)
-                .ToListAsync();
+                .ToListAsync(cancellationToken);
 
             return outboxMessages;
         }
-        
-        private async Task UpdateStatusAsync(Guid messageId, EventState eventState)
+
+        private async Task UpdateStatusAsync(Guid messageId, EventState eventState, CancellationToken cancellationToken = default)
         {
             var message = this.context.OutboxMessages!.Single(x => x.Id == messageId);
             message.State = eventState;
 
             this.context.OutboxMessages!.Update(message);
 
-            await this.context.SaveChangesAsync();
+            await this.context.SaveChangesAsync(cancellationToken);
         }
 
         private static OutboxMessage GetOutboxMessage(IIntegrationEvent integrationEvent, Guid transactionId)

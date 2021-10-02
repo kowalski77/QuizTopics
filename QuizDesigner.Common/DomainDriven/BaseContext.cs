@@ -25,6 +25,16 @@ namespace QuizDesigner.Common.DomainDriven
 
         public bool HasActiveTransaction => this.currentTransaction != null;
 
+        public IDbContextTransaction GetCurrentTransaction()
+        {
+            if (this.currentTransaction == null)
+            {
+                throw new InvalidOperationException("Current transaction is null");
+            }
+
+            return this.currentTransaction;
+        }
+
         public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default)
         {
             if (this.currentTransaction != null)
