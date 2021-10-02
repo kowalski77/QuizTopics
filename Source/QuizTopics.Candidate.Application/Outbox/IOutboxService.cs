@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.Outbox;
 using QuizDesigner.Events;
 
 namespace QuizTopics.Candidate.Application.Outbox

@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.Candidate.Persis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizDesigner.Events", "QuizDesigner.Events\QuizDesigner.Events.csproj", "{D5103FF0-1B44-4A95-BE66-4CA76601841F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizDesigner.Common", "QuizDesigner.Common\QuizDesigner.Common.csproj", "{5538B628-F4BA-4B20-BB39-9AD6488F37BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.Common", "QuizTopics.Common\QuizTopics.Common.csproj", "{5538B628-F4BA-4B20-BB39-9AD6488F37BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{EC39967B-D545-4FF1-BB9B-8F8D1222763D}"
 EndProject

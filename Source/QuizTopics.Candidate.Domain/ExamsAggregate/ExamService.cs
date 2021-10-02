@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
+using QuizTopics.Common.Results;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {

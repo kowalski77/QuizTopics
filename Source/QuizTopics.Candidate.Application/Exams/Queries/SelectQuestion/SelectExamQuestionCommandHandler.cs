@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using QuizDesigner.Common.Errors;
-using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
+using QuizTopics.Common.Errors;
+using QuizTopics.Common.ResultModels;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {

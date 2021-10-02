@@ -2,10 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QuizDesigner.Common.DomainDriven;
-using QuizDesigner.Common.Optional;
-using QuizDesigner.Common.Results;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
+using QuizTopics.Common.DomainDriven;
+using QuizTopics.Common.Optional;
+using QuizTopics.Common.Results;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {

@@ -2,9 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using QuizDesigner.Common.DomainDriven;
-using QuizDesigner.Common.Optional;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
+using QuizTopics.Common.DomainDriven;
+using QuizTopics.Common.Optional;
 
 namespace QuizTopics.Candidate.Persistence
 {

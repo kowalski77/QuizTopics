@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using QuizDesigner.Common.DomainDriven;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
+using QuizTopics.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Persistence
 {

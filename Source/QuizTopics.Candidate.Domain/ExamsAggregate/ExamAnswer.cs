@@ -1,6 +1,6 @@
 ﻿#pragma warning disable 8618
 using System;
-using QuizDesigner.Common.DomainDriven;
+using QuizTopics.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using MediatR;
-using QuizDesigner.Common.ResultModels;
+using QuizTopics.Common.ResultModels;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {

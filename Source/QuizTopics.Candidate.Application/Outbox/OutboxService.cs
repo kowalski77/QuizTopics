@@ -4,10 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using QuizDesigner.Common.Database;
-using QuizDesigner.Common.Outbox;
 using QuizDesigner.Events;
 using QuizTopics.Candidate.Application.Messaging;
+using QuizTopics.Common.Database;
+using QuizTopics.Common.Outbox;
 
 namespace QuizTopics.Candidate.Application.Outbox
 {

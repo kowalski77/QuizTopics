@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using QuizDesigner.Common.Database;
 using QuizTopics.Candidate.Application.Outbox;
+using QuizTopics.Common.Database;
 
 namespace QuizTopics.Candidate.Application.Behaviors
 {

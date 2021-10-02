@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using QuizDesigner.Common.Database;
-using QuizDesigner.Common.Outbox;
 using QuizTopics.Candidate.Application.Behaviors;
 using QuizTopics.Candidate.Application.Messaging;
 using QuizTopics.Candidate.Application.Outbox;
 using QuizTopics.Candidate.Application.Quizzes.Commands.Create;
+using QuizTopics.Common.Database;
+using QuizTopics.Common.Outbox;
 
 namespace QuizTopics.Candidate.Application
 {

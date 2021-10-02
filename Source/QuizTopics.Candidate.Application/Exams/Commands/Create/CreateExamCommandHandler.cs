@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.DomainDriven;
-using QuizDesigner.Common.Errors;
-using QuizDesigner.Common.Mediator;
-using QuizDesigner.Common.ResultModels;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
+using QuizTopics.Common.DomainDriven;
+using QuizTopics.Common.Errors;
+using QuizTopics.Common.Mediator;
+using QuizTopics.Common.ResultModels;
 
 namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 {

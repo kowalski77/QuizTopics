@@ -1,5 +1,5 @@
 ﻿using System;
-using QuizDesigner.Common.Errors;
+using QuizTopics.Common.Errors;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {

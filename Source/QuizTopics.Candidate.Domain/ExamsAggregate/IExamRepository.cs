@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.DomainDriven;
-using QuizDesigner.Common.Optional;
+using QuizTopics.Common.DomainDriven;
+using QuizTopics.Common.Optional;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {

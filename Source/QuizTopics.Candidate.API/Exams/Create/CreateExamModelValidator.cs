@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using QuizDesigner.Common.Api;
 using QuizDesigner.Shared;
+using QuizTopics.Common.Api;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {

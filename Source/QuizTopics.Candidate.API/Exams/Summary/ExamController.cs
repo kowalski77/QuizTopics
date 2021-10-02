@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.GetSummary;
+using QuizTopics.Common.Api;
 
 namespace QuizTopics.Candidate.API.Exams.Summary
 {

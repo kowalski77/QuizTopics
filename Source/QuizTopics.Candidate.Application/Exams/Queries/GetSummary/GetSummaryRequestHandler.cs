@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.Errors;
-using QuizDesigner.Common.Mediator;
-using QuizDesigner.Common.ResultModels;
+using QuizTopics.Common.Errors;
+using QuizTopics.Common.Mediator;
+using QuizTopics.Common.ResultModels;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.GetSummary
 {

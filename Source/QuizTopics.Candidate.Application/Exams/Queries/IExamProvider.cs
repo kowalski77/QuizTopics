@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using QuizDesigner.Common.Optional;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
+using QuizTopics.Common.Optional;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries
 {

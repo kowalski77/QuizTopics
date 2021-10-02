@@ -10,11 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.API.Exams.Create;
 using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Domain;
 using QuizTopics.Candidate.Persistence;
+using QuizTopics.Common.Api;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace QuizTopics.Candidate.API

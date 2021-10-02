@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using QuizDesigner.Common.Mediator;
-using QuizDesigner.Common.ResultModels;
+using QuizTopics.Common.Mediator;
+using QuizTopics.Common.ResultModels;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {

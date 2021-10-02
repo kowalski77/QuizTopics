@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QuizDesigner.Common.DomainDriven;
+using QuizTopics.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 {

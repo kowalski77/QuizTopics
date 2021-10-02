@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QuizDesigner.Common.Api;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
+using QuizTopics.Common.Api;
 
 namespace QuizTopics.Candidate.API.Quizzes.Read
 {
