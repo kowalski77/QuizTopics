@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuizDesigner.Common.Database;
 using QuizDesigner.Common.DomainDriven;
+using QuizDesigner.Common.Outbox;
 using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
@@ -31,10 +33,19 @@ namespace QuizTopics.Candidate.Persistence
             string connectionString)
         {
             services.AddDbContext<QuizTopicsContext>(options =>
-                options.UseSqlServer(connectionString, sqlOptions =>
-                    sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null)));
+                options.UseSqlServer(connectionString,
+                    sqlOptions => 
+                        sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null)));
 
             services.AddScoped<IDbContext, QuizTopicsContext>();
+
+            services.AddDbContext<OutboxContext>(options =>
+                    options.UseSqlServer(connectionString,
+                        sqlOptions =>
+                        {
+                            sqlOptions.MigrationsAssembly(typeof(QuizTopicsContext).GetTypeInfo().Assembly.GetName().Name);
+                            sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
+                        }));
         }
     }
 }

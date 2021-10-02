@@ -16,6 +16,8 @@ namespace QuizTopics.Candidate.Application
         {
             services.AddMediatR(typeof(CreateQuizCommand).Assembly);
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionBehaviour<,>));
+
+            services.AddScoped<IMessagePublisher, TempMessagePublisher>();
             
             services.AddScoped<IOutboxService>(sp => new OutboxService(
                 sp.GetRequiredService<IDbContext>(),

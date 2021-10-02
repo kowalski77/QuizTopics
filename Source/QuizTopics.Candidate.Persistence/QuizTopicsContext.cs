@@ -8,7 +8,7 @@ namespace QuizTopics.Candidate.Persistence
 {
     public sealed class QuizTopicsContext : BaseContext
     {
-        public QuizTopicsContext(DbContextOptions options, IMediator mediator)
+        public QuizTopicsContext(DbContextOptions<QuizTopicsContext> options, IMediator mediator)
             : base(options, mediator)
         {
         }
