@@ -22,7 +22,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp
             FunctionContext context)
         {
             var quizModel = JsonSerializer.Deserialize<CreateQuizModel>(quizCreatedItem);
-            await this.quizService.CreateQuizAsync(quizModel);
+            await this.quizService.CreateQuizAsync(quizModel).ConfigureAwait(false);
 
             var logger = context.GetLogger(nameof(QuizCreatedAzFunction));
             logger.LogInformation($"C# Queue trigger function processed, quiz: {quizModel}");

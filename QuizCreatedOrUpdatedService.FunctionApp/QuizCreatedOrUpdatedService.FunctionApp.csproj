@@ -5,6 +5,8 @@
 		<OutputType>Exe</OutputType>
 		<UserSecretsId>0f6932a1-52ff-4b67-8b8f-0672ec6ae412</UserSecretsId>
 		<Nullable>enable</Nullable>
+		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="IdentityModel" Version="5.1.0" />
@@ -17,6 +19,9 @@
 	  <ProjectReference Include="..\QuizTopics.Shared\QuizTopics.Shared.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+		<None Update="appsettings.Development.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="host.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
