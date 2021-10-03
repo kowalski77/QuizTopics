@@ -28,7 +28,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 
             var resultModel = await this.Mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
 
-            return this.FromResultModel(resultModel);
+            return FromResultModel(resultModel);
         }
     }
 }

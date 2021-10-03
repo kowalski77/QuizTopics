@@ -29,7 +29,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
 
             var resultModel = await this.Mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
-            return this.FromResultModel(resultModel);
+            return FromResultModel(resultModel);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace QuizTopics.Common.ResultModels
 
         public ResultModel(
             T value,
-            Error? error) : base(error)
+            ErrorResult? error) : base(error)
         {
             this.value = value;
         }

@@ -5,7 +5,7 @@ namespace QuizTopics.Common.Api
 {
     public class Envelope
     {
-        private Envelope(object? result, Error? error, string? invalidField)
+        private Envelope(object? result, ErrorResult? error, string? invalidField)
         {
             this.Result = result;
             this.ErrorCode = error?.Code;
@@ -29,7 +29,7 @@ namespace QuizTopics.Common.Api
             return new Envelope(result, null, null);
         }
 
-        public static Envelope Error(Error? error, string? invalidField)
+        public static Envelope Error(ErrorResult? error, string? invalidField)
         {
             return new Envelope(null, error, invalidField);
         }

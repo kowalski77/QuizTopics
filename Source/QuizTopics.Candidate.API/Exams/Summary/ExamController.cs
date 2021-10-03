@@ -23,7 +23,7 @@ namespace QuizTopics.Candidate.API.Exams.Summary
         {
             var resultModel = await this.Mediator.Send(new GetSummaryRequest(examId)).ConfigureAwait(false);
 
-            return this.FromResultModel(resultModel);
+            return FromResultModel(resultModel);
         }
     }
 }

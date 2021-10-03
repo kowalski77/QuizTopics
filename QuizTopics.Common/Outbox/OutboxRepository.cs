@@ -12,7 +12,7 @@ using QuizTopics.Common.Optional;
 
 namespace QuizTopics.Common.Outbox
 {
-    public class OutboxRepository : IOutboxRepository
+    public sealed class OutboxRepository : IOutboxRepository, IDisposable
     {
         private readonly OutboxContext context;
 
@@ -30,39 +30,45 @@ namespace QuizTopics.Common.Outbox
         // TODO: maybe object instead of integration event?
         public async Task SaveMessageAsync(IIntegrationEvent integrationEvent, IDbContextTransaction transaction, CancellationToken cancellationToken = default)
         {
+            if (integrationEvent == null)
+            {
+                throw new ArgumentNullException(nameof(integrationEvent));
+            }
+
             if (transaction == null)
             {
                 throw new ArgumentNullException(nameof(transaction));
             }
 
-            await this.context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken);
+            await this.context.Database.UseTransactionAsync(transaction.GetDbTransaction(), cancellationToken).ConfigureAwait(false);
 
             var outboxMessage = GetOutboxMessage(integrationEvent, transaction.TransactionId);
-            await this.context.AddAsync(outboxMessage, cancellationToken);
+            await this.context.AddAsync(outboxMessage, cancellationToken).ConfigureAwait(false);
 
-            await this.context.SaveEntitiesAsync(cancellationToken);
+            await this.context.SaveEntitiesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         public async Task MarkMessageAsInProgressAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.InProgress, cancellationToken);
+            await this.UpdateStatusAsync(messageId, EventState.InProgress, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task MarkMessageAsPublishedAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.Published, cancellationToken);
+            await this.UpdateStatusAsync(messageId, EventState.Published, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task MarkMessageAsFailedAsync(Guid messageId, CancellationToken cancellationToken = default)
         {
-            await this.UpdateStatusAsync(messageId, EventState.PublishedFailed, cancellationToken);
+            await this.UpdateStatusAsync(messageId, EventState.PublishedFailed, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<Maybe<IReadOnlyList<OutboxMessage>>> GetNotPublishedAsync(Guid transactionId, CancellationToken cancellationToken = default)
         {
             var outboxMessages = await (this.context.OutboxMessages!)
                 .Where(e => e.Id == transactionId && e.State == EventState.NotPublished)
-                .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
 
             return outboxMessages;
         }
@@ -71,7 +77,8 @@ namespace QuizTopics.Common.Outbox
         {
             var outboxMessages = await (this.context.OutboxMessages!)
                 .Where(e => e.State == EventState.NotPublished || e.State == EventState.PublishedFailed)
-                .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
 
             return outboxMessages;
         }
@@ -83,7 +90,7 @@ namespace QuizTopics.Common.Outbox
 
             this.context.OutboxMessages!.Update(message);
 
-            await this.context.SaveChangesAsync(cancellationToken);
+            await this.context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
 
         private static OutboxMessage GetOutboxMessage(IIntegrationEvent integrationEvent, Guid transactionId)
@@ -95,6 +102,11 @@ namespace QuizTopics.Common.Outbox
             var outboxMessage = new OutboxMessage(transactionId, DateTime.Now, type, data);
 
             return outboxMessage;
+        }
+
+        public void Dispose()
+        {
+            this.context.Dispose();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace QuizTopics.Common.Results
             this.value = value;
         }
 
-        public Result(Error error) : base(error)
+        public Result(ErrorResult error) : base(error)
         {
             this.value = default!;
         }

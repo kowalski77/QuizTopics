@@ -81,7 +81,7 @@ namespace QuizTopics.Common.DomainDriven
 
         public override int GetHashCode()
         {
-            return (this.GetType().ToString() + this.Id).GetHashCode();
+            return (this.GetType().ToString() + this.Id).GetHashCode(StringComparison.InvariantCulture);
         }
     }
 }

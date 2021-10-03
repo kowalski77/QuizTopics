@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace QuizTopics.Common.Optional
 {
-    public readonly struct Maybe<T>
+    public readonly struct Maybe<T> : IEquatable<Maybe<T>>
         where T : class
     {
         private readonly T value;
@@ -14,13 +15,9 @@ namespace QuizTopics.Common.Optional
             this.hasValue = true;
         }
 
-        public static Maybe<T> None => new();
-
         public static implicit operator Maybe<T>(T value)
         {
-            return value == null! ?
-                new Maybe<T>() :
-                new Maybe<T>(value);
+            return value == null! ? new Maybe<T>() : new Maybe<T>(value);
         }
 
         public bool TryGetValue(out T tryValue)
@@ -36,36 +33,50 @@ namespace QuizTopics.Common.Optional
             return false;
         }
 
-        public T GetValue()
-        {
-            if (this.hasValue)
-            {
-                return this.value;
-            }
-
-            throw new InvalidOperationException($"Value of {typeof(T).FullName} is null");
-        }
-
         public T ValueOr(T defaultValue)
         {
-            return this.hasValue ?
-                this.value :
-                defaultValue;
+            return this.hasValue ? this.value : defaultValue;
         }
 
         public Maybe<TResult> Bind<TResult>(Func<T, Maybe<TResult>> convert)
             where TResult : class
         {
-            return !this.hasValue ?
-                new Maybe<TResult>() :
-                convert(this.value);
+            if (convert == null)
+            {
+                throw new ArgumentNullException(nameof(convert));
+            }
+
+            return !this.hasValue ? new Maybe<TResult>() : convert(this.value);
         }
 
-        public TResult Unwrap<TResult>(Func<T, TResult> some, Func<TResult> none)
+        public Maybe<T> ToMaybe()
         {
-            return this.hasValue ?
-                some(this.value) :
-                none();
+            throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            return EqualityComparer<T>.Default.GetHashCode(this.value);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Maybe<T> other && this.Equals(other);
+        }
+
+        public static bool operator ==(Maybe<T> left, Maybe<T> right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Maybe<T> left, Maybe<T> right)
+        {
+            return !(left == right);
+        }
+
+        public bool Equals(Maybe<T> other)
+        {
+            return EqualityComparer<T>.Default.Equals(this.value, other.value);
         }
     }
 }

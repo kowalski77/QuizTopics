@@ -4,9 +4,9 @@ namespace QuizTopics.Common.ResultModels
 {
     public class ResultModel : IResultModel
     {
-        protected ResultModel(Error? error)
+        protected ResultModel(ErrorResult? error)
         {
-            this.Error = error;
+            this.ErrorResult = error;
             this.Success = false;
         }
 
@@ -15,7 +15,7 @@ namespace QuizTopics.Common.ResultModels
             this.Success = true;
         }
 
-        public Error? Error { get; }
+        public ErrorResult? ErrorResult { get; }
 
         public bool Success { get; }
 
@@ -31,17 +31,17 @@ namespace QuizTopics.Common.ResultModels
             return new ResultModel<T>(value);
         }
 
-        public static IResultModel Fail(Error? error)
+        public static IResultModel Fail(ErrorResult? error)
         {
             return new ResultModel(error);
         }
 
-        public static IResultModel<T> Fail<T>(Error? error)
+        public static IResultModel<T> Fail<T>(ErrorResult? error)
         {
             return new ResultModel<T>(default!, error);
         }
 
-        public static IResultModel<T> Fail<T>(T value, Error? error)
+        public static IResultModel<T> Fail<T>(T value, ErrorResult? error)
         {
             return new ResultModel<T>(value, error);
         }

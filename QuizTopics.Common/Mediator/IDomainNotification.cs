@@ -2,7 +2,7 @@
 
 namespace QuizTopics.Common.Mediator
 {
-    public interface IDomainEvent : INotification
+    public interface IDomainNotification : INotification
     {
     }
 }

@@ -21,7 +21,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Read
         {
             var quizDtoCollection = await this.Mediator.Send(new GetQuizCollectionRequest()).ConfigureAwait(false);
 
-            return this.Ok(quizDtoCollection);
+            return Ok(quizDtoCollection);
         }
     }
 }

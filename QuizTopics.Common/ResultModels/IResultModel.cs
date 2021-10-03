@@ -11,6 +11,6 @@ namespace QuizTopics.Common.ResultModels
     {
         bool Success { get; }
 
-        Error? Error { get; }
+        ErrorResult? ErrorResult { get; }
     }
 }

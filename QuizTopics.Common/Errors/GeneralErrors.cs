@@ -4,20 +4,20 @@ namespace QuizTopics.Common.Errors
 {
     public static class GeneralErrors
     {
-        public static Error NotFound(Guid id)
+        public static ErrorResult NotFound(Guid id)
         {
             var forId = id == Guid.Empty ? "" : $" for Id '{id}'";
-            return new Error(ErrorConstants.RecordNotFound, $"Record not found{forId}");
+            return new ErrorResult(ErrorConstants.RecordNotFound, $"Record not found{forId}");
         }
 
-        public static Error ValueIsRequired()
+        public static ErrorResult ValueIsRequired()
         {
-            return new Error(ErrorConstants.ValueIsRequired, "Value is required");
+            return new ErrorResult(ErrorConstants.ValueIsRequired, "Value is required");
         }
 
-        public static Error NotValidEmailAddress()
+        public static ErrorResult NotValidEmailAddress()
         {
-            return new Error(ErrorConstants.NotValidEmail, "Value is not a valid email.");
+            return new ErrorResult(ErrorConstants.NotValidEmail, "Value is not a valid email.");
         }
     }
 }

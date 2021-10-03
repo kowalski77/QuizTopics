@@ -9,9 +9,15 @@ namespace QuizTopics.Common.Database
 {
     public static class DatabaseStartUpExtensions
     {
+        // TODO: use it
         public static IHost MigrateDatabase<TContext>(this IHost host) 
             where TContext : DbContext
         {
+            if (host == null)
+            {
+                throw new ArgumentNullException(nameof(host));
+            }
+
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             services.MigrateDbContext<TContext>();
@@ -39,6 +45,7 @@ namespace QuizTopics.Common.Database
             catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred while migrating the database.");
+                throw;
             }
         }
     }

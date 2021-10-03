@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace QuizTopics.Common.Outbox
@@ -7,6 +8,11 @@ namespace QuizTopics.Common.Outbox
     {
         public void Configure(EntityTypeBuilder<OutboxMessage> builder)
         {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             builder.ToTable("OutboxMessages");
 
             builder.HasKey(b => b.Id);

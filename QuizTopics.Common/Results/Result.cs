@@ -4,7 +4,7 @@ namespace QuizTopics.Common.Results
 {
     public class Result
     {
-        protected Result(Error error)
+        protected Result(ErrorResult error)
         {
             this.Success = false;
             this.Error = error;
@@ -15,7 +15,7 @@ namespace QuizTopics.Common.Results
             this.Success = true;
         }
 
-        public Error? Error { get; set; }
+        public ErrorResult? Error { get; set; }
 
         public bool Success { get; }
 
@@ -23,7 +23,7 @@ namespace QuizTopics.Common.Results
 
         public static Result Ok() => new();
 
-        public static Result Fail(Error error)
+        public static Result Fail(ErrorResult error)
         {
             return new(error);
         }
@@ -33,7 +33,7 @@ namespace QuizTopics.Common.Results
             return new(value);
         }
 
-        public static Result<T> Fail<T>(Error error)
+        public static Result<T> Fail<T>(ErrorResult error)
         {
             return new(error);
         }
