@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 
@@ -8,6 +9,11 @@ namespace QuizTopics.Candidate.Persistence.Exams
     {
         public void Configure(EntityTypeBuilder<Exam> builder)
         {
+            if (builder == null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             builder.ToTable(nameof(Exam));
 
             builder.Property(x => x.Candidate)

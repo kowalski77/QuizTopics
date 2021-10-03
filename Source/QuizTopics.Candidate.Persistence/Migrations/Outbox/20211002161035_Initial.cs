@@ -7,6 +7,11 @@ namespace QuizTopics.Candidate.Persistence.Migrations.Outbox
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            if (migrationBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(migrationBuilder));
+            }
+
             migrationBuilder.CreateTable(
                 name: "OutboxMessages",
                 columns: table => new
@@ -25,6 +30,11 @@ namespace QuizTopics.Candidate.Persistence.Migrations.Outbox
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            if (migrationBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(migrationBuilder));
+            }
+
             migrationBuilder.DropTable(
                 name: "OutboxMessages");
         }

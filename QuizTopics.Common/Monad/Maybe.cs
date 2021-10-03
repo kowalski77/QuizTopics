@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace QuizTopics.Common.Optional
+namespace QuizTopics.Common.Monad
 {
     public readonly struct Maybe<T> : IEquatable<Maybe<T>>
         where T : class

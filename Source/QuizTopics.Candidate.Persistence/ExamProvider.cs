@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
-using QuizTopics.Common.Optional;
+using QuizTopics.Common.Monad;
 
 namespace QuizTopics.Candidate.Persistence
 {
@@ -27,7 +27,8 @@ namespace QuizTopics.Candidate.Persistence
 
             return await this.context.Exams!
                 .Select(x => new ExamDto(x.Id, x.QuizName, x.Candidate))
-                .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
         }
 
         public async Task<Maybe<Exam>> GetAsync(Guid id, CancellationToken cancellationToken = default)

@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Microsoft.Extensions.Logging;
 using QuizTopics.Candidate.Application.Outbox;
 using QuizTopics.Candidate.Domain.ExamsAggregate.DomainEvents;
+using QuizTopics.Common.Mediator;
 
 namespace QuizTopics.Candidate.Application.Exams.DomainEvents
 {
-    public sealed class ExamFinishedDomainEventHandler : INotificationHandler<ExamFinishedDomainEvent>
+    public sealed class ExamFinishedDomainNotificationHandler : IDomainNotificationHandler<ExamFinishedDomainEvent>
     {
-        private readonly ILogger<ExamFinishedDomainEventHandler> logger;
+        private readonly ILogger<ExamFinishedDomainNotificationHandler> logger;
         private readonly IOutboxService outboxService;
 
-        public ExamFinishedDomainEventHandler(ILogger<ExamFinishedDomainEventHandler> logger, IOutboxService outboxService)
+        public ExamFinishedDomainNotificationHandler(ILogger<ExamFinishedDomainNotificationHandler> logger, IOutboxService outboxService)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.outboxService = outboxService ?? throw new ArgumentNullException(nameof(outboxService));

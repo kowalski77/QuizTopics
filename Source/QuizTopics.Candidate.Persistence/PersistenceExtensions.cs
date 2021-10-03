@@ -10,6 +10,7 @@ using QuizTopics.Common.Database;
 using QuizTopics.Common.DomainDriven;
 using QuizTopics.Common.Outbox;
 
+[assembly: CLSCompliant(false)]
 namespace QuizTopics.Candidate.Persistence
 {
     public static class PersistenceExtensions

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 
+[assembly: CLSCompliant(false)]
 namespace QuizTopics.Candidate.Domain
 {
     public static class DomainExtensions

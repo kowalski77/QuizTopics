@@ -24,7 +24,8 @@ namespace QuizTopics.Candidate.Persistence
         {
             return await this.context.Quizzes!
                 .Select(x => new QuizDto(x.Id, x.Name, x.Category))
-                .ToListAsync(cancellationToken);
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

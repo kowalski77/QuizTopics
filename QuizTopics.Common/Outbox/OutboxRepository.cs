@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json;
 using QuizDesigner.Events;
-using QuizTopics.Common.Optional;
+using QuizTopics.Common.Monad;
 
 namespace QuizTopics.Common.Outbox
 {

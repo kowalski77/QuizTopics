@@ -1,7 +1,7 @@
 ﻿using System;
-using MediatR;
+using QuizTopics.Common.Mediator;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate.DomainEvents
 {
-    public sealed record ExamFinishedDomainEvent(Summary Summary, DateTime CreatedAt) : INotification;
+    public sealed record ExamFinishedDomainEvent(Summary Summary, DateTime CreatedAt) : IDomainNotification;
 }

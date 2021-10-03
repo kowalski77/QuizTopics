@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using QuizTopics.Candidate.Domain.ExamsAggregate.DomainEvents;
 using QuizTopics.Common.DomainDriven;
-using QuizTopics.Common.Optional;
+using QuizTopics.Common.Monad;
 using QuizTopics.Common.Results;
 
 namespace QuizTopics.Candidate.Domain.ExamsAggregate

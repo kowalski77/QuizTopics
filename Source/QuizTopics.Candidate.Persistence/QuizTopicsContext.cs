@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
@@ -19,6 +20,11 @@ namespace QuizTopics.Candidate.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            if (modelBuilder == null)
+            {
+                throw new ArgumentNullException(nameof(modelBuilder));
+            }
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(QuizTopicsContext).Assembly);
         }
     }

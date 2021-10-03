@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using QuizTopics.Candidate.Application.Behaviors;
@@ -8,6 +9,7 @@ using QuizTopics.Candidate.Application.Quizzes.Commands.Create;
 using QuizTopics.Common.Database;
 using QuizTopics.Common.Outbox;
 
+[assembly: CLSCompliant(false)]
 namespace QuizTopics.Candidate.Application
 {
     public static class ApplicationExtensions

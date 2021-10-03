@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Common.DomainDriven;
-using QuizTopics.Common.Optional;
+using QuizTopics.Common.Monad;
 
 namespace QuizTopics.Candidate.Persistence
 {
@@ -21,7 +21,8 @@ namespace QuizTopics.Candidate.Persistence
         {
             var exam = await this.context.Exams!
                 .Include(x => x.QuestionsCollection)
-                .FirstOrDefaultAsync(x => x.QuizName == quizName && x.Candidate == candidate, cancellationToken);
+                .FirstOrDefaultAsync(x => x.QuizName == quizName && x.Candidate == candidate, cancellationToken)
+                .ConfigureAwait(false);
 
             return exam;
         }
