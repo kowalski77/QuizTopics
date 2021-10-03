@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//TODO: common nuget
+[assembly: CLSCompliant(false)]
 namespace QuizDesigner.Events
 {
     public sealed record QuizCreated(Guid Id, string Exam, string Category, IEnumerable<ExamQuestion> ExamQuestionCollection) : IIntegrationEvent;

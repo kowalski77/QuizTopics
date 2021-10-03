@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Common.Api;
-using QuizTopics.Shared;
+using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {

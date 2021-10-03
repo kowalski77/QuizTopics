@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{EC39967B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{99240228-7EB8-432F-8CA7-21BB0CF59F7D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.Shared", "QuizTopics.Shared\QuizTopics.Shared.csproj", "{A5D8EC88-83D0-4298-B5FB-49A100604DFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.Models", "QuizTopics.Models\QuizTopics.Models.csproj", "{A5D8EC88-83D0-4298-B5FB-49A100604DFA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.IdentityServer", "QuizTopics.IdentityServer\QuizTopics.IdentityServer.csproj", "{B0B08B2F-342F-4864-9A08-4D7966048508}"
 EndProject
@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E7BEAE05-A38D-4D83-B1A1-5B2E01064452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizTopics.AzureServiceBus", "QuizTopics.AzureServiceBus\QuizTopics.AzureServiceBus.csproj", "{3CD32759-B1A4-4D77-91BF-E925A1E5528C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizTopics.AzureServiceBus", "QuizTopics.AzureServiceBus\QuizTopics.AzureServiceBus.csproj", "{3CD32759-B1A4-4D77-91BF-E925A1E5528C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

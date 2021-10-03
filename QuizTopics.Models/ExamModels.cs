@@ -1,6 +1,8 @@
 ﻿using System;
 
-namespace QuizTopics.Shared
+[assembly: CLSCompliant(false)]
+
+namespace QuizTopics.Models
 {
     public sealed record CreateExamModel(string UserEmail, Guid QuizId);
 

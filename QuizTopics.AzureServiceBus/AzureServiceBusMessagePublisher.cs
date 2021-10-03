@@ -8,6 +8,7 @@ using Microsoft.Extensions.Options;
 using QuizDesigner.Events;
 using QuizTopics.Candidate.Application.Messaging;
 
+[assembly: CLSCompliant(false)]
 namespace QuizTopics.AzureServiceBus
 {
     public sealed class AzureServiceBusMessagePublisher : IMessagePublisher, IAsyncDisposable

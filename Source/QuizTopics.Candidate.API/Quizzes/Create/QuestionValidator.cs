@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using QuizTopics.Shared;
+using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create
 {

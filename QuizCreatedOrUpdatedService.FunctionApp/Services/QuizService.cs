@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Options;
-using QuizTopics.Shared;
+using QuizTopics.Models;
 
 namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 {
