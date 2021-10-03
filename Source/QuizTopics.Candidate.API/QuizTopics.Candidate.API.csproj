@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
 	  <Nullable>enable</Nullable>
 	  <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+	  <UserSecretsId>4ec5bd3d-984c-45d1-8940-151bf1a3e61d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
