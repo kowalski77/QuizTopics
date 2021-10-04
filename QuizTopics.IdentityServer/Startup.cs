@@ -28,13 +28,18 @@ namespace QuizTopics.IdentityServer
             // not recommended for production - you need to store your key material somewhere secure
             //builder.AddDeveloperSigningCredential();
 
+            services.Configure<GoggleAuthOptions>(this.Configuration.GetSection(nameof(GoggleAuthOptions)));
+
             services.AddAuthentication()
                 .AddGoogle("Google", options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                    options.ClientId = "844964698772-jn8f8fp3k1fq7ic8gb9dvr8khfpmto7l.apps.googleusercontent.com";
-                    options.ClientSecret = "JYUo4p6Y1_BjhJhsHzC4JVtP";
+                    var googleAuthOptions = new GoggleAuthOptions();
+                    this.Configuration.Bind(nameof(GoggleAuthOptions), googleAuthOptions);
+
+                    options.ClientId = googleAuthOptions.ClientId;
+                    options.ClientSecret = googleAuthOptions.ClientSecret;
                 });
         }
 
