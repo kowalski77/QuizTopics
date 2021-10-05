@@ -15,7 +15,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
                 throw new ArgumentNullException(nameof(model));
             }
 
-            return new CreateExamCommand(model.Id, model.UserEmail, model.QuizId);
+            return new CreateExamCommand(model.Id, model.User, model.QuizId);
         }
 
         public static ExamModel AsModel(this CreateExamDto source)

@@ -8,7 +8,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
     {
         public CreateExamModelValidator()
         {
-            this.RuleFor(x => x.UserEmail)
+            this.RuleFor(x => x.User)
                 .EnsureNotEmpty()
                 .EnsureEmailAddress();
         }

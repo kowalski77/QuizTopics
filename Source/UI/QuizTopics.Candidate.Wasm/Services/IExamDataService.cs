@@ -4,6 +4,6 @@ namespace QuizTopics.Candidate.Wasm.Services
 {
     public interface IExamDataService
     {
-        Task CreateExam(string userIdentifier);
+        Task CreateExam(string user);
     }
 }
