@@ -40,6 +40,10 @@ namespace QuizTopics.IdentityServer
 
                     options.ClientId = googleAuthOptions.ClientId;
                     options.ClientSecret = googleAuthOptions.ClientSecret;
+
+                    options.Scope.Add("openid");
+                    options.Scope.Add("email");
+                    options.Scope.Add("profile");
                 });
         }
 
