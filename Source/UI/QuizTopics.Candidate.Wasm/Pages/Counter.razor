@@ -1,0 +1,25 @@
+﻿@page "/counter"
+@using QuizTopics.Candidate.Wasm.Services
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button class="btn btn-primary" @onclick="CreateExamAsync">Create Exam</button>
+
+@code {
+    [Inject] private IExamDataService ExamDataService { get; set; }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private async Task CreateExamAsync()
+    {
+        await this.ExamDataService.CreateExam().ConfigureAwait(true);
+    }
+}

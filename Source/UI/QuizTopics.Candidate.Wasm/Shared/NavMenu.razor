@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">QuizTopics.Candidate.Wasm</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+
+    <AuthorizeView>
+        <Authorized>
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="counter">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Counter
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="fetchdata">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+                    </NavLink>
+                </li>
+                <li class="nav-item px-3">
+                    <button class="list-group-item list-group-item-action bg-light"
+                            @onclick="BeginSignOut">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Log out
+                        (@context.User.Identity?.Name)
+                    </button>
+                </li>
+            </ul>
+        </Authorized>
+        <NotAuthorized>
+            <NavLink class="list-group-item list-group-item-action bg-light"
+                     href="authentication/login">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Log in
+            </NavLink>
+        </NotAuthorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    [Inject]
+    IAccessTokenProvider TokenProvider { get; set; }
+
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    SignOutSessionStateManager SignOutManager { get; set; }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task BeginSignOut(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        NavigationManager.NavigateTo("authentication/logout");
+    }
+
+    private async Task WriteToken()
+    {
+        var tokenResult = await TokenProvider.RequestAccessToken();
+        if (tokenResult.TryGetToken(out var token))
+        {
+            System.Diagnostics.Debug.WriteLine(token.Value);
+        }
+    }
+}

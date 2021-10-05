@@ -27,6 +27,8 @@ namespace QuizTopics.Candidate.API.Exams.Create
                 throw new ArgumentNullException(nameof(model));
             }
 
+            var user = this.HttpContext.User;
+
             var resultModel = await this.Mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
             return FromResultModel(resultModel);
