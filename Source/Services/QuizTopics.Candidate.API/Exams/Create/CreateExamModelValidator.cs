@@ -4,7 +4,7 @@ using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.Create
 {
-    public class CreateExamModelValidator : AbstractValidator<CreateExamModel>
+    public class CreateExamModelValidator : AbstractValidator<ExamModel>
     {
         public CreateExamModelValidator()
         {

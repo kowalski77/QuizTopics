@@ -17,7 +17,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
         }
 
-        public async Task<Result<Exam>> CreateExamAsync(Quiz quiz, string userEmail, CancellationToken cancellationToken = default)
+        public async Task<Result<Exam>> CreateExamAsync(Quiz quiz, Guid id, string userEmail, CancellationToken cancellationToken = default)
         {
             if (quiz == null)
             {
@@ -30,7 +30,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
                 return Result.Fail<Exam>(ExamErrors.UserAlreadyTokeExam(userEmail, existingExam.QuizName));
             }
 
-            var exam = new Exam(quiz.Name, userEmail, DateTime.UtcNow, GetExamQuestions(quiz.QuestionCollection));
+            var exam = new Exam(id, quiz.Id, quiz.Name, userEmail, DateTime.UtcNow, GetExamQuestions(quiz.QuestionCollection));
 
             return Result.Ok(exam);
         }

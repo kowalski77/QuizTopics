@@ -15,7 +15,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
         private Exam() { }
 
-        public Exam(string quizName, string candidate, 
+        public Exam(Guid id, Guid quizId, string quizName, string candidate, 
             DateTime createdAt, IEnumerable<ExamQuestion> questions)
         {
             if (string.IsNullOrEmpty(quizName))
@@ -23,11 +23,19 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
                 throw new ArgumentNullException(nameof(quizName));
             }
 
+            if (id != Guid.Empty)
+            {
+                this.Id = id;
+            }
+
+            this.QuizId = quizId;
             this.QuizName = quizName;
             this.Candidate = candidate;
             this.CreatedAt = createdAt;
             this.questionsCollection = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
         }
+
+        public Guid QuizId { get; }
 
         public string QuizName { get; private set; }
 

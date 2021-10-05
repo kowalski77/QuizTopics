@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Common.Api;
 using QuizTopics.Models;
 
@@ -18,20 +17,18 @@ namespace QuizTopics.Candidate.API.Exams.Create
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CreateExamDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExamModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
-        public async Task<IActionResult> CreateExam([FromBody] CreateExamModel model)
+        public async Task<IActionResult> CreateExam([FromBody] ExamModel model)
         {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
             }
 
-            var user = this.HttpContext.User;
-
             var resultModel = await this.Mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
-            return FromResultModel(resultModel);
+            return FromResultModel(resultModel, rm => rm.AsModel());
         }
     }
 }

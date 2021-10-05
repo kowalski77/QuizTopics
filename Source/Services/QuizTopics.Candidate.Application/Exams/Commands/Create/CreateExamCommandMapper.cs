@@ -12,7 +12,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
                 throw new ArgumentNullException(nameof(exam));
             }
 
-            return new CreateExamDto(exam.Id, exam.QuizName, exam.QuestionsCollection.Count);
+            return new CreateExamDto(exam.Id, exam.Candidate, exam.QuizId);
         }
     }
 }

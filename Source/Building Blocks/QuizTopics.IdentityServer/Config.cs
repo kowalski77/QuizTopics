@@ -17,7 +17,7 @@ namespace QuizTopics.IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>
             {
-                new("candidateapi", "Generic access")
+                new("candidateapi")
             };
 
         public static IEnumerable<Client> Clients =>
@@ -25,6 +25,7 @@ namespace QuizTopics.IdentityServer
             {
                 new()
                 {
+                    AlwaysIncludeUserClaimsInIdToken=true,
                     ClientId = "candidateclient",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,

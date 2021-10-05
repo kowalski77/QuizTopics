@@ -16,9 +16,9 @@ namespace QuizTopics.Candidate.Wasm.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task CreateExam()
+        public async Task CreateExam(string userIdentifier)
         {
-            var exam = new CreateExamModel("email@email.com", Guid.NewGuid());
+            var exam = new ExamModel(Guid.NewGuid(), userIdentifier, Guid.NewGuid());
             var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, "application/json");
 
             var response = await this.httpClient.PostAsync("api/v1/exam", examJson).ConfigureAwait(true);

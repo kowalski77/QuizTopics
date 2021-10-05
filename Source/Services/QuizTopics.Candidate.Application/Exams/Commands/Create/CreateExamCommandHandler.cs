@@ -32,7 +32,7 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
 
             var resultModel = await ResultModel.Init()
                 .OnSuccess(async () => await this.GetQuizAsync(request.QuizId, cancellationToken).ConfigureAwait(false))
-                .OnSuccess(async quiz => await this.CreateExamAsync(quiz, request.UserEmail, cancellationToken).ConfigureAwait(false))
+                .OnSuccess(async quiz => await this.CreateExamAsync(quiz, request.Id, request.UserEmail, cancellationToken).ConfigureAwait(false))
                 .ConfigureAwait(false);
 
             return resultModel;
@@ -47,9 +47,9 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
                 ResultModel.Fail<Quiz>(GeneralErrors.NotFound(quizId)) ;
         }
 
-        private async Task<IResultModel<CreateExamDto>> CreateExamAsync(Quiz quiz, string userEmail, CancellationToken cancellationToken)
+        private async Task<IResultModel<CreateExamDto>> CreateExamAsync(Quiz quiz, Guid id, string userEmail, CancellationToken cancellationToken)
         {
-            var result = await this.examService.CreateExamAsync(quiz, userEmail, cancellationToken).ConfigureAwait(false);
+            var result = await this.examService.CreateExamAsync(quiz, id, userEmail, cancellationToken).ConfigureAwait(false);
             if (!result.Success)
             {
                 return ResultModel.Fail<CreateExamDto>(result.Error);

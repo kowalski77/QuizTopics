@@ -6,7 +6,7 @@ namespace QuizTopics.Candidate.Application.Exams
 {
     public sealed record ExamDto(Guid Id, string Name, string Candidate);
 
-    public sealed record CreateExamDto(Guid Id, string QuizName, int QuestionsNumber);
+    public sealed record CreateExamDto(Guid Id, string UserEmail, Guid QuizId);
 
     public sealed record ExamQuestionDto(Guid Id, string Text, Difficulty Difficulty, bool Answered, IEnumerable<ExamAnswerDto> ExamAnswersCollection)
     {

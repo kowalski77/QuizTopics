@@ -49,6 +49,29 @@ namespace QuizTopics.Common.Api
             return actionResult;
         }
 
+        protected static IActionResult FromResultModel<T, TR>(IResultModel<T> result, Func<T,TR> converter)
+            where TR : class
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            if (converter == null)
+            {
+                throw new ArgumentNullException(nameof(converter));
+            }
+
+            IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
+            {
+                (true, _) => Ok(converter(result.Value)),
+                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, null),
+                _ => Error(result.ErrorResult, null)
+            };
+
+            return actionResult;
+        }
+
         protected IActionResult FromResultModel(IResultModel result)
         {
             if (result == null)

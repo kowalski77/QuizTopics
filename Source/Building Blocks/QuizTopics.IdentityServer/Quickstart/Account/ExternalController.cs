@@ -189,6 +189,12 @@ namespace IdentityServerHost.Quickstart.UI
                 localClaims.Add(new Claim(JwtClaimTypes.SessionId, sid.Value));
             }
 
+            var email = externalResult.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email);
+            if (email != null)
+            {
+                localClaims.Add(new Claim(JwtClaimTypes.Email, email.Value));
+            }
+
             // if the external provider issued an id_token, we'll keep it for signout
             var idToken = externalResult.Properties.GetTokenValue("id_token");
             if (idToken != null)

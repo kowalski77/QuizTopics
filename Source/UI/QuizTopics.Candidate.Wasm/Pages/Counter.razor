@@ -9,6 +9,10 @@
 <button class="btn btn-primary" @onclick="CreateExamAsync">Create Exam</button>
 
 @code {
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthState { get; set; }
+    
     [Inject] private IExamDataService ExamDataService { get; set; }
 
     private int currentCount = 0;
@@ -20,6 +24,8 @@
 
     private async Task CreateExamAsync()
     {
-        await this.ExamDataService.CreateExam().ConfigureAwait(true);
+        var userIdentifier = (await this.AuthState).User.Identity?.Name ?? throw new InvalidOperationException($"Could not retrieve the user");
+
+        await this.ExamDataService.CreateExam(userIdentifier).ConfigureAwait(true);
     }
 }
