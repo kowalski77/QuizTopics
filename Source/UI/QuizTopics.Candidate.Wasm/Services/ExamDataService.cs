@@ -3,7 +3,9 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using QuizTopics.Candidate.Wasm.ViewModels;
 using QuizTopics.Common.Envelopes;
+using QuizTopics.Common.Results;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.Wasm.Services
@@ -14,7 +16,7 @@ namespace QuizTopics.Candidate.Wasm.Services
         {
             PropertyNameCaseInsensitive = true
         };
-        
+
         private readonly HttpClient httpClient;
 
         public ExamDataService(HttpClient httpClient)
@@ -22,22 +24,25 @@ namespace QuizTopics.Candidate.Wasm.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task CreateExam(string user)
+        public async Task<Result<ExamViewModel>> CreateExam(string user, Guid quizId)
         {
-            var exam = new ExamModel(Guid.NewGuid(), user, Guid.NewGuid());
-
+            var exam = new ExamModel(Guid.NewGuid(), user, quizId);
             var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, "application/json");
 
             var response = await this.httpClient.PostAsync("api/v1/exam", examJson).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var newlyExam = JsonSerializer.Deserialize<Envelope<ExamModel>>(content, JsonSerializerOptions);
+                var newlyExam = JsonSerializer.Deserialize<Envelope<ExamModel>>(content, JsonSerializerOptions) ??
+                                throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
+
+                return Result.Ok((ExamViewModel)newlyExam.Result);
             }
 
-            var errorContent = await response.Content.ReadAsStringAsync();
+            var error = JsonSerializer.Deserialize<Envelope>(await response.Content.ReadAsStringAsync(), JsonSerializerOptions) ??
+                        throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
 
-            var error = JsonSerializer.Deserialize<Envelope>(errorContent, JsonSerializerOptions);
+            return Result.Fail<ExamViewModel>(new ErrorResult(error.ErrorCode!, error.ErrorMessage!));
         }
     }
 }

@@ -1,9 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using QuizTopics.Candidate.Wasm.ViewModels;
+using QuizTopics.Common.Results;
 
 namespace QuizTopics.Candidate.Wasm.Services
 {
     public interface IExamDataService
     {
-        Task CreateExam(string user);
+        Task<Result<ExamViewModel>> CreateExam(string user, Guid quizId);
     }
 }

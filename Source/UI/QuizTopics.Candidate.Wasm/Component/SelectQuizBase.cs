@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using QuizTopics.Candidate.Wasm.Services;
 using QuizTopics.Candidate.Wasm.ViewModels;
 
@@ -13,7 +14,12 @@ namespace QuizTopics.Candidate.Wasm.Component
         private Guid selectedQuizViewModel = Guid.Empty;
         private bool isButtonEnabled;
 
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthState { get; set; }
+
         [Inject] private IQuizDataService QuizDataService { get; set; }
+
+        [Inject] private IExamDataService ExamDataService { get; set; }
 
         protected IEnumerable<QuizViewModel> QuizViewModelCollection { get; private set; }
 
@@ -31,9 +37,12 @@ namespace QuizTopics.Candidate.Wasm.Component
             this.isButtonEnabled = this.selectedQuizViewModel != Guid.Empty;
         }
 
-        protected Task StartAsync()
+        protected async Task StartAsync()
         {
-            throw new NotImplementedException();
+            var userIdentifier = (await this.AuthState).User.Identity?.Name ?? 
+                                 throw new InvalidOperationException("Could not retrieve the user");
+
+            var result = await this.ExamDataService.CreateExam(userIdentifier, this.selectedQuizViewModel);
         }
     }
 }
