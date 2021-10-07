@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using QuizTopics.Common.Errors;
+using QuizTopics.Envelopes;
 
 namespace QuizTopics.Common.Api
 {

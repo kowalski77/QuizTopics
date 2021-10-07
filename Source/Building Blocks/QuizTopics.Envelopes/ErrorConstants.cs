@@ -1,4 +1,4 @@
-﻿namespace QuizTopics.Common.Errors
+﻿namespace QuizTopics.Envelopes
 {
     public static class ErrorConstants
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using QuizTopics.Common.Errors;
+using QuizTopics.Envelopes;
 
 namespace QuizTopics.Common.Results
 {

@@ -17,11 +17,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Api\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
+	  <ProjectReference Include="..\QuizTopics.Envelopes\QuizTopics.Envelopes.csproj" />
 	</ItemGroup>
 
 </Project>

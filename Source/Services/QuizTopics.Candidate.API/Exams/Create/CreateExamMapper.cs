@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Commands.Create;
 using QuizTopics.Models;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizTopics.Common.Errors
+namespace QuizTopics.Envelopes
 {
     public class ErrorResult
     {

@@ -3,8 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
-using QuizTopics.Common.Errors;
 using QuizTopics.Common.ResultModels;
+using QuizTopics.Envelopes;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {

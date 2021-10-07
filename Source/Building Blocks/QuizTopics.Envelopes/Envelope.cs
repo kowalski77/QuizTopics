@@ -1,10 +1,11 @@
 ﻿using System;
-using QuizTopics.Common.Errors;
 
-namespace QuizTopics.Common.Api
+namespace QuizTopics.Envelopes
 {
     public class Envelope
     {
+        public Envelope() { }
+
         private Envelope(object? result, ErrorResult? error, string? invalidField)
         {
             this.Result = result;
@@ -14,15 +15,15 @@ namespace QuizTopics.Common.Api
             this.TimeGenerated = DateTime.UtcNow;
         }
 
-        public object? Result { get; }
+        public object? Result { get; set; }
 
-        public string? ErrorCode { get; }
+        public string? ErrorCode { get; set; }
 
-        public string? ErrorMessage { get; }
+        public string? ErrorMessage { get; set; }
 
-        public string? InvalidField { get; }
+        public string? InvalidField { get; set; }
 
-        public DateTime TimeGenerated { get; }
+        public DateTime TimeGenerated { get; set; }
 
         public static Envelope Ok(object? result)
         {

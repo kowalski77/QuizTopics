@@ -4,8 +4,8 @@ using System.Net.Mime;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Common.Errors;
 using QuizTopics.Common.ResultModels;
+using QuizTopics.Envelopes;
 
 namespace QuizTopics.Common.Api
 {

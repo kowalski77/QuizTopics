@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using QuizTopics.Common.Errors;
+using QuizTopics.Envelopes;
 
 namespace QuizTopics.Common.Api
 {
