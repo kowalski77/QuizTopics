@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 
-namespace QuizTopics.Common.Api
+namespace QuizTopics.Candidate.API.Support
 {
     public static class CustomValidators
     {

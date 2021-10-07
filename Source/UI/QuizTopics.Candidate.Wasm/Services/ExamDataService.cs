@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.Wasm.Services

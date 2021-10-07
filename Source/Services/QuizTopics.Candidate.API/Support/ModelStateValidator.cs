@@ -3,9 +3,9 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 
-namespace QuizTopics.Common.Api
+namespace QuizTopics.Candidate.API.Support
 {
     public sealed class ModelStateValidator
     {

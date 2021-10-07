@@ -3,10 +3,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion;
-using QuizTopics.Common.Api;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 {

@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Exams.Commands.Finish;
-using QuizTopics.Common.Api;
 
 namespace QuizTopics.Candidate.API.Exams.Finish
 {

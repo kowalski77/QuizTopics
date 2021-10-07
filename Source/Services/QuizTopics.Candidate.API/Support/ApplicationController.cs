@@ -4,10 +4,10 @@ using System.Net.Mime;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuizTopics.Common.Envelopes;
 using QuizTopics.Common.ResultModels;
-using QuizTopics.Envelopes;
 
-namespace QuizTopics.Common.Api
+namespace QuizTopics.Candidate.API.Support
 {
     [ApiController]
     [Authorize]

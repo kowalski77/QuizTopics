@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizTopics.Envelopes
+namespace QuizTopics.Common.Envelopes
 {
     public static class GeneralErrors
     {

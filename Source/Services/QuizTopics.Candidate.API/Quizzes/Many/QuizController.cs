@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
-using QuizTopics.Common.Api;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Quizzes.Many

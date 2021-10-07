@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using QuizTopics.Common.Api;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.Create

@@ -12,11 +12,11 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuizTopics.AzureServiceBus;
 using QuizTopics.Candidate.API.Exams.Create;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Application.Messaging;
 using QuizTopics.Candidate.Domain;
 using QuizTopics.Candidate.Persistence;
-using QuizTopics.Common.Api;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace QuizTopics.Candidate.API

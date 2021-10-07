@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace QuizTopics.Envelopes
+namespace QuizTopics.Common.Envelopes
 {
     public class Envelope
     {

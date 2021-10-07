@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Common.Api;
+using QuizTopics.Candidate.API.Support;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Quizzes.Create

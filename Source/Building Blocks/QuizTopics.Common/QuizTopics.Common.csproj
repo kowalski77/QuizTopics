@@ -8,8 +8,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="9.0.0" />
-		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.6" />
@@ -18,7 +16,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\QuizDesigner.Events\QuizDesigner.Events.csproj" />
-	  <ProjectReference Include="..\QuizTopics.Envelopes\QuizTopics.Envelopes.csproj" />
 	</ItemGroup>
 
 </Project>

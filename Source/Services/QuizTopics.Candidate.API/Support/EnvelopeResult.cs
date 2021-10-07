@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using QuizTopics.Envelopes;
+using QuizTopics.Common.Envelopes;
 
-namespace QuizTopics.Common.Api
+namespace QuizTopics.Candidate.API.Support
 {
     public sealed class EnvelopeResult : IActionResult
     {
