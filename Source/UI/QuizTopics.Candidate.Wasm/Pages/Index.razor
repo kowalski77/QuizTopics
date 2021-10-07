@@ -1,7 +1,15 @@
 ﻿@page "/"
 
 <div>
-    <p>Welcome to Spain Avanade's New Candidate quizzes.</p><strong> Please, select a quiz to evaluate your level.</strong>
+    <p>Welcome to Spain Avanade's New Candidate quizzes.</p>
 </div>
 
-<SelectQuiz/>
+<AuthorizeView>
+    <Authorized>
+        <strong> Select a quiz to evaluate your level.</strong>
+        <SelectQuiz />
+    </Authorized>
+    <NotAuthorized>
+        <strong>Please, log in</strong>
+    </NotAuthorized>
+</AuthorizeView>

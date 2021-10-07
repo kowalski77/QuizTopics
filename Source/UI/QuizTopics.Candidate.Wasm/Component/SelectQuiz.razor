@@ -6,11 +6,12 @@
 @attribute [Authorize]
 @inherits SelectQuizBase
 
-    <div class="select-quiz">
-        <Select TValue="int">
-            <SelectItem Value="1">1</SelectItem>
-            <SelectItem Value="2">2</SelectItem>
-            <SelectItem Value="3">3</SelectItem>
-            <SelectItem Value="4">4</SelectItem>
-        </Select>
-    </div>
+<div class="select-quiz">
+    <SelectList TItem="QuizViewModel" 
+                TValue="Guid"
+                Data="this.QuizViewModelCollection"
+                TextField="model => model.Description"
+                ValueField="model => model.Id"
+                SelectedValueChanged="this.OnSelectedValueChanged"
+                DefaultItemText="" />
+</div>

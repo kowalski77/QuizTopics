@@ -38,6 +38,10 @@ namespace QuizTopics.Candidate.Wasm
                     client.BaseAddress = new Uri("https://localhost:5003"))
                 .AddHttpMessageHandler<QuizTopicsCandidateAuthorizationMessageHandler>();
 
+            builder.Services.AddHttpClient<IQuizDataService, QuizDataService>(client =>
+                    client.BaseAddress = new Uri("https://localhost:5003"))
+                .AddHttpMessageHandler<QuizTopicsCandidateAuthorizationMessageHandler>();
+
             await builder.Build().RunAsync();
         }
     }
