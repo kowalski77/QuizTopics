@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.4.6" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.4.6" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="5.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.10" PrivateAssets="all" />
@@ -15,6 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Building Blocks\QuizTopics.Envelopes\QuizTopics.Envelopes.csproj" />
     <ProjectReference Include="..\..\Building Blocks\QuizTopics.Models\QuizTopics.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Utils\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,16 @@
+﻿@page "/create-quiz"
+@page "/create-quiz/{id}"
+
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+@inherits SelectQuizBase
+
+    <div class="select-quiz">
+        <Select TValue="int">
+            <SelectItem Value="1">1</SelectItem>
+            <SelectItem Value="2">2</SelectItem>
+            <SelectItem Value="3">3</SelectItem>
+            <SelectItem Value="4">4</SelectItem>
+        </Select>
+    </div>
