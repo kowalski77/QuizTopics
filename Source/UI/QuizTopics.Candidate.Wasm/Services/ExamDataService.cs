@@ -31,9 +31,8 @@ namespace QuizTopics.Candidate.Wasm.Services
             var response = await this.httpClient.PostAsync("api/v1/exam", examJson).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
             {
-                await using var content = await response.Content.ReadAsStreamAsync();
-
-                var newlyExam = await JsonSerializer.DeserializeAsync<ExamModel>(content);
+                var content = await response.Content.ReadAsStringAsync();
+                var newlyExam = JsonSerializer.Deserialize<Envelope<ExamModel>>(content, JsonSerializerOptions);
             }
 
             var errorContent = await response.Content.ReadAsStringAsync();

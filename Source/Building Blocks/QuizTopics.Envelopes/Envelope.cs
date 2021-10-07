@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace QuizTopics.Envelopes
 {
@@ -6,16 +7,13 @@ namespace QuizTopics.Envelopes
     {
         public Envelope() { }
 
-        private Envelope(object? result, ErrorResult? error, string? invalidField)
+        private Envelope(ErrorResult? error, string invalidField)
         {
-            this.Result = result;
             this.ErrorCode = error?.Code;
             this.ErrorMessage = error?.Message;
             this.InvalidField = invalidField;
             this.TimeGenerated = DateTime.UtcNow;
         }
-
-        public object? Result { get; set; }
 
         public string? ErrorCode { get; set; }
 
@@ -25,14 +23,15 @@ namespace QuizTopics.Envelopes
 
         public DateTime TimeGenerated { get; set; }
 
-        public static Envelope Ok(object? result)
+        public static Envelope Ok<T>([NotNull]T result)
+            where T : notnull
         {
-            return new Envelope(result, null, null);
+            return new Envelope<T>(result);
         }
 
-        public static Envelope Error(ErrorResult? error, string? invalidField)
+        public static Envelope Error(ErrorResult? error, string invalidField)
         {
-            return new Envelope(null, error, invalidField);
+            return new Envelope(error, invalidField);
         }
     }
 }

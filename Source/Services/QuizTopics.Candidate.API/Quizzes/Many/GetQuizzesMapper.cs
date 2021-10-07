@@ -4,7 +4,7 @@ using System.Linq;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Models;
 
-namespace QuizTopics.Candidate.API.Quizzes.Get
+namespace QuizTopics.Candidate.API.Quizzes.Many
 {
     public static class GetQuizzesMapper
     {

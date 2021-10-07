@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Common.Api;
+using QuizTopics.Envelopes;
 using QuizTopics.Models;
 
-namespace QuizTopics.Candidate.API.Quizzes.Get
+namespace QuizTopics.Candidate.API.Quizzes.Many
 {
     [Route("api/v1/[controller]")]
     public class QuizController : ApplicationController
@@ -17,7 +18,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Get
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<QuizModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope<IEnumerable<QuizModel>>))]
         public async Task<IActionResult> GetQuizzesCollection()
         {
             var quizDtoCollection = await this.Mediator.Send(new GetQuizCollectionRequest()).ConfigureAwait(false);

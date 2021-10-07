@@ -25,7 +25,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
 
             var response = await this.Mediator.Send(model.AsCommand()).ConfigureAwait(false);
 
-            return response.Success ? this.NoContent() : Error(response.ErrorResult, null);
+            return response.Success ? this.NoContent() : Error(response.ErrorResult, string.Empty);
         }
     }
 }

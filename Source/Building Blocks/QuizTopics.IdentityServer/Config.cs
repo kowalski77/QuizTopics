@@ -25,6 +25,13 @@ namespace QuizTopics.IdentityServer
             {
                 new()
                 {
+                    ClientId = "client",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedScopes = { "candidateapi" }
+                },
+                new()
+                {
                     AlwaysIncludeUserClaimsInIdToken=true,
                     ClientId = "candidateclient",
                     AllowedGrantTypes = GrantTypes.Code,

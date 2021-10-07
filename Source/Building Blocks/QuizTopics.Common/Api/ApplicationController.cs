@@ -22,12 +22,12 @@ namespace QuizTopics.Common.Api
 
         protected IMediator Mediator { get; }
 
-        protected new static IActionResult Ok(object? result)
+        protected new static IActionResult Ok(object result)
         {
             return new EnvelopeResult(Envelope.Ok(result), HttpStatusCode.OK);
         }
 
-        protected static IActionResult Error(ErrorResult? error, string? invalidField)
+        protected static IActionResult Error(ErrorResult? error, string invalidField)
         {
             return new EnvelopeResult(Envelope.Error(error, invalidField), HttpStatusCode.BadRequest);
         }
@@ -43,8 +43,8 @@ namespace QuizTopics.Common.Api
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
                 (true, _) => Ok(result.Value),
-                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, null),
-                _ => Error(result.ErrorResult, null)
+                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
+                _ => Error(result.ErrorResult, string.Empty)
             };
 
             return actionResult;
@@ -66,8 +66,8 @@ namespace QuizTopics.Common.Api
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
                 (true, _) => Ok(converter(result.Value)),
-                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, null),
-                _ => Error(result.ErrorResult, null)
+                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
+                _ => Error(result.ErrorResult, string.Empty)
             };
 
             return actionResult;
@@ -83,14 +83,14 @@ namespace QuizTopics.Common.Api
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
                 (true, _) => this.Ok(),
-                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, null),
-                _ => Error(result.ErrorResult, null)
+                (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
+                _ => Error(result.ErrorResult, string.Empty)
             };
 
             return actionResult;
         }
 
-        private static IActionResult NotFound(ErrorResult error, string? invalidField)
+        private static IActionResult NotFound(ErrorResult error, string invalidField)
         {
             return new EnvelopeResult(Envelope.Error(error, invalidField), HttpStatusCode.NotFound);
         }
