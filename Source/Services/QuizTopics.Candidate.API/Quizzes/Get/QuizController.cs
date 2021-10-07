@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Common.Api;
+using QuizTopics.Models;
 
-namespace QuizTopics.Candidate.API.Quizzes.Read
+namespace QuizTopics.Candidate.API.Quizzes.Get
 {
     [Route("api/v1/[controller]")]
     public class QuizController : ApplicationController
@@ -16,12 +17,12 @@ namespace QuizTopics.Candidate.API.Quizzes.Read
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<QuizDto>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<QuizModel>))]
         public async Task<IActionResult> GetQuizzesCollection()
         {
             var quizDtoCollection = await this.Mediator.Send(new GetQuizCollectionRequest()).ConfigureAwait(false);
 
-            return Ok(quizDtoCollection);
+            return Ok(quizDtoCollection.AsModelCollection());
         }
     }
 }

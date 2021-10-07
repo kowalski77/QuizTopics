@@ -33,6 +33,7 @@ namespace QuizTopics.Common.Api
         }
 
         protected static IActionResult FromResultModel<T>(IResultModel<T> result)
+            where T : class
         {
             if (result == null)
             {
