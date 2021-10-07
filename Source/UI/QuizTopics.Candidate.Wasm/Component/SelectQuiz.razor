@@ -6,12 +6,16 @@
 @attribute [Authorize]
 @inherits SelectQuizBase
 
-<div class="select-quiz">
-    <SelectList TItem="QuizViewModel" 
+<div class="input-group mb-1 select-quiz">
+    <SelectList TItem="QuizViewModel"
+                Class="form-control"
                 TValue="Guid"
                 Data="this.QuizViewModelCollection"
                 TextField="model => model.Description"
                 ValueField="model => model.Id"
                 SelectedValueChanged="this.OnSelectedValueChanged"
                 DefaultItemText="" />
+    <div class="input-group-append">
+        <Button Class="@this.ButtonClass" Clicked="this.StartAsync">Start</Button>
+    </div>
 </div>
