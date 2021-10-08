@@ -28,6 +28,8 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         protected string ButtonClass => this.isButtonEnabled ? "input-group-text" : "input-group-text disabled";
 
+        protected bool StartEnabled { get; private set; }
+
         protected override async Task OnInitializedAsync()
         {
             var result = await this.QuizDataService.GetAsync();
@@ -49,6 +51,11 @@ namespace QuizTopics.Candidate.Wasm.Component
             if (result.Failure)
             {
                 await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);
+                this.StartEnabled = true;
+            }
+            else
+            {
+                this.StartEnabled = true;
             }
         }
     }

@@ -3,16 +3,36 @@
 @attribute [Authorize]
 @inherits SelectQuizBase
 
-<div class="input-group mb-1 select-quiz">
-    <SelectList TItem="QuizViewModel"
-                Class="form-control"
-                TValue="Guid"
-                Data="this.QuizViewModelCollection"
-                TextField="model => model.Description"
-                ValueField="model => model.Id"
-                SelectedValueChanged="this.OnSelectedValueChanged"
-                DefaultItemText="" />
-    <div class="input-group-append">
-        <Button Class="@this.ButtonClass" Clicked="this.StartAsync">Select</Button>
-    </div>
+<div>
+    <p>Welcome to Spain Avanade's New Candidate quizzes.</p>
+    <strong> Select a quiz to evaluate your level.</strong>
 </div>
+<Row>
+    <Column ColumnSize="ColumnSize.Is8">
+        <div class="input-group mb-1">
+            <SelectList TItem="QuizViewModel"
+                        Class="form-control"
+                        TValue="Guid"
+                        Data="this.QuizViewModelCollection"
+                        TextField="model => model.Description"
+                        ValueField="model => model.Id"
+                        SelectedValueChanged="this.OnSelectedValueChanged"
+                        DefaultItemText=""/>
+            <div class="input-group-append">
+                <Button Class="@this.ButtonClass" Clicked="this.StartAsync">Select</Button>
+            </div>
+        </div>
+    </Column>
+</Row>
+
+<Condition Evaluation="this.StartEnabled">
+    <Match>
+        <Row>
+        <Column ColumnSize="ColumnSize.Is8" Class="">
+            <Alert Color="Color.Warning" Visible="true">
+                Is8
+            </Alert>
+        </Column>
+        </Row>
+    </Match>
+</Condition>
