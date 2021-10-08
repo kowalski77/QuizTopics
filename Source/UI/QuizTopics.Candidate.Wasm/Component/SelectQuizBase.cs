@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using QuizTopics.Candidate.Wasm.Services;
@@ -21,6 +22,8 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         [Inject] private IExamDataService ExamDataService { get; set; }
 
+        [Inject] private INotificationService NotificationService { get; set; }
+
         protected IEnumerable<QuizViewModel> QuizViewModelCollection { get; private set; }
 
         protected string ButtonClass => this.isButtonEnabled ? "input-group-text" : "input-group-text disabled";
@@ -39,10 +42,14 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         protected async Task StartAsync()
         {
-            var userIdentifier = (await this.AuthState).User.Identity?.Name ?? 
+            var userIdentifier = (await this.AuthState).User.Identity?.Name ??
                                  throw new InvalidOperationException("Could not retrieve the user");
 
             var result = await this.ExamDataService.CreateExam(userIdentifier, this.selectedQuizViewModel);
+            if (result.Failure)
+            {
+                await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);
+            }
         }
     }
 }
