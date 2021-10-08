@@ -28,16 +28,6 @@ namespace QuizTopics.Candidate.Persistence
             return exam;
         }
 
-        public async Task<Maybe<Exam>> GetExamByQuizAndCandidateAsync(string quizName, string candidate, CancellationToken cancellationToken = default)
-        {
-            var exam = await this.context.Exams!
-                .Include(x => x.QuestionsCollection)
-                .FirstOrDefaultAsync(x => x.QuizName == quizName && x.Candidate == candidate, cancellationToken)
-                .ConfigureAwait(false);
-
-            return exam;
-        }
-
         public override async Task<Maybe<Exam>> GetAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var exam = await this.context.Exams!

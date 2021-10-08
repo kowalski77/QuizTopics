@@ -40,10 +40,21 @@ namespace QuizTopics.Candidate.Wasm.Component
         {
             this.selectedQuizViewModel = id;
             this.isButtonEnabled = this.selectedQuizViewModel != Guid.Empty;
+            this.StartEnabled = false;
+        }
+
+        protected string ExamName()
+        {
+            return this.QuizViewModelCollection.FirstOrDefault(x => x.Id == this.selectedQuizViewModel)?.Name;
         }
 
         protected async Task StartAsync()
         {
+            if (this.selectedQuizViewModel == Guid.Empty)
+            {
+                return;
+            }
+
             var userIdentifier = (await this.AuthState).User.Identity?.Name ??
                                  throw new InvalidOperationException("Could not retrieve the user");
 
@@ -51,7 +62,7 @@ namespace QuizTopics.Candidate.Wasm.Component
             if (result.Failure)
             {
                 await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);
-                this.StartEnabled = true;
+                this.StartEnabled = false;
             }
             else
             {

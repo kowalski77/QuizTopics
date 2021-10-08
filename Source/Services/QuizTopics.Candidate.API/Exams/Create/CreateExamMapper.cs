@@ -1,5 +1,4 @@
 ﻿using System;
-using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Commands.Create;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Models;

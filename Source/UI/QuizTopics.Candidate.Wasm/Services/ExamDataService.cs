@@ -35,8 +35,8 @@ namespace QuizTopics.Candidate.Wasm.Services
                 return Result.Ok();
             }
 
-            var res = await response.Content.ReadAsStringAsync();
-
+            //response.StatusCode
+            // TODO (FATAL): Do not try to serialize when 500 // maybe manage this in API with Pipeline
             var error = JsonSerializer.Deserialize<Envelope>(await response.Content.ReadAsStringAsync(), JsonSerializerOptions) ??
                         throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
 

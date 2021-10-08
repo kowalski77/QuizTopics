@@ -11,8 +11,6 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
     {
         Task<Maybe<Exam>> GetExamByCandidateAndQuiz(string candidate, Guid quizId, CancellationToken cancellationToken = default);
 
-        Task<Maybe<Exam>> GetExamByQuizAndCandidateAsync(string quizName, string candidate, CancellationToken cancellationToken = default);
-
         Task<IReadOnlyList<ExamDto>> GetExamCollectionAsync(CancellationToken cancellationToken = default);
     }
 }
