@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
-using QuizTopics.Common.DomainDriven;
 using QuizTopics.Common.Mediator;
 using QuizTopics.Common.ResultModels;
 
@@ -10,9 +9,9 @@ namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
 {
     public class CreateQuizCommandHandler : ICommandHandler<CreateQuizCommand, IResultModel>
     {
-        private readonly IRepository<Quiz> quizRepository;
+        private readonly IQuizRepository quizRepository;
 
-        public CreateQuizCommandHandler(IRepository<Quiz> quizRepository)
+        public CreateQuizCommandHandler(IQuizRepository quizRepository)
         {
             this.quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }

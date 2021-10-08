@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Common.Envelopes;
 using QuizTopics.Common.Mediator;
 using QuizTopics.Common.ResultModels;
@@ -9,11 +10,11 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.GetSummary
 {
     public class GetSummaryRequestHandler : ICommandHandler<GetSummaryRequest, IResultModel<SummaryDto>>
     {
-        private readonly IExamProvider examProvider;
+        private readonly IExamRepository examRepository;
 
-        public GetSummaryRequestHandler(IExamProvider examProvider)
+        public GetSummaryRequestHandler(IExamRepository examRepository)
         {
-            this.examProvider = examProvider ?? throw new ArgumentNullException(nameof(examProvider));
+            this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
         }
 
         public async Task<IResultModel<SummaryDto>> Handle(GetSummaryRequest request, CancellationToken cancellationToken)
@@ -23,7 +24,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.GetSummary
                 throw new ArgumentNullException(nameof(request));
             }
 
-            var maybeExam = await this.examProvider.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
+            var maybeExam = await this.examRepository.GetAsync(request.ExamId, cancellationToken).ConfigureAwait(false);
             if (!maybeExam.TryGetValue(out var exam))
             {
                 return ResultModel.Fail<SummaryDto>(GeneralErrors.NotFound(request.ExamId));

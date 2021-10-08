@@ -10,11 +10,11 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 {
     public class SelectExamQuestionCommandHandler : IRequestHandler<SelectExamQuestionCommand, IResultModel<ExamQuestionDto>>
     {
-        private readonly IExamProvider examProvider;
+        private readonly IExamRepository examRepository;
 
-        public SelectExamQuestionCommandHandler(IExamProvider examProvider)
+        public SelectExamQuestionCommandHandler(IExamRepository examRepository)
         {
-            this.examProvider = examProvider ?? throw new ArgumentNullException(nameof(examProvider));
+            this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
         }
 
         public async Task<IResultModel<ExamQuestionDto>> Handle(SelectExamQuestionCommand request, CancellationToken cancellationToken)
@@ -34,7 +34,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
 
         private async Task<IResultModel<Exam>> GetExamAsync(Guid examId, CancellationToken cancellationToken)
         {
-            var maybeExam = await this.examProvider.GetAsync(examId, cancellationToken).ConfigureAwait(false);
+            var maybeExam = await this.examRepository.GetAsync(examId, cancellationToken).ConfigureAwait(false);
 
             return !maybeExam.TryGetValue(out var exam) ? 
                 ResultModel.Fail<Exam>(GeneralErrors.NotFound(examId)) : 

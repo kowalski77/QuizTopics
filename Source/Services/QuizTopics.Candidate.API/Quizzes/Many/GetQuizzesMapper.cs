@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using QuizTopics.Candidate.Application.Quizzes.Queries;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Quizzes.Many

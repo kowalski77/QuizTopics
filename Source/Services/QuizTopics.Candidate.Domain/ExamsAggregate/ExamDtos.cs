@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
-namespace QuizTopics.Candidate.Application.Exams
+namespace QuizTopics.Candidate.Domain.ExamsAggregate
 {
     public sealed record ExamDto(Guid Id, string Name, string Candidate);
 

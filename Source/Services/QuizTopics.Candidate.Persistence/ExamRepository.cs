@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +38,17 @@ namespace QuizTopics.Candidate.Persistence
                 .ConfigureAwait(false);
 
             return exam;
+        }
+
+        public async Task<IReadOnlyList<ExamDto>> GetExamCollectionAsync(CancellationToken cancellationToken = default)
+        {
+            this.context.ChangeTracker.AutoDetectChangesEnabled = false;
+            this.context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            return await this.context.Exams!
+                .Select(x => new ExamDto(x.Id, x.QuizName, x.Candidate))
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

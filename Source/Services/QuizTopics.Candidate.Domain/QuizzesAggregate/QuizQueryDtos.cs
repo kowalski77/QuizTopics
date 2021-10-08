@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuizTopics.Candidate.Application.Quizzes.Queries
+namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 {
     public sealed record QuizDto(Guid Id, string Name, string Category);
 }

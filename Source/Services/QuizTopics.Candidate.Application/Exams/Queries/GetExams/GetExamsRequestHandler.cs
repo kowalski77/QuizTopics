@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.GetExams
 {
     public sealed class GetExamsRequestHandler : IRequestHandler<GetExamsRequest, IReadOnlyList<ExamDto>>
     {
-        private readonly IExamProvider examProvider;
+        private readonly IExamRepository examRepository;
 
-        public GetExamsRequestHandler(IExamProvider examProvider)
+        public GetExamsRequestHandler(IExamRepository examRepository)
         {
-            this.examProvider = examProvider ?? throw new ArgumentNullException(nameof(examProvider));
+            this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
         }
 
         public async Task<IReadOnlyList<ExamDto>> Handle(GetExamsRequest request, CancellationToken cancellationToken)
@@ -22,7 +23,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.GetExams
                 throw new ArgumentNullException(nameof(request));
             }
 
-            return await this.examProvider.GetExamCollectionAsync(cancellationToken).ConfigureAwait(false);
+            return await this.examRepository.GetExamCollectionAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

@@ -2,12 +2,9 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using QuizTopics.Candidate.Application.Exams.Queries;
-using QuizTopics.Candidate.Application.Quizzes.Queries;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
 using QuizTopics.Common.Database;
-using QuizTopics.Common.DomainDriven;
 using QuizTopics.Common.Outbox;
 
 [assembly: CLSCompliant(false)]
@@ -20,11 +17,8 @@ namespace QuizTopics.Candidate.Persistence
             services.AddEntityFramework(connectionString);
 
             services
-                .AddRepository<Exam, QuizTopicsContext>()
                 .AddScoped<IExamRepository, ExamRepository>()
-                .AddScoped<IRepository<Quiz>, QuizRepository>()
-                .AddScoped<IQuizProvider, QuizProvider>()
-                .AddScoped<IExamProvider, ExamProvider>();
+                .AddScoped<IQuizRepository, QuizRepository>();
 
             return services;
         }

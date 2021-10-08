@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MediatR;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Queries
 {

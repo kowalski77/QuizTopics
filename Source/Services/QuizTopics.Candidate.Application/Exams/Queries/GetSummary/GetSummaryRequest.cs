@@ -1,4 +1,5 @@
 ﻿using System;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Common.Mediator;
 using QuizTopics.Common.ResultModels;
 

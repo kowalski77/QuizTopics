@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Common.Envelopes;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion

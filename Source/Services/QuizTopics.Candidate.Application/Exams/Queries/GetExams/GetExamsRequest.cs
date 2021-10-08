@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MediatR;
+using QuizTopics.Candidate.Domain.ExamsAggregate;
 
 namespace QuizTopics.Candidate.Application.Exams.Queries.GetExams
 {

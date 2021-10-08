@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +10,7 @@ using QuizTopics.Common.Monad;
 
 namespace QuizTopics.Candidate.Persistence
 {
-    public class QuizRepository : BaseRepository<Quiz>
+    public class QuizRepository : BaseRepository<Quiz>, IQuizRepository
     {
         private readonly QuizTopicsContext context;
 
@@ -26,6 +28,17 @@ namespace QuizTopics.Candidate.Persistence
                 .ConfigureAwait(false);
 
             return quiz;
+        }
+
+        public async Task<IEnumerable<QuizDto>> GetQuizCollectionAsync(CancellationToken cancellationToken = default)
+        {
+            this.context.ChangeTracker.AutoDetectChangesEnabled = false;
+            this.context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+            return await this.context.Quizzes!
+                .Select(x => new QuizDto(x.Id, x.Name, x.Category))
+                .ToListAsync(cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

@@ -4,21 +4,22 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using QuizTopics.Candidate.Domain.QuizzesAggregate;
 
 namespace QuizTopics.Candidate.Application.Quizzes.Queries
 {
     public class GetQuizCollectionRequestHandler : IRequestHandler<GetQuizCollectionRequest, IReadOnlyList<QuizDto>>
     {
-        private readonly IQuizProvider quizProvider;
+        private readonly IQuizRepository quizRepository;
 
-        public GetQuizCollectionRequestHandler(IQuizProvider quizProvider)
+        public GetQuizCollectionRequestHandler(IQuizRepository quizRepository)
         {
-            this.quizProvider = quizProvider ?? throw new ArgumentNullException(nameof(quizProvider));
+            this.quizRepository = quizRepository ?? throw new ArgumentNullException(nameof(quizRepository));
         }
 
         public async Task<IReadOnlyList<QuizDto>> Handle(GetQuizCollectionRequest request, CancellationToken cancellationToken)
         {
-            return (await this.quizProvider.GetQuizCollectionAsync(cancellationToken).ConfigureAwait(false)).ToList();
+            return (await this.quizRepository.GetQuizCollectionAsync(cancellationToken).ConfigureAwait(false)).ToList();
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Candidate.Domain.QuizzesAggregate;
-using QuizTopics.Common.DomainDriven;
 using QuizTopics.Common.Envelopes;
 using QuizTopics.Common.Mediator;
 using QuizTopics.Common.ResultModels;
@@ -13,10 +12,10 @@ namespace QuizTopics.Candidate.Application.Exams.Commands.Create
     public class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, IResultModel<CreateExamDto>>
     {
         private readonly IExamService examService;
-        private readonly IRepository<Exam> examRepository;
-        private readonly IRepository<Quiz> quizRepository;
+        private readonly IExamRepository examRepository;
+        private readonly IQuizRepository quizRepository;
 
-        public CreateExamCommandHandler(IExamService examService, IRepository<Exam> examRepository, IRepository<Quiz> quizRepository)
+        public CreateExamCommandHandler(IExamService examService, IExamRepository examRepository, IQuizRepository quizRepository)
         {
             this.examService = examService ?? throw new ArgumentNullException(nameof(examService));
             this.examRepository = examRepository ?? throw new ArgumentNullException(nameof(examRepository));
