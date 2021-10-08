@@ -47,7 +47,7 @@ namespace QuizTopics.Candidate.Wasm.Component
             var userIdentifier = (await this.AuthState).User.Identity?.Name ??
                                  throw new InvalidOperationException("Could not retrieve the user");
 
-            var result = await this.ExamDataService.CreateExam(userIdentifier, this.selectedQuizViewModel);
+            var result = await this.ExamDataService.CheckExamAsync(userIdentifier, this.selectedQuizViewModel);
             if (result.Failure)
             {
                 await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);

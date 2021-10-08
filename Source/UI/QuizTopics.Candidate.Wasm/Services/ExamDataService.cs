@@ -24,7 +24,26 @@ namespace QuizTopics.Candidate.Wasm.Services
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task<Result<ExamViewModel>> CreateExam(string user, Guid quizId)
+        public async Task<Result> CheckExamAsync(string user, Guid quizId)
+        {
+            var exam = new ExamModel(Guid.Empty, user, quizId);
+            var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, "application/json");
+
+            var response = await this.httpClient.PostAsync("api/v1/Exam/checkExam", examJson).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+            {
+                return Result.Ok();
+            }
+
+            var res = await response.Content.ReadAsStringAsync();
+
+            var error = JsonSerializer.Deserialize<Envelope>(await response.Content.ReadAsStringAsync(), JsonSerializerOptions) ??
+                        throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
+
+            return Result.Fail(new ErrorResult(error.ErrorCode!, error.ErrorMessage!));
+        }
+
+        public async Task<Result<ExamViewModel>> CreateExamAsync(string user, Guid quizId)
         {
             var exam = new ExamModel(Guid.NewGuid(), user, quizId);
             var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, "application/json");

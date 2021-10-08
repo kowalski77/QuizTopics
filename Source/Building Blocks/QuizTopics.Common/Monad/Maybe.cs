@@ -33,6 +33,23 @@ namespace QuizTopics.Common.Monad
             return false;
         }
 
+        public TResult Match<TResult>(Func<T, TResult> some, Func<TResult> none)
+        {
+            if (some == null)
+            {
+                throw new ArgumentNullException(nameof(some));
+            }
+
+            if (none == null)
+            {
+                throw new ArgumentNullException(nameof(none));
+            }
+
+            return this.hasValue ?
+                some(this.value) :
+                none();
+        }
+
         public T ValueOr(T defaultValue)
         {
             return this.hasValue ? this.value : defaultValue;

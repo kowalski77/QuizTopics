@@ -19,7 +19,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.Exam", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.Exam", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,6 +36,9 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.Property<DateTime?>("FinishedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("QuizName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,7 +51,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("Exam");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamAnswer", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.ExamAnswer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +80,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("ExamAnswer");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.ExamQuestion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,7 +113,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("ExamQuestion");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Answer", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Answer", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +140,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("Answer");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Question", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Question", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -169,7 +172,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("Question");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Quiz", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Quiz", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,50 +196,50 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.ToTable("Quiz");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamAnswer", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.ExamAnswer", b =>
                 {
-                    b.HasOne("QuizTopics.Candidate.Domain.Exams.ExamQuestion", null)
+                    b.HasOne("QuizTopics.Candidate.Domain.ExamsAggregate.ExamQuestion", null)
                         .WithMany("Answers")
                         .HasForeignKey("ExamQuestionId");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.ExamQuestion", b =>
                 {
-                    b.HasOne("QuizTopics.Candidate.Domain.Exams.Exam", null)
+                    b.HasOne("QuizTopics.Candidate.Domain.ExamsAggregate.Exam", null)
                         .WithMany("QuestionsCollection")
                         .HasForeignKey("ExamId");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Answer", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Answer", b =>
                 {
-                    b.HasOne("QuizTopics.Candidate.Domain.Quizzes.Question", null)
+                    b.HasOne("QuizTopics.Candidate.Domain.QuizzesAggregate.Question", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Question", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Question", b =>
                 {
-                    b.HasOne("QuizTopics.Candidate.Domain.Quizzes.Quiz", null)
+                    b.HasOne("QuizTopics.Candidate.Domain.QuizzesAggregate.Quiz", null)
                         .WithMany("QuestionCollection")
                         .HasForeignKey("QuizId");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.Exam", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.Exam", b =>
                 {
                     b.Navigation("QuestionsCollection");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Exams.ExamQuestion", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.ExamQuestion", b =>
                 {
                     b.Navigation("Answers");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Question", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Question", b =>
                 {
                     b.Navigation("Answers");
                 });
 
-            modelBuilder.Entity("QuizTopics.Candidate.Domain.Quizzes.Quiz", b =>
+            modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Quiz", b =>
                 {
                     b.Navigation("QuestionCollection");
                 });

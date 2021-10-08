@@ -35,7 +35,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             this.questionsCollection = questions.ToList() ?? throw new ArgumentNullException(nameof(questions));
         }
 
-        public Guid QuizId { get; }
+        public Guid QuizId { get; private set; }
 
         public string QuizName { get; private set; }
 

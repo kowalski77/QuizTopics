@@ -3,20 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            if (migrationBuilder == null)
-            {
-                throw new ArgumentNullException(nameof(migrationBuilder));
-            }
-
             migrationBuilder.CreateTable(
                 name: "Exam",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    QuizId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     QuizName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Candidate = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -153,11 +149,6 @@ namespace QuizTopics.Candidate.Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            if (migrationBuilder == null)
-            {
-                throw new ArgumentNullException(nameof(migrationBuilder));
-            }
-
             migrationBuilder.DropTable(
                 name: "Answer");
 

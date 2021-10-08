@@ -10,8 +10,8 @@ using QuizTopics.Common.Outbox;
 namespace QuizTopics.Candidate.Persistence.Migrations.Outbox
 {
     [DbContext(typeof(OutboxContext))]
-    [Migration("20211002161035_Initial")]
-    partial class Initial
+    [Migration("20211008113331_outbox")]
+    partial class outbox
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations.Outbox
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("QuizDesigner.Common.Outbox.OutboxMessage", b =>
+            modelBuilder.Entity("QuizTopics.Common.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");

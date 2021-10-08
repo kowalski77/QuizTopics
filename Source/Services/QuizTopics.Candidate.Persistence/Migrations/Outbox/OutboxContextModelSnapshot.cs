@@ -19,7 +19,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations.Outbox
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("QuizDesigner.Common.Outbox.OutboxMessage", b =>
+            modelBuilder.Entity("QuizTopics.Common.Outbox.OutboxMessage", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");

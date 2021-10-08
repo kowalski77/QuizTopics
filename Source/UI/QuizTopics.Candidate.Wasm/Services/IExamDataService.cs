@@ -7,6 +7,8 @@ namespace QuizTopics.Candidate.Wasm.Services
 {
     public interface IExamDataService
     {
-        Task<Result<ExamViewModel>> CreateExam(string user, Guid quizId);
+        Task<Result> CheckExamAsync(string user, Guid quizId);
+
+        Task<Result<ExamViewModel>> CreateExamAsync(string user, Guid quizId);
     }
 }
