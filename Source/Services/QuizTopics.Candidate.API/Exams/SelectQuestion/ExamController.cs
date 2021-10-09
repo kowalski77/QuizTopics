@@ -20,6 +20,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
         [HttpGet("{examId:guid}/selectExamQuestion")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope<ExamQuestionModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Envelope))]
         public async Task<IActionResult> SelectExamQuestion(Guid examId)
         {
             if (examId == Guid.Empty)

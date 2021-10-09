@@ -22,9 +22,14 @@ namespace QuizTopics.Candidate.API.Support
 
         protected IMediator Mediator { get; }
 
-        protected new static IActionResult Ok(object result)
+        protected static IActionResult EnvelopeOk(object result)
         {
             return new EnvelopeResult(Envelope.Ok(result), HttpStatusCode.OK);
+        }
+
+        protected static IActionResult EnvelopeOk()
+        {
+            return new EnvelopeResult(Envelope.Ok(), HttpStatusCode.OK);
         }
 
         protected static IActionResult Error(ErrorResult? error, string invalidField)
@@ -42,7 +47,7 @@ namespace QuizTopics.Candidate.API.Support
 
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
-                (true, _) => Ok(result.Value),
+                (true, _) => EnvelopeOk(result.Value),
                 (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
                 _ => Error(result.ErrorResult, string.Empty)
             };
@@ -65,7 +70,7 @@ namespace QuizTopics.Candidate.API.Support
 
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
-                (true, _) => Ok(converter(result.Value)),
+                (true, _) => EnvelopeOk(converter(result.Value)),
                 (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
                 _ => Error(result.ErrorResult, string.Empty)
             };
@@ -82,7 +87,7 @@ namespace QuizTopics.Candidate.API.Support
 
             IActionResult actionResult = (result.Success, result.ErrorResult?.Code) switch
             {
-                (true, _) => this.Ok(),
+                (true, _) => EnvelopeOk(),
                 (false, ErrorConstants.RecordNotFound) => NotFound(result.ErrorResult, string.Empty),
                 _ => Error(result.ErrorResult, string.Empty)
             };

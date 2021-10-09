@@ -23,7 +23,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Many
         {
             var quizDtoCollection = await this.Mediator.Send(new GetQuizCollectionRequest()).ConfigureAwait(false);
 
-            return Ok(quizDtoCollection.AsModelCollection());
+            return EnvelopeOk(quizDtoCollection.AsModelCollection());
         }
     }
 }

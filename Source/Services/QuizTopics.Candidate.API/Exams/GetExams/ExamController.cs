@@ -22,7 +22,7 @@ namespace QuizTopics.Candidate.API.Exams.GetExams
         {
             var examsCollection = await this.Mediator.Send(new GetExamsRequest()).ConfigureAwait(false);
 
-            return Ok(examsCollection);
+            return EnvelopeOk(examsCollection);
         }
     }
 }

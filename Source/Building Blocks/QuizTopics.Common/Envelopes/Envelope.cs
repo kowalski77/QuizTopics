@@ -29,6 +29,11 @@ namespace QuizTopics.Common.Envelopes
             return new Envelope<T>(result);
         }
 
+        public static Envelope Ok()
+        {
+            return new Envelope();
+        }
+
         public static Envelope Error(ErrorResult? error, string invalidField)
         {
             return new Envelope(error, invalidField);

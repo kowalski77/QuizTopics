@@ -19,6 +19,7 @@ namespace QuizTopics.Candidate.API.Exams.Create
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope<ExamModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Envelope))]
         public async Task<IActionResult> CreateExam([FromBody] ExamModel model)
         {
             if (model == null)

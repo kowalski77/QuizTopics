@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Exams.Queries.CheckExam;
+using QuizTopics.Common.Envelopes;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.CheckExam
@@ -17,7 +18,9 @@ namespace QuizTopics.Candidate.API.Exams.CheckExam
         }
 
         [HttpPost("checkExam")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Envelope))]
         public async Task<IActionResult> CheckExam([FromBody] ExamModel examModel)
         {
             if (examModel == null)
