@@ -24,11 +24,16 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         [Inject] private INotificationService NotificationService { get; set; }
 
+        [Inject] private NavigationManager NavigationManager { get; set; }
+
         protected IEnumerable<QuizViewModel> QuizViewModelCollection { get; private set; }
 
         protected string ButtonClass => this.isButtonEnabled ? "input-group-text" : "input-group-text disabled";
 
         protected bool StartEnabled { get; private set; }
+
+        protected string ExamName=>
+            this.QuizViewModelCollection.FirstOrDefault(x => x.Id == this.selectedQuizViewModel)?.Name;
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,22 +48,14 @@ namespace QuizTopics.Candidate.Wasm.Component
             this.StartEnabled = false;
         }
 
-        protected string ExamName()
-        {
-            return this.QuizViewModelCollection.FirstOrDefault(x => x.Id == this.selectedQuizViewModel)?.Name;
-        }
-
-        protected async Task StartAsync()
+        protected async Task SelectAsync()
         {
             if (this.selectedQuizViewModel == Guid.Empty)
             {
                 return;
             }
 
-            var userIdentifier = (await this.AuthState).User.Identity?.Name ??
-                                 throw new InvalidOperationException("Could not retrieve the user");
-
-            var result = await this.ExamDataService.CheckExamAsync(userIdentifier, this.selectedQuizViewModel);
+            var result = await this.ExamDataService.CheckExamAsync(await this.GetUserAsync(), this.selectedQuizViewModel);
             if (result.Failure)
             {
                 await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);
@@ -69,5 +66,20 @@ namespace QuizTopics.Candidate.Wasm.Component
                 this.StartEnabled = true;
             }
         }
+
+        protected async Task OnStartAsync()
+        {
+            var result = await this.ExamDataService.CreateExamAsync(await this.GetUserAsync(), this.selectedQuizViewModel);
+            if (result.Failure)
+            {
+                await this.NotificationService.Error(result.Error?.Message, result.Error?.Code);
+                this.StartEnabled = false;
+            }
+
+            this.NavigationManager.NavigateTo($"/exam/{result.Value.Id}");
+        }
+
+        private async Task<string> GetUserAsync() => (await this.AuthState).User.Identity?.Name ??
+                                         throw new InvalidOperationException("Could not retrieve the user");
     }
 }
