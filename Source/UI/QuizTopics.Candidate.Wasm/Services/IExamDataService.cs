@@ -10,5 +10,7 @@ namespace QuizTopics.Candidate.Wasm.Services
         Task<Result> CheckExamAsync(string user, Guid quizId);
 
         Task<Result<ExamViewModel>> CreateExamAsync(string user, Guid quizId);
+
+        Task<Result<ExamQuestionViewModel>> GetExamQuestionAsync(Guid examId);
     }
 }

@@ -3,13 +3,23 @@
 @attribute [Authorize]
 @inherits QuestionsBase
 
-<Row>
-    <Column ColumnSize="ColumnSize.Is2"/>
-    <Column ColumnSize="ColumnSize.Is8">
-        <TextEdit ReadOnly="true" Size="Size.ExtraLarge">
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-        </TextEdit>
-    </Column>
-    <Column ColumnSize="ColumnSize.Is2"/>
-</Row>
+<div>
+    <Row>
+        <Column ColumnSize="ColumnSize.Is2" />
+        <Column ColumnSize="ColumnSize.Is8">
+            <TextEdit ReadOnly="true" Size="Size.ExtraLarge" @bind-Text="QuestionText" />
+        </Column>
+        <Column ColumnSize="ColumnSize.Is2" />
+    </Row>
+    <Row Style="margin-top: 2%">
+        <Column ColumnSize="ColumnSize.Is2" />
+        <Column ColumnSize="ColumnSize.Is8">
+            <RadioGroup TValue="string" Name="colors" Orientation="Orientation.Vertical">
+                <Iteration Items="ExamAnswerViewModelCollection">
+                    <Radio TValue="string" Value="context.Id.ToString()" Size="Size.ExtraLarge">@context.Text</Radio>
+                </Iteration>
+            </RadioGroup>
+        </Column>
+        <Column ColumnSize="ColumnSize.Is2" />
+    </Row>
+</div>

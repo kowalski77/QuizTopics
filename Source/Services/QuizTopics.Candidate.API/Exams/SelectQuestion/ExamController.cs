@@ -4,10 +4,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
-using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion;
-using QuizTopics.Candidate.Domain.ExamsAggregate;
 using QuizTopics.Common.Envelopes;
+using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 {
@@ -19,7 +18,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
         }
 
         [HttpGet("{examId:guid}/selectExamQuestion")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ExamQuestionDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope<ExamQuestionModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
         public async Task<IActionResult> SelectExamQuestion(Guid examId)
         {
@@ -30,7 +29,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
 
             var resultModel = await this.Mediator.Send(new SelectExamQuestionCommand(examId)).ConfigureAwait(false);
 
-            return FromResultModel(resultModel);
+            return FromResultModel(resultModel, dto => dto.AsModel());
         }
     }
 }

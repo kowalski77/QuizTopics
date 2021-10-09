@@ -7,17 +7,17 @@ namespace QuizTopics.Common.Envelopes
         private const string Separator = "||";
 
         public ErrorResult(
-            string code,
-            string message)
+            string? code,
+            string? message)
         {
             this.Code = code;
             this.Message = message;
             this.TimeGenerated = DateTime.UtcNow;
         }
 
-        public string Code { get; }
+        public string? Code { get; }
 
-        public string Message { get; }
+        public string? Message { get; }
 
         public DateTime TimeGenerated { get; }
 

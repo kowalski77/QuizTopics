@@ -2,9 +2,13 @@
 
 <AuthorizeView>
     <Authorized>
-
+        <Questions ExamId="@this.Id"/>
     </Authorized>
     <NotAuthorized>
-        <strong>Please, log in</strong>
+        <strong>Not authorized. Please, log in</strong>
     </NotAuthorized>
 </AuthorizeView>
+
+@code{
+    [Parameter] public string Id { get; set; }
+}
