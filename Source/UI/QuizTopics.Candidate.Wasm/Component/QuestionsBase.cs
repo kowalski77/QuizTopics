@@ -44,14 +44,13 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         protected async Task FailQuestionInternalAsync()
         {
-            var result = await this.ExamDataService.MarkQuestionAsFailed(Guid.Parse(this.ExamId), this.currentQuestionId);
-            if (result.Failure)
+            if (!string.IsNullOrEmpty(this.SelectedAnswerId))
             {
-                await this.ShowErrorNotification();
+                await this.OnSelectAnswerAsync();
             }
             else
             {
-                await this.NotificationService.Warning("Question mark as failed", "No answer selected");
+                await this.MarkQuestionAsFailedAsync();
             }
 
             await this.ShowNextQuestionAsync();
@@ -117,6 +116,19 @@ namespace QuizTopics.Candidate.Wasm.Component
             await this.JsRuntime.InvokeVoidAsync("simpleCountdown.initialize", 5);
         }
 
+        private async Task MarkQuestionAsFailedAsync()
+        {
+            var result = await this.ExamDataService.MarkQuestionAsFailed(Guid.Parse(this.ExamId), this.currentQuestionId);
+            if (result.Failure)
+            {
+                await this.ShowErrorNotification();
+            }
+            else
+            {
+                await this.NotificationService.Warning("Question mark as failed", "No answer selected");
+            }
+        }
+
         private async Task ShowErrorNotification()
         {
             await this.NotificationService.Error("Something went wrong, contact with admins", "Oh no!!!");
@@ -132,7 +144,7 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
         }
     }
