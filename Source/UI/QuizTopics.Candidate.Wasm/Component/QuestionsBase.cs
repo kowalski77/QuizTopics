@@ -5,14 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blazorise;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using QuizTopics.Candidate.Wasm.Services;
 using QuizTopics.Candidate.Wasm.ViewModels;
+using QuizTopics.Common.Results;
 
 namespace QuizTopics.Candidate.Wasm.Component
 {
-    public class QuestionsBase : ComponentBase
+    public class QuestionsBase : ComponentBase, IDisposable
     {
         private Guid currentQuestionId;
+
+        private DotNetObjectReference<QuestionsBase> objRef;
 
         protected string SelectedAnswerId { get; set; } = string.Empty;
 
@@ -21,6 +25,8 @@ namespace QuizTopics.Candidate.Wasm.Component
         [Inject] private IExamDataService ExamDataService { get; set; }
 
         [Inject] private INotificationService NotificationService { get; set; }
+
+        [Inject] private IJSRuntime JsRuntime { get; set; }
 
         protected Collection<ExamAnswerViewModel> ExamAnswerViewModelCollection { get; private set; }
             = new BindingList<ExamAnswerViewModel>
@@ -34,9 +40,36 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         protected bool IsExamFinished { get; private set; }
 
+        protected int SecondsLeft { get; private set; }
+
+        protected async Task FailQuestionInternalAsync()
+        {
+            var result = await this.ExamDataService.MarkQuestionAsFailed(Guid.Parse(this.ExamId), this.currentQuestionId);
+            if (result.Failure)
+            {
+                await this.ShowErrorNotification();
+            }
+            else
+            {
+                await this.NotificationService.Warning("Question mark as failed", "No answer selected");
+            }
+
+            await this.ShowNextQuestionAsync();
+            this.StateHasChanged();
+        }
+
         protected override async Task OnInitializedAsync()
         {
             await this.ShowNextQuestionAsync();
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                this.objRef = DotNetObjectReference.Create(this);
+                await this.JsRuntime.InvokeVoidAsync("simpleCountdown.setNetObject", this.objRef);
+            }
         }
 
         protected async Task OnSelectAnswerAsync()
@@ -66,19 +99,41 @@ namespace QuizTopics.Candidate.Wasm.Component
             if (result.Value.Id == Guid.Empty)
             {
                 this.IsExamFinished = true;
+                await this.JsRuntime.InvokeVoidAsync("simpleCountdown.stop");
                 return;
             }
 
-            this.QuestionText = result.Value.Text;
-            this.currentQuestionId = result.Value.Id;
+            await this.SetQuestionAsync(result);
 
             this.ExamAnswerViewModelCollection = new BindingList<ExamAnswerViewModel>(
                 result.Value.ExamAnswerViewModelsCollection.ToList());
         }
 
+        private async Task SetQuestionAsync(Result<ExamQuestionViewModel> result)
+        {
+            this.QuestionText = result.Value.Text;
+            this.currentQuestionId = result.Value.Id;
+
+            await this.JsRuntime.InvokeVoidAsync("simpleCountdown.initialize", 5);
+        }
+
         private async Task ShowErrorNotification()
         {
             await this.NotificationService.Error("Something went wrong, contact with admins", "Oh no!!!");
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.objRef?.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

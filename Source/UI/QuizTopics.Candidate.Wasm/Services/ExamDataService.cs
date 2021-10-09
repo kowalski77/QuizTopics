@@ -96,5 +96,21 @@ namespace QuizTopics.Candidate.Wasm.Services
                 Result.Ok() : 
                 Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
+
+        public async Task<Result> MarkQuestionAsFailed(Guid examId, Guid questionId)
+        {
+            var model = new SetFailedExamQuestionModel(questionId);
+            var modelJson = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, JsonMediaType);
+
+            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/setFailedExamQuestion", modelJson).ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var envelope = JsonSerializer.Deserialize<Envelope>(content, JsonSerializerOptions) ??
+                           throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
+
+            return response.IsSuccessStatusCode ? 
+                Result.Ok() : 
+                Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
+        }
     }
 }

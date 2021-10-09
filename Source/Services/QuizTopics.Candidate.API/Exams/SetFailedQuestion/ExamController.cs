@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
+using QuizTopics.Common.Envelopes;
 using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.API.Exams.SetFailedQuestion
@@ -15,6 +17,9 @@ namespace QuizTopics.Candidate.API.Exams.SetFailedQuestion
         }
 
         [HttpPost("{examId:guid}/setFailedExamQuestion")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Envelope))]
         public async Task<IActionResult> SetFailedExamQuestion(Guid examId, [FromBody] SetFailedExamQuestionModel model)
         {
             if (model == null)

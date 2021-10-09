@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//TODO: consider to remove this  models assembly, it's worthy?
 [assembly: CLSCompliant(false)]
 
 namespace QuizTopics.Models

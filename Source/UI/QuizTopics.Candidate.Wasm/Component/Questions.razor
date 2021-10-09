@@ -6,34 +6,45 @@
 <div>
     <Condition Evaluation="this.IsExamFinished">
         <NotMatch>
-    <Row>
-        <Column ColumnSize="ColumnSize.Is2" />
-        <Column ColumnSize="ColumnSize.Is8">
-            <div><h4>@this.QuestionText</h4></div>
-        </Column>
-        <Column ColumnSize="ColumnSize.Is2" />
-    </Row>
-        <Row Style="margin-top: 2%">
-            <Column ColumnSize="ColumnSize.Is2" />
-            <Column ColumnSize="ColumnSize.Is8">
-                <RadioGroup TValue="string" Name="colors" Orientation="Orientation.Vertical" @bind-CheckedValue="this.SelectedAnswerId">
-                    <Iteration Items="ExamAnswerViewModelCollection">
-                        <Radio TValue="string" Value="context.Id.ToString()" Size="Size.ExtraLarge">@context.Text</Radio>
-                    </Iteration>
-                </RadioGroup>
-                <div class="text-right">
-                    <Condition Evaluation="this.IsSelectAnswerButtonVisible">
-                        <Match>
-                            <Button Size="Size.Large" Color="Color.Success" Clicked="OnSelectAnswerAsync">Select</Button>
-                        </Match>
-                    </Condition>
-                </div>
-            </Column>
-            <Column ColumnSize="ColumnSize.Is2" />
-        </Row>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is2" />
+                <Column ColumnSize="ColumnSize.Is8">
+                    <div><h4>@this.QuestionText</h4></div>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is2" />
+            </Row>
+            <Row Style="margin-top: 2%">
+                <Column ColumnSize="ColumnSize.Is2" />
+                <Column ColumnSize="ColumnSize.Is8">
+                    <RadioGroup TValue="string" Name="colors" Orientation="Orientation.Vertical" @bind-CheckedValue="this.SelectedAnswerId">
+                        <Iteration Items="ExamAnswerViewModelCollection">
+                            <Radio TValue="string" Value="context.Id.ToString()" Size="Size.ExtraLarge">@context.Text</Radio>
+                        </Iteration>
+                    </RadioGroup>
+                    <div class="text-right">
+                        <Condition Evaluation="this.IsSelectAnswerButtonVisible">
+                            <Match>
+                                <Button Size="Size.Large" Color="Color.Success" Clicked="OnSelectAnswerAsync">Select</Button>
+                            </Match>
+                        </Condition>
+                    </div>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is2">
+                    <span id="countdown">--</span> second<span id="plural">s</span>
+                </Column>
+            </Row>
         </NotMatch>
         <Match>
             <h3>The exam has finished... thanks!!!</h3>
         </Match>
     </Condition>
 </div>
+
+@code
+{
+    [JSInvokable(nameof(FailQuestionAsync))]
+    public async Task FailQuestionAsync()
+    {
+        await this.FailQuestionInternalAsync();
+    }
+}
