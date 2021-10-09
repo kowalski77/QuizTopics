@@ -32,6 +32,8 @@ namespace QuizTopics.Candidate.Wasm.Component
 
         protected bool IsSelectAnswerButtonVisible => !string.IsNullOrEmpty(this.SelectedAnswerId);
 
+        protected bool IsExamFinished { get; private set; }
+
         protected override async Task OnInitializedAsync()
         {
             await this.ShowNextQuestionAsync();
@@ -58,6 +60,12 @@ namespace QuizTopics.Candidate.Wasm.Component
             if (result.Failure)
             {
                 await this.ShowErrorNotification();
+                return;
+            }
+
+            if (result.Value.Id == Guid.Empty)
+            {
+                this.IsExamFinished = true;
                 return;
             }
 

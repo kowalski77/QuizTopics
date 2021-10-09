@@ -4,6 +4,8 @@
 @inherits QuestionsBase
 
 <div>
+    <Condition Evaluation="this.IsExamFinished">
+        <NotMatch>
     <Row>
         <Column ColumnSize="ColumnSize.Is2" />
         <Column ColumnSize="ColumnSize.Is8">
@@ -11,22 +13,28 @@
         </Column>
         <Column ColumnSize="ColumnSize.Is2" />
     </Row>
-    <Row Style="margin-top: 2%">
-        <Column ColumnSize="ColumnSize.Is2" />
-        <Column ColumnSize="ColumnSize.Is8">
-            <RadioGroup TValue="string" Name="colors" Orientation="Orientation.Vertical" @bind-CheckedValue="this.SelectedAnswerId">
-                <Iteration Items="ExamAnswerViewModelCollection">
-                    <Radio TValue="string" Value="context.Id.ToString()" Size="Size.ExtraLarge">@context.Text</Radio>
-                </Iteration>
-            </RadioGroup>
-            <div class="text-right">
-                <Condition Evaluation="this.IsSelectAnswerButtonVisible">
-                    <Match>
-                        <Button Size="Size.Large" Color="Color.Success" Clicked="OnSelectAnswerAsync">Select</Button>
-                    </Match>
-                </Condition>
-            </div>
-        </Column>
-        <Column ColumnSize="ColumnSize.Is2" />
-    </Row>
+        <Row Style="margin-top: 2%">
+
+            <Column ColumnSize="ColumnSize.Is2" />
+            <Column ColumnSize="ColumnSize.Is8">
+                <RadioGroup TValue="string" Name="colors" Orientation="Orientation.Vertical" @bind-CheckedValue="this.SelectedAnswerId">
+                    <Iteration Items="ExamAnswerViewModelCollection">
+                        <Radio TValue="string" Value="context.Id.ToString()" Size="Size.ExtraLarge">@context.Text</Radio>
+                    </Iteration>
+                </RadioGroup>
+                <div class="text-right">
+                    <Condition Evaluation="this.IsSelectAnswerButtonVisible">
+                        <Match>
+                            <Button Size="Size.Large" Color="Color.Success" Clicked="OnSelectAnswerAsync">Select</Button>
+                        </Match>
+                    </Condition>
+                </div>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is2" />
+        </Row>
+        </NotMatch>
+        <Match>
+            <strong>The exam has finished... thanks!!!</strong>
+        </Match>
+    </Condition>
 </div>
