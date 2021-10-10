@@ -10,6 +10,8 @@ using QuizTopics.Models;
 
 namespace QuizTopics.Candidate.Wasm.Services
 {
+    //response.StatusCode
+    // TODO (FATAL): Do not try to serialize when 500 // maybe manage this in API with Pipeline
     public class ExamDataService : IExamDataService
     {
         private const string JsonMediaType = "application/json";
@@ -33,17 +35,14 @@ namespace QuizTopics.Candidate.Wasm.Services
             var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, JsonMediaType);
 
             var response = await this.httpClient.PostAsync($"{ExamApiRoute}/checkExam", examJson).ConfigureAwait(false);
-            if (response.IsSuccessStatusCode)
-            {
-                return Result.Ok();
-            }
 
-            //response.StatusCode
-            // TODO (FATAL): Do not try to serialize when 500 // maybe manage this in API with Pipeline
-            var error = JsonSerializer.Deserialize<Envelope>(await response.Content.ReadAsStringAsync(), JsonSerializerOptions) ??
-                        throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
+            var content = await response.Content.ReadAsStringAsync();
+            var envelope = JsonSerializer.Deserialize<Envelope>(content, JsonSerializerOptions) ??
+                           throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
 
-            return Result.Fail(new ErrorResult(error.ErrorCode!, error.ErrorMessage!));
+            return response.IsSuccessStatusCode ?
+                Result.Ok() :
+                Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
 
         public async Task<Result<ExamViewModel>> CreateExamAsync(string user, Guid quizId)
@@ -52,12 +51,12 @@ namespace QuizTopics.Candidate.Wasm.Services
             var examJson = new StringContent(JsonSerializer.Serialize(exam), Encoding.UTF8, "application/json");
 
             var response = await this.httpClient.PostAsync(ExamApiRoute, examJson).ConfigureAwait(false);
+            
             var content = await response.Content.ReadAsStringAsync();
-
             var envelope = JsonSerializer.Deserialize<Envelope<ExamModel>>(content, JsonSerializerOptions) ??
                            throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
 
-            return response.IsSuccessStatusCode?
+            return response.IsSuccessStatusCode ?
                 Result.Ok((ExamViewModel)envelope.Result) :
                 Result.Fail<ExamViewModel>(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
@@ -81,13 +80,13 @@ namespace QuizTopics.Candidate.Wasm.Services
             var examAnswerJson = new StringContent(JsonSerializer.Serialize(examAnswer), Encoding.UTF8, JsonMediaType);
 
             var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/selectExamAnswer", examAnswerJson).ConfigureAwait(false);
+            
             var content = await response.Content.ReadAsStringAsync();
-
             var envelope = JsonSerializer.Deserialize<Envelope>(content, JsonSerializerOptions) ??
-                            throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
+                           throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
 
-            return response.IsSuccessStatusCode ? 
-                Result.Ok() : 
+            return response.IsSuccessStatusCode ?
+                Result.Ok() :
                 Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
 
@@ -97,13 +96,26 @@ namespace QuizTopics.Candidate.Wasm.Services
             var modelJson = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, JsonMediaType);
 
             var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/setFailedExamQuestion", modelJson).ConfigureAwait(false);
+            
             var content = await response.Content.ReadAsStringAsync();
-
             var envelope = JsonSerializer.Deserialize<Envelope>(content, JsonSerializerOptions) ??
                            throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<ExamModel>)}");
 
-            return response.IsSuccessStatusCode ? 
-                Result.Ok() : 
+            return response.IsSuccessStatusCode ?
+                Result.Ok() :
+                Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
+        }
+
+        public async Task<Result> FinishExamAsync(Guid examId)
+        {
+            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/finishExam", null!);
+            var content = await response.Content.ReadAsStringAsync();
+
+            var envelope = JsonSerializer.Deserialize<Envelope>(content, JsonSerializerOptions) ??
+                           throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope)}");
+
+            return response.IsSuccessStatusCode ?
+                Result.Ok() :
                 Result.Fail(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
     }

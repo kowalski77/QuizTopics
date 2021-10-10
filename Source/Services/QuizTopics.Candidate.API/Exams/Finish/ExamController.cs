@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application.Exams.Commands.Finish;
+using QuizTopics.Common.Envelopes;
 
 namespace QuizTopics.Candidate.API.Exams.Finish
 {
@@ -16,6 +18,9 @@ namespace QuizTopics.Candidate.API.Exams.Finish
         }
 
         [HttpPost("{examId:guid}/finishExam")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Envelope))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Envelope))]
         public async Task<IActionResult> FinishExam(Guid examId)
         {
             if (examId == Guid.Empty)

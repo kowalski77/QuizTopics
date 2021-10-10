@@ -16,5 +16,7 @@ namespace QuizTopics.Candidate.Wasm.Services
         Task<Result> SelectExamAnswer(Guid examId, Guid questionId, Guid answerId);
 
         Task<Result> MarkQuestionAsFailed(Guid examId, Guid questionId);
+
+        Task<Result> FinishExamAsync(Guid examId);
     }
 }

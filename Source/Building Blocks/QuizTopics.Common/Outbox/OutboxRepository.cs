@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Newtonsoft.Json;
 using QuizDesigner.Events;
 using QuizTopics.Common.Monad;
 
@@ -98,7 +99,7 @@ namespace QuizTopics.Common.Outbox
             var type = integrationEvent.GetType().FullName ??
                        throw new InvalidOperationException("The type of the message cannot be null.");
 
-            var data = JsonConvert.SerializeObject(integrationEvent);
+            var data = JsonSerializer.Serialize(integrationEvent);
             var outboxMessage = new OutboxMessage(transactionId, DateTime.Now, type, data);
 
             return outboxMessage;

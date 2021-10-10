@@ -15,7 +15,6 @@ namespace QuizTopics.Candidate.Wasm.Component
     public class QuestionsBase : ComponentBase, IDisposable
     {
         private Guid currentQuestionId;
-
         private DotNetObjectReference<QuestionsBase> objRef;
 
         protected string SelectedAnswerId { get; set; } = string.Empty;
@@ -39,8 +38,6 @@ namespace QuizTopics.Candidate.Wasm.Component
         protected bool IsSelectAnswerButtonVisible => !string.IsNullOrEmpty(this.SelectedAnswerId);
 
         protected bool IsExamFinished { get; private set; }
-
-        protected int SecondsLeft { get; private set; }
 
         protected async Task FailQuestionInternalAsync()
         {
@@ -97,8 +94,8 @@ namespace QuizTopics.Candidate.Wasm.Component
 
             if (result.Value.Id == Guid.Empty)
             {
-                this.IsExamFinished = true;
                 await this.JsRuntime.InvokeVoidAsync("simpleCountdown.stop");
+                await this.FinishExamAsync();
                 return;
             }
 
@@ -106,6 +103,20 @@ namespace QuizTopics.Candidate.Wasm.Component
 
             this.ExamAnswerViewModelCollection = new BindingList<ExamAnswerViewModel>(
                 result.Value.ExamAnswerViewModelsCollection.ToList());
+        }
+
+        private async Task FinishExamAsync()
+        {
+            this.IsExamFinished = true;
+            var result = await this.ExamDataService.FinishExamAsync(Guid.Parse(this.ExamId));
+            if (result.Success)
+            {
+                await this.NotificationService.Info("Exam finished");
+            }
+            else
+            {
+                await this.ShowErrorNotification();
+            }
         }
 
         private async Task SetQuestionAsync(Result<ExamQuestionViewModel> result)
@@ -149,7 +160,6 @@ namespace QuizTopics.Candidate.Wasm.Component
 
             return seconds;
         }
-
 
         protected virtual void Dispose(bool disposing)
         {
