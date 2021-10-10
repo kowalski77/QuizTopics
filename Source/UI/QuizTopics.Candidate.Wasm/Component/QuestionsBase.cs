@@ -140,14 +140,14 @@ namespace QuizTopics.Candidate.Wasm.Component
         {
             var seconds = difficulty switch
             {
-                1 => 10,
-                2 => 20,
-                3 => 30,
+                1 => 15,
+                2 => 25,
+                3 => 35,
                 4 => 45,
                 _ => 60
             };
 
-            return 10;
+            return seconds;
         }
 
 
