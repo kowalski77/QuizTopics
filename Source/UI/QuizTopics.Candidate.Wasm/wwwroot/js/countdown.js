@@ -1,30 +1,35 @@
 ﻿(function () {
     var countdown;
     var netObjectReference;
+
     window.simpleCountdown = {
-        setNetObject: function(dotNetObject) {
+        setNetObject: function (dotNetObject) {
             netObjectReference = dotNetObject;
         },
-        initialize: function(secondsLeft) {
+        init: function (secondsLeft) {
             clearInterval(countdown);
-            countdown = setInterval(function() {
+
+            var interval = 100 / secondsLeft;
+            var width = 0;
+            const elem = document.getElementById("countdown-bar");
+            elem.style.width = 0 + "%" ;
+
+            countdown = setInterval(function () {
+                if (secondsLeft === 0) {
+                    failQuestion();
+                } else {
                     secondsLeft--;
-                    (secondsLeft === 1)
-                        ? document.getElementById("plural").textContent = ""
-                        : document.getElementById("plural").textContent = "s";
-                    document.getElementById("countdown").textContent = secondsLeft;
-                    if (secondsLeft === 0) {
-                        FailQuestion();
-                    }
-                },
-                1000);
+                    width += interval;
+                    elem.style.width = width + "%" ;
+                }
+            }, 1000);
         },
-        stop: function() {
+        stop: function () {
             clearInterval(countdown);
         }
     };
 
-    function FailQuestion() {
+    function failQuestion() {
         netObjectReference.invokeMethodAsync("FailQuestionAsync");
     }
 })();

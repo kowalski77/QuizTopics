@@ -9,6 +9,15 @@
             <Row>
                 <Column ColumnSize="ColumnSize.Is2" />
                 <Column ColumnSize="ColumnSize.Is8">
+                    <div id="countdown-progress">
+                        <div id="countdown-bar"></div>
+                    </div>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is2" />
+            </Row>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is2" />
+                <Column ColumnSize="ColumnSize.Is8">
                     <div><h4>@this.QuestionText</h4></div>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is2" />
@@ -29,9 +38,7 @@
                         </Condition>
                     </div>
                 </Column>
-                <Column ColumnSize="ColumnSize.Is2">
-                    <h5 id="countdown">--</h5> second<h5 id="plural">s</h5>
-                </Column>
+                <Column ColumnSize="ColumnSize.Is2" />
             </Row>
         </NotMatch>
         <Match>

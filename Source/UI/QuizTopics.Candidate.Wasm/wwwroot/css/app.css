@@ -52,3 +52,20 @@ a, .btn-link {
 .select-quiz {
     max-width: 60%
 }
+
+#countdown-progress {
+    width: 100%;
+    background-color: lightgrey;
+}
+
+#countdown-bar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+    line-height: 30px;
+    color: white;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+    -webkit-transition: 1s;
+    transition: 1s;
+}

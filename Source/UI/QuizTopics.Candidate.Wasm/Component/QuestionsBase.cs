@@ -115,7 +115,7 @@ namespace QuizTopics.Candidate.Wasm.Component
 
             var seconds = GetCountdownSeconds(result.Value.Difficulty);
 
-            await this.JsRuntime.InvokeVoidAsync("simpleCountdown.initialize", seconds);
+            await this.JsRuntime.InvokeVoidAsync("simpleCountdown.init", seconds);
         }
 
         private async Task MarkQuestionAsFailedAsync()
@@ -147,7 +147,7 @@ namespace QuizTopics.Candidate.Wasm.Component
                 _ => 60
             };
 
-            return seconds;
+            return 10;
         }
 
 
