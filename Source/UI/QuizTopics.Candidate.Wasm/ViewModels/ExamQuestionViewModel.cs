@@ -7,13 +7,13 @@ namespace QuizTopics.Candidate.Wasm.ViewModels
 {
     public sealed class ExamQuestionViewModel
     {
-        public Guid Id { get; init; }
+        public Guid Id { get; private init; }
 
-        public string Text { get; init; }
+        public string Text { get; private init; }
 
-        public int Difficulty { get; init; }
+        public int Difficulty { get; private init; }
 
-        public IEnumerable<ExamAnswerViewModel> ExamAnswerViewModelsCollection { get; init; }
+        public IEnumerable<ExamAnswerViewModel> ExamAnswerViewModelsCollection { get; private init; }
 
         public static explicit operator ExamQuestionViewModel(ExamQuestionModel model)
         {

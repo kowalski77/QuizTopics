@@ -113,7 +113,9 @@ namespace QuizTopics.Candidate.Wasm.Component
             this.QuestionText = result.Value.Text;
             this.currentQuestionId = result.Value.Id;
 
-            await this.JsRuntime.InvokeVoidAsync("simpleCountdown.initialize", 5);
+            var seconds = GetCountdownSeconds(result.Value.Difficulty);
+
+            await this.JsRuntime.InvokeVoidAsync("simpleCountdown.initialize", seconds);
         }
 
         private async Task MarkQuestionAsFailedAsync()
@@ -133,6 +135,21 @@ namespace QuizTopics.Candidate.Wasm.Component
         {
             await this.NotificationService.Error("Something went wrong, contact with admins", "Oh no!!!");
         }
+
+        private static int GetCountdownSeconds(int difficulty)
+        {
+            var seconds = difficulty switch
+            {
+                1 => 10,
+                2 => 20,
+                3 => 30,
+                4 => 45,
+                _ => 60
+            };
+
+            return seconds;
+        }
+
 
         protected virtual void Dispose(bool disposing)
         {
