@@ -99,7 +99,7 @@ namespace QuizTopics.Common.Outbox
             var type = integrationEvent.GetType().FullName ??
                        throw new InvalidOperationException("The type of the message cannot be null.");
 
-            var data = JsonSerializer.Serialize(integrationEvent);
+            var data = JsonSerializer.Serialize(integrationEvent, integrationEvent.GetType());
             var outboxMessage = new OutboxMessage(transactionId, DateTime.Now, type, data);
 
             return outboxMessage;
