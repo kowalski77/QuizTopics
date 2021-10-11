@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using QuizTopics.Common;
+using QuizTopics.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 {

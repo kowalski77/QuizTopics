@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace QuizTopics.Common
+namespace QuizTopics.Common.DomainDriven
 {
     public class Enumeration<T>
     {
