@@ -28,20 +28,14 @@ namespace QuizTopics.Candidate.Wasm.Services
         public async Task<Result<IEnumerable<QuizViewModel>>> GetAsync()
         {
             var response = await this.httpClient.GetAsync("api/v1/Quiz").ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                return Result.Fail<IEnumerable<QuizViewModel>>(new ErrorResult(response.StatusCode.ToString(), response.ReasonPhrase ?? string.Empty));
-            }
 
-            var envelope = JsonSerializer.Deserialize<Envelope<IEnumerable<QuizModel>>>(await response.Content.ReadAsStringAsync(), JsonSerializerOptions);
-            var quizViewModelCollection = envelope?.Result.Select(x => new QuizViewModel
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Category = x.Category
-            });
+            var content = await response.Content.ReadAsStringAsync();
+            var envelope = JsonSerializer.Deserialize<Envelope<IEnumerable<QuizModel>>>(content, JsonSerializerOptions) ??
+                           throw new InvalidOperationException($"Failed when tried to deserialize: {typeof(Envelope<IEnumerable<QuizModel>>)}");
 
-            return Result.Ok(quizViewModelCollection);
+            return response.IsSuccessStatusCode ? 
+                Result.Ok(envelope.Result.Select(x => (QuizViewModel)x)) : 
+                Result.Fail<IEnumerable<QuizViewModel>>(new ErrorResult(envelope.ErrorCode, envelope.ErrorMessage));
         }
     }
 }

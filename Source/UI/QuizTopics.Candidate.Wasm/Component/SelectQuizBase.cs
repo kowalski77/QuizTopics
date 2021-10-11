@@ -38,6 +38,12 @@ namespace QuizTopics.Candidate.Wasm.Component
         protected override async Task OnInitializedAsync()
         {
             var result = await this.QuizDataService.GetAsync();
+            if (result.Failure)
+            {
+                await this.NotificationService.Error("Something went wrong, contact with admins", "Oh no!!!");
+                return;
+            }
+
             this.QuizViewModelCollection = result.Value.ToList();
         }
 

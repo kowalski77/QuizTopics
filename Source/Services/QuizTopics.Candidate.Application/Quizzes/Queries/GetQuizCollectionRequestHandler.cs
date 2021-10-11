@@ -19,8 +19,6 @@ namespace QuizTopics.Candidate.Application.Quizzes.Queries
 
         public async Task<IReadOnlyList<QuizDto>> Handle(GetQuizCollectionRequest request, CancellationToken cancellationToken)
         {
-            throw new InvalidOperationException("Random exception to test the middleware");
-
             return (await this.quizRepository.GetQuizCollectionAsync(cancellationToken).ConfigureAwait(false)).ToList();
         }
     }
