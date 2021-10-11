@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using QuizTopics.AzureServiceBus;
 using QuizTopics.Candidate.API.Exams.Create;
+using QuizTopics.Candidate.API.Middlewares;
 using QuizTopics.Candidate.API.Support;
 using QuizTopics.Candidate.Application;
 using QuizTopics.Candidate.Application.Messaging;
@@ -116,6 +117,7 @@ namespace QuizTopics.Candidate.API
 
             app.UseHttpsRedirection();
 
+            app.UseCustomExceptionHandler();
             app.UseRouting();
             app.UseCors(AllowSpecificOrigins);
 

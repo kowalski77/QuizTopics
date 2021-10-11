@@ -19,5 +19,10 @@ namespace QuizTopics.Common.Envelopes
         {
             return new ErrorResult(ErrorConstants.NotValidEmail, "Value is not a valid email.");
         }
+
+        public static ErrorResult InternalServerError(string message)
+        {
+            return new ErrorResult("internal.server.error", message);
+        }
     }
 }
