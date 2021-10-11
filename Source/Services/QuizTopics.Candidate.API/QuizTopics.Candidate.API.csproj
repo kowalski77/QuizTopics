@@ -28,7 +28,6 @@
   <ItemGroup>
     <Folder Include="Exams\Finish\" />
     <Folder Include="Exams\CheckExam\" />
-    <Folder Include="Exams\Summary\" />
     <Folder Include="Middlewares\" />
     <Folder Include="Quizzes\Many\" />
     <Folder Include="Quizzes\Update\" />

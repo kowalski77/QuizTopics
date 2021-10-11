@@ -14,8 +14,8 @@ namespace QuizDesigner.Events
 
     public sealed record Summary(
         bool Passed,
-        IEnumerable<ExamQuestion> CorrectQuestionsCollection,
-        IEnumerable<ExamQuestion> WrongQuestionsCollection,
+        IEnumerable<string> CorrectQuestionsCollection,
+        IEnumerable<string> WrongQuestionsCollection,
         string QuizName,
         string Candidate);
 }
