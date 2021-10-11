@@ -11,7 +11,7 @@ namespace QuizTopics.Candidate.Wasm.ViewModels
 
         public string Text { get; private init; }
 
-        public int Difficulty { get; private init; }
+        public int CountdownSeconds { get; private init; }
 
         public IEnumerable<ExamAnswerViewModel> ExamAnswerViewModelsCollection { get; private init; }
 
@@ -26,7 +26,7 @@ namespace QuizTopics.Candidate.Wasm.ViewModels
             {
                 Id = model.Id,
                 Text = model.Text,
-                Difficulty = model.CountdownSeconds,
+                CountdownSeconds = model.CountdownSeconds,
                 ExamAnswerViewModelsCollection = model.ExamAnswerModelsCollection.Select(x => 
                     new ExamAnswerViewModel
                     {

@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using QuizTopics.Common;
 using QuizTopics.Common.DomainDriven;
 
 namespace QuizTopics.Candidate.Domain.QuizzesAggregate
@@ -26,6 +25,11 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
         {
             //NOTE : domain exception is better
             return All.Single(x => x.Name == name);
+        }
+
+        public static Level FindById(int id)
+        {
+            return All.Single(x => x.Id == id);
         }
     }
 }

@@ -73,7 +73,7 @@ namespace QuizTopics.Candidate.Wasm.Services
             var examAnswer = new SelectExamAnswerModel(questionId, answerId);
             var examAnswerJson = new StringContent(JsonSerializer.Serialize(examAnswer), Encoding.UTF8, JsonMediaType);
 
-            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/selectExamAnswer", examAnswerJson).ConfigureAwait(false);
+            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId.ToString()}/selectExamAnswer", examAnswerJson).ConfigureAwait(false);
 
             return response.IsSuccessStatusCode ?
                 Result.Ok() :
@@ -85,7 +85,7 @@ namespace QuizTopics.Candidate.Wasm.Services
             var model = new SetFailedExamQuestionModel(questionId);
             var modelJson = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, JsonMediaType);
 
-            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/setFailedExamQuestion", modelJson).ConfigureAwait(false);
+            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId.ToString()}/setFailedExamQuestion", modelJson).ConfigureAwait(false);
 
             return response.IsSuccessStatusCode ?
                 Result.Ok() :
@@ -94,7 +94,7 @@ namespace QuizTopics.Candidate.Wasm.Services
 
         public async Task<Result> FinishExamAsync(Guid examId)
         {
-            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId}/finishExam", null!);
+            var response = await this.httpClient.PostAsync($"{ExamApiRoute}/{examId.ToString()}/finishExam", null!);
 
             return response.IsSuccessStatusCode ?
                 Result.Ok() :

@@ -15,7 +15,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
         private Exam() { }
 
-        public Exam(Guid id, Guid quizId, string quizName, string candidate, 
+        public Exam(Guid id, Guid quizId, string quizName, string candidate,
             DateTime createdAt, IEnumerable<ExamQuestion> questions)
         {
             if (string.IsNullOrEmpty(quizName))
@@ -61,8 +61,8 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
         public Result CanFinish()
         {
-            return this.FinishedAt == null ? 
-                Result.Ok() : 
+            return this.FinishedAt == null ?
+                Result.Ok() :
                 Result.Fail(ExamErrors.ExamAlreadyFinished(this.Id));
         }
 
@@ -75,7 +75,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             }
 
             this.FinishedAt = finishedAt;
-            
+
             this.AddDomainEvent(new ExamFinishedDomainEvent(this.Summary, finishedAt));
         }
     }
