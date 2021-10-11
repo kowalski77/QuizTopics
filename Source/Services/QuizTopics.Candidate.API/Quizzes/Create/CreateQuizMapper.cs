@@ -21,7 +21,7 @@ namespace QuizTopics.Candidate.API.Quizzes.Create
                     new ExamQuestion(
                         x.Text,
                         x.Tag,
-                        x.Difficulty,
+                        x.Level,
                         x.ExamAnswerCollection.Select(y =>
                             new ExamAnswer(
                                 y.Text,

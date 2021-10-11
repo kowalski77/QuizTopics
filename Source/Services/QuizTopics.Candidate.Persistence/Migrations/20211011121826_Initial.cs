@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QuizTopics.Candidate.Persistence.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tag = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Difficulty = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
                     Answered = table.Column<bool>(type: "bit", nullable: false),
                     ExamId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SoftDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -68,7 +68,7 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Tag = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Difficulty = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
                     QuizId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     SoftDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },

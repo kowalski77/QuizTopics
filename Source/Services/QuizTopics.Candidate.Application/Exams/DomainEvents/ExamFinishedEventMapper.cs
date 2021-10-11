@@ -29,7 +29,7 @@ namespace QuizTopics.Candidate.Application.Exams.DomainEvents
         private static IEnumerable<ExamQuestion> ToExamQuestionCollection(this IEnumerable<ExamQuestionDomain> source)
         {
             return source.Select(x =>
-                new ExamQuestion(x.Text, x.Tag, (int)x.Difficulty, x.Answers.Select(y => 
+                new ExamQuestion(x.Text, x.Tag, x.Level.Seconds, x.Answers.Select(y => 
                     new ExamAnswer(y.Text, y.IsCorrect))));
         }
     }

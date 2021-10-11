@@ -38,7 +38,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
         private static IEnumerable<ExamQuestion> GetExamQuestions(IEnumerable<Question> questions)
         {
             return questions.Select(x => 
-                new ExamQuestion(x.Text, x.Tag, x.Difficulty, x.Answers.Select(y => 
+                new ExamQuestion(x.Text, x.Tag, x.Level, x.Answers.Select(y => 
                     new ExamAnswer(y.Text, y.IsCorrect))));
         }
     }

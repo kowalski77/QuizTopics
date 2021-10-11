@@ -17,8 +17,4 @@
 	  <ProjectReference Include="..\QuizTopics.Candidate.Domain\QuizTopics.Candidate.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Exams\" />
-	</ItemGroup>
-
 </Project>

@@ -12,13 +12,8 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 
         private Question() { }
 
-        public Question(string text, string tag, Difficulty difficulty, IEnumerable<Answer> answers)
+        public Question(string text, string tag, Level level, IEnumerable<Answer> answers)
         {
-            if (answers == null)
-            {
-                throw new ArgumentNullException(nameof(answers));
-            }
-
             if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentNullException(nameof(text));
@@ -31,15 +26,15 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 
             this.Text = text;
             this.Tag = tag;
-            this.Difficulty = difficulty;
-            this.answerCollection = answers.ToList();
+            this.Level = level ?? throw new ArgumentNullException(nameof(level));
+            this.answerCollection = answers.ToList() ?? throw new ArgumentNullException(nameof(answers));
         }
 
         public string Text { get; private set; }
 
         public string Tag { get; private set; }
 
-        public Difficulty Difficulty { get; private set; }
+        public Level Level { get; }
 
         public IReadOnlyList<Answer> Answers => this.answerCollection;
     }

@@ -17,7 +17,7 @@ namespace QuizTopics.Common.DomainDriven
 
         public IUnitOfWork UnitOfWork => this.Context;
 
-        public T Add(T item)
+        public virtual T Add(T item)
         {
             return this.Context.Add(item).Entity;
         }

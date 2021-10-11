@@ -8,9 +8,9 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
     public sealed record CreateExamDto(Guid Id, string UserEmail, Guid QuizId);
 
-    public sealed record ExamQuestionDto(Guid Id, string Text, Difficulty Difficulty, bool Answered, IEnumerable<ExamAnswerDto> ExamAnswersCollection)
+    public sealed record ExamQuestionDto(Guid Id, string Text, int Seconds, bool Answered, IEnumerable<ExamAnswerDto> ExamAnswersCollection)
     {
-        private ExamQuestionDto() : this(Guid.Empty, string.Empty, Difficulty.Unknown, false, new List<ExamAnswerDto>())
+        private ExamQuestionDto() : this(Guid.Empty, string.Empty, Level.None.Seconds, false, new List<ExamAnswerDto>())
         {
         }
 

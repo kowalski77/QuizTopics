@@ -25,6 +25,10 @@ namespace QuizTopics.Candidate.Persistence.Quizzes
             builder.HasMany(x => x.Answers)
                 .WithOne()
                 .HasForeignKey("QuestionId");
+
+            builder.OwnsOne(x => x.Level, y => y.Property(z => z.Id)
+                .HasColumnName("Level")
+                .IsRequired());
         }
     }
 }

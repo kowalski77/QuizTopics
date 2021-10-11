@@ -26,7 +26,7 @@ namespace QuizTopics.Candidate.Wasm.ViewModels
             {
                 Id = model.Id,
                 Text = model.Text,
-                Difficulty = model.Difficulty,
+                Difficulty = model.CountdownSeconds,
                 ExamAnswerViewModelsCollection = model.ExamAnswerModelsCollection.Select(x => 
                     new ExamAnswerViewModel
                     {

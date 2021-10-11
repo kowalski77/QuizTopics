@@ -17,7 +17,7 @@ namespace QuizTopics.Candidate.API.Exams.SelectQuestion
             return new ExamQuestionModel(
                 source.Id, 
                 source.Text, 
-                (int)source.Difficulty, 
+                source.Seconds, 
                 source.ExamAnswersCollection.Select(x => 
                     new ExamAnswerModel(x.Id, x.Text)));
         }

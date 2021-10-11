@@ -4,7 +4,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizTopics.Candidate.API.Support;
-using QuizTopics.Candidate.Application.Exams;
 using QuizTopics.Candidate.Application.Exams.Queries.GetSummary;
 using QuizTopics.Candidate.Domain.ExamsAggregate;
 

@@ -16,7 +16,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.SelectQuestion
             return new ExamQuestionDto(
                 examQuestion.Id, 
                 examQuestion.Text, 
-                examQuestion.Difficulty, 
+                examQuestion.Level.Seconds, 
                 examQuestion.Answered, 
                 examQuestion.Answers.Select(x => 
                     new ExamAnswerDto(

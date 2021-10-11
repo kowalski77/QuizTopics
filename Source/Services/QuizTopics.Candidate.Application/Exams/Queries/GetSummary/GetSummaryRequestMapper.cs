@@ -28,7 +28,7 @@ namespace QuizTopics.Candidate.Application.Exams.Queries.GetSummary
         private static IEnumerable<ExamQuestionDto> Map(IEnumerable<ExamQuestion> source)
         {
             return source.Select(x =>
-                new ExamQuestionDto(x.Id, x.Text, x.Difficulty, x.Answered, x.Answers.Select(y =>
+                new ExamQuestionDto(x.Id, x.Text, x.Level.Seconds, x.Answered, x.Answers.Select(y =>
                     new ExamAnswerDto(y.Id, y.Text, y.Selected))));
         }
     }

@@ -15,13 +15,8 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
         private ExamQuestion() { }
 
-        public ExamQuestion(string text, string tag, Difficulty difficulty, IEnumerable<ExamAnswer> answers)
+        public ExamQuestion(string text, string tag, Level level, IEnumerable<ExamAnswer> answers)
         {
-            if (answers == null)
-            {
-                throw new ArgumentNullException(nameof(answers));
-            }
-
             if (string.IsNullOrEmpty(text))
             {
                 throw new ArgumentNullException(nameof(text));
@@ -34,15 +29,15 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
             this.Text = text;
             this.Tag = tag;
-            this.Difficulty = difficulty;
-            this.answersCollection = answers.ToList();
+            this.Level = level ?? throw new ArgumentNullException(nameof(level));
+            this.answersCollection = answers.ToList() ?? throw new ArgumentNullException(nameof(answers));
         }
 
         public string Text { get; private set; }
 
         public string Tag { get; private set; }
 
-        public Difficulty Difficulty { get; private set; }
+        public Level Level { get; }
 
         public bool Answered { get; private set; }
 
@@ -59,7 +54,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
 
             var result = (answerExists, this.Answered) switch
             {
-                (false, _ ) =>  Result.Fail(ExamErrors.AnswerDoesNotExists(answerId)),
+                (false, _) => Result.Fail(ExamErrors.AnswerDoesNotExists(answerId)),
                 (_, true) => Result.Fail(ExamErrors.QuestionAlreadyAnswered(this.Id)),
                 _ => Result.Ok()
             };

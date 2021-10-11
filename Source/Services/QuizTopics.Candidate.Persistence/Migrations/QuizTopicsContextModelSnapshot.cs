@@ -89,9 +89,6 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.Property<bool>("Answered")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
-
                     b.Property<Guid?>("ExamId")
                         .HasColumnType("uniqueidentifier");
 
@@ -145,9 +142,6 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Difficulty")
-                        .HasColumnType("int");
 
                     b.Property<Guid?>("QuizId")
                         .HasColumnType("uniqueidentifier");
@@ -208,6 +202,26 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.HasOne("QuizTopics.Candidate.Domain.ExamsAggregate.Exam", null)
                         .WithMany("QuestionsCollection")
                         .HasForeignKey("ExamId");
+
+                    b.OwnsOne("QuizTopics.Candidate.Domain.QuizzesAggregate.Level", "Level", b1 =>
+                        {
+                            b1.Property<Guid>("ExamQuestionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .HasColumnType("int")
+                                .HasColumnName("Level");
+
+                            b1.HasKey("ExamQuestionId");
+
+                            b1.ToTable("ExamQuestion");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ExamQuestionId");
+                        });
+
+                    b.Navigation("Level")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("QuizTopics.Candidate.Domain.QuizzesAggregate.Answer", b =>
@@ -222,6 +236,26 @@ namespace QuizTopics.Candidate.Persistence.Migrations
                     b.HasOne("QuizTopics.Candidate.Domain.QuizzesAggregate.Quiz", null)
                         .WithMany("QuestionCollection")
                         .HasForeignKey("QuizId");
+
+                    b.OwnsOne("QuizTopics.Candidate.Domain.QuizzesAggregate.Level", "Level", b1 =>
+                        {
+                            b1.Property<Guid>("QuestionId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .HasColumnType("int")
+                                .HasColumnName("Level");
+
+                            b1.HasKey("QuestionId");
+
+                            b1.ToTable("Question");
+
+                            b1.WithOwner()
+                                .HasForeignKey("QuestionId");
+                        });
+
+                    b.Navigation("Level")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("QuizTopics.Candidate.Domain.ExamsAggregate.Exam", b =>
