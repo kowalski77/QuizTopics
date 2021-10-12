@@ -20,7 +20,7 @@ namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
                     new Question(
                         x.Text,
                         x.Tag,
-                        Level.FindByName(x.Level), 
+                        Level.FindById(x.Difficulty), 
                         x.ExamAnswerCollection.Select(y =>
                             new Answer(
                                 y.Text,
