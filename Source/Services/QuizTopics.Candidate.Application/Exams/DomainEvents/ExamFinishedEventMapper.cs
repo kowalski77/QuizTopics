@@ -15,10 +15,10 @@ namespace QuizTopics.Candidate.Application.Exams.DomainEvents
             }
 
             var examFinished = new ExamFinished(Guid.NewGuid(), new Summary(
+                source.Summary.QuizId,
                 source.Summary.IsExamPassed,
                 source.Summary.CorrectExamQuestions.Select(x => x.Text),
                 source.Summary.WrongExamQuestions.Select(x => x.Text).ToList(),
-                source.Summary.QuizName,
                 source.Summary.Candidate));
 
             return examFinished;

@@ -13,9 +13,9 @@ namespace QuizDesigner.Events
     public sealed record ExamFinished(Guid Id, Summary Summary) : IIntegrationEvent;
 
     public sealed record Summary(
+        Guid QuizId,
         bool Passed,
         IEnumerable<string> CorrectQuestionsCollection,
         IEnumerable<string> WrongQuestionsCollection,
-        string QuizName,
         string Candidate);
 }

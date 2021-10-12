@@ -15,7 +15,7 @@ namespace QuizTopics.Candidate.Domain.ExamsAggregate
             this.exam = exam ?? throw new ArgumentNullException(nameof(exam));
         }
 
-        public string QuizName => this.exam.QuizName;
+        public Guid QuizId => this.exam.QuizId;
 
         public string Candidate => this.exam.Candidate;
 
