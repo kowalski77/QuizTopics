@@ -5,7 +5,7 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 {
     public class Level : Enumeration<Level>
     {
-        public static readonly Level None = new(6, nameof(None), -1);
+        public static readonly Level None = new(6, nameof(None), 60);
         public static readonly Level Easy = new(1, nameof(Easy), 15);
         public static readonly Level Medium = new(2, nameof(Medium), 25);
         public static readonly Level Hard = new(3, nameof(Hard), 35);
