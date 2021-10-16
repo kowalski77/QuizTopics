@@ -1,4 +1,5 @@
-﻿using System;
+﻿#pragma warning disable CA2234 // Pass system uri objects instead of strings
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -34,10 +35,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
 
             using var quizJson = new StringContent(JsonSerializer.Serialize(quizModel), Encoding.UTF8, JsonMediaType);
 
-#pragma warning disable CA2234 // Pass system uri objects instead of strings
             var response = await this.httpClient.PostAsync(this.options.PostEndPoint, quizJson).ConfigureAwait(false);
-#pragma warning restore CA2234 // Pass system uri objects instead of strings
-
             if (!response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
