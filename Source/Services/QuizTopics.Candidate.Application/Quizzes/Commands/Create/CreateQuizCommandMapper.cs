@@ -14,6 +14,7 @@ namespace QuizTopics.Candidate.Application.Quizzes.Commands.Create
             }
 
             return new Quiz(
+                command.QuizId,
                 command.Name,
                 command.Category,
                 command.ExamQuestionCollection.Select(x =>

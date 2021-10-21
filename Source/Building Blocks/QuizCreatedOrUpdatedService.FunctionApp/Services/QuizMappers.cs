@@ -15,6 +15,7 @@ namespace QuizCreatedOrUpdatedService.FunctionApp.Services
             }
 
             return new CreateQuizModel(
+                source.QuizId,
                 source.Exam,
                 source.Category,
                 source.ExamQuestionCollection.Select(x => new Question(

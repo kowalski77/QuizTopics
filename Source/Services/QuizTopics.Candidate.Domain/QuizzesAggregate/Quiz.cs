@@ -12,7 +12,7 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
 
         private Quiz() { }
 
-        public Quiz(string name, string category, IEnumerable<Question> questions)
+        public Quiz(Guid id, string name, string category, IEnumerable<Question> questions)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -29,6 +29,7 @@ namespace QuizTopics.Candidate.Domain.QuizzesAggregate
                 throw new ArgumentNullException(nameof(questions));
             }
 
+            this.Id = id;
             this.Name = name;
             this.Category = category;
             this.questions = questions.ToList();
