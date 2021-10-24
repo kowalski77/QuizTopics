@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-     run: dotnet build -c Release Source\Services\QuizTopics.Candidate.API
+        run: dotnet build -c Release Source\Services\QuizTopics.Candidate.API
 
       - name: dotnet publish
         run: dotnet publish -c Release Source\Services\QuizTopics.Candidate.API -o ${{env.DOTNET_ROOT}}/myapp
